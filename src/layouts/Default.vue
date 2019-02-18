@@ -26,8 +26,10 @@ export default {
 
 
 <style lang="css">
-  * {
-  }
+  /* * {
+    margin: 0;
+    padding: 0;
+  } */
 
   a {
     color: #4dba87;
@@ -59,7 +61,7 @@ export default {
   }
 
   .layout {
-    max-width: 600px;
+    /* max-width: 600px; */
     margin: 0 auto;
     padding-left: 20px;
     padding-right: 20px;
