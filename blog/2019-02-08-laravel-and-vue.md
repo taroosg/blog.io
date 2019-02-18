@@ -1321,7 +1321,7 @@ Vue.use(VueAxios, axios);
 
 続いて，登録用フォームを設置する．
 
-`/resources/js/components/CreateComponent.vue`を開き，下記のように編集する．フォームの要素とともに，\<script>部分でv-modelで展開する`task`変数を定義している．
+`/resources/js/components/CreateComponent.vue`を開き，下記のように編集する．フォームの要素とともに，`<script>`部分でv-modelで展開する`task`変数を定義している．
 
 また，登録処理（入力データの送信）を行う`addTask()`関数も合わせて定義している．
 
