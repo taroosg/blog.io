@@ -1714,7 +1714,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 ファイルを編集したらブラウザで確認する．
 
-一覧ページからeditボタンをクリックして，編集ページへ表示が切り替わることを確認する．\<input>や\<textarea>に内容が表示されていればOK．
+一覧ページからeditボタンをクリックして，編集ページへ表示が切り替わることを確認する．`<input>`や`<textarea>`に内容が表示されていればOK．
 
 ![編集ページ表示](img/20190208-vue-edit.png)
 
