@@ -76,7 +76,7 @@ export default {
     font-weight: bold;
   }
   pre{
-    background: #eee,
-    color: #222
+    background: #EEEEEE;
+    color: #222222;
   }
 </style>
