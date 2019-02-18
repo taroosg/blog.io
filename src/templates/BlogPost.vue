@@ -45,11 +45,15 @@ export default {
   .article h1 {
     font-size: 40px;
   }
+
   .article h1, .article h2 {
     border-bottom: 1px solid #ddd;
     padding-bottom: .1em;
   }
 
+  .article h2, .article h3{
+    margin-top: 2rem;
+  }
   .article img {
     width: 100%;
     border-radius: 5px;
