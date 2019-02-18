@@ -33,6 +33,7 @@ export default {
   html{
     color: #dbddde;
     background: #10171d;
+    font-feature-settings : "palt";
   }
   a {
     /* color: #4dba87; */
