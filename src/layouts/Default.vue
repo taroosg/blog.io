@@ -27,8 +27,6 @@ export default {
 
 <style lang="css">
   * {
-    margin: 0;
-    padding: 0;
   }
 
   a {
@@ -50,7 +48,7 @@ export default {
 
   body {
     font-family: 'Nunito', sans-serif;
-    margin: 10px;
+    margin: 0;
     font-size: 16px;
     padding: 0;
   }
