@@ -1,6 +1,6 @@
 module.exports = {
-    siteName: `monologue of a foreigner`,
-    titleTemplate: `%s - Gridsome`,
+    siteName: `unlimited code`,
+    titleTemplate: `%s`,
 
     plugins: [
         {
