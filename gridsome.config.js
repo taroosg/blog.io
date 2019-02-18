@@ -1,5 +1,5 @@
 module.exports = {
-    siteName: `taroosg.io`,
+    siteName: `無念無想`,
     titleTemplate: `%s - Gridsome`,
 
     plugins: [
