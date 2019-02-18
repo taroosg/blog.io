@@ -1,15 +1,15 @@
 module.exports = {
-  siteName: `Gridsome Starter Blog`,
-  titleTemplate: `%s - Gridsome`,
+    siteName: `taroosg.io`,
+    titleTemplate: `%s - Gridsome`,
 
-  plugins: [
-    {
-      use: '@gridsome/source-filesystem',
-      options: {
-        path: 'blog/*.md',
-        typeName: 'BlogPost',
-        route: '/:slug'
-      }
-    }
-  ]
+    plugins: [
+        {
+            use: '@gridsome/source-filesystem',
+            options: {
+                path: 'blog/*.md',
+                typeName: 'BlogPost',
+                route: '/:slug'
+            }
+        }
+    ]
 }
