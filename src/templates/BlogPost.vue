@@ -75,7 +75,11 @@ export default {
 
   .article ul {
     list-style: disc;
-    line-height: 2.0;
+  }
+
+  .article ul li {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .article .content p:first-child {
@@ -86,6 +90,5 @@ export default {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 20px;
-    line-height: 2.0;
   }
 </style>
