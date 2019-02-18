@@ -1,5 +1,5 @@
 module.exports = {
-    siteName: `無念無想`,
+    siteName: `monologue of a foreigner`,
     titleTemplate: `%s - Gridsome`,
 
     plugins: [
