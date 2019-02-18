@@ -37,6 +37,9 @@ export default {
 
   .article {
     margin-top: 15px;
+    background: #24303d;
+    padding: 15px;
+    border-radius: 5px;
   }
 
   .article h1 {

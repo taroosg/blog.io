@@ -89,5 +89,6 @@ export default {
     color: #e3e3e3;
     padding: 15px;
     white-space: pre-wrap;
+    border-radius: 5px;
   }
 </style>
