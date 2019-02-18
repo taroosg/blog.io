@@ -92,7 +92,9 @@ export default {
     background: #364549;
     color: #e3e3e3;
     padding: 15px;
+    overflow: auto;
     white-space: pre-wrap;
+    word-wrap: break-word;
     border-radius: 5px;
   }
 </style>
