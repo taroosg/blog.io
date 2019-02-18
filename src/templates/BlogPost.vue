@@ -78,6 +78,7 @@ export default {
   .article .content p {
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 20px;
     line-height: 2.0;
   }
 </style>

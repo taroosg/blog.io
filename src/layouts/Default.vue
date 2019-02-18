@@ -76,6 +76,7 @@ export default {
     font-weight: bold;
   }
   pre{
+    margin-left: 20px;
     background: #222;
     color: #eee;
     padding: 15px;
