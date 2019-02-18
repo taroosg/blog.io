@@ -43,6 +43,7 @@ export default {
 
   h1, h2, h3, h4, h5, h6 {
     /* font-family: 'Mali', cursive; */
+    font-family: 'M PLUS Rounded 1c', cursive;
   }
 
   h1 {
@@ -55,6 +56,7 @@ export default {
 
   body {
     /* font-family: 'Nunito', sans-serif; */
+    font-family: 'M PLUS Rounded 1c', cursive;
     margin: 0;
     font-size: 16px;
     padding: 0;

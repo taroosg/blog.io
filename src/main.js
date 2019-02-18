@@ -1,10 +1,14 @@
 import DefaultLayout from '~/layouts/Default.vue'
 
 export default function (Vue, { head }) {
-  Vue.component('Layout', DefaultLayout)
+    Vue.component('Layout', DefaultLayout)
 
-  head.link.push({
-    rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css?family=Mali:700|Nunito'
-  })
+    head.link.push({
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Mali:700|Nunito'
+    },
+        {
+            rel: 'stylesheet',
+            href: 'https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c'
+        })
 }
