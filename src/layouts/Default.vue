@@ -30,9 +30,13 @@ export default {
     margin: 0;
     padding: 0;
   } */
-
+  html{
+    color: #dbddde;
+    background: #10171d;
+  }
   a {
-    color: #4dba87;
+    /* color: #4dba87; */
+    color: #ffcb2e;
     text-decoration: none;
   }
 
@@ -58,6 +62,7 @@ export default {
   .heading-link {
     color: black;
     text-decoration: none;
+    color: #dbddde;
   }
 
   .layout {
@@ -77,6 +82,7 @@ export default {
     font-family: 'Mali', cursive;
     font-weight: bold;
   }
+
   pre{
     margin-left: 20px;
     background: #364549;

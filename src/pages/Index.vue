@@ -40,6 +40,9 @@
 
   ul li {
     margin-bottom: 20px;
+    background: #24303d;
+    padding: 20px;
+    border-radius: 5px;
   }
 
   ul li a h2 {
