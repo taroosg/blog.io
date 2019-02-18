@@ -37,14 +37,14 @@ export default {
   }
   a {
     /* color: #4dba87; */
-    color: #ffcb2e;
+    /* color: #ffcb2e; */
     text-decoration: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
     /* font-family: 'Mali', cursive; */
     font-family: 'M PLUS Rounded 1c', cursive;
-    color: ##bd93f8
+    color: #bd93f8
   }
 
   h1 {
