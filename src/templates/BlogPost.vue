@@ -81,7 +81,7 @@ export default {
     list-style: disc;
   }
 
-  .article ul li {
+  .article ul li, .article ol li {
     margin-top: 10px;
     margin-bottom: 10px;
   }

@@ -1,8 +1,8 @@
 ---
 title: MVCフレームワーク開発の基礎
-date: 2019-02-18 09:30:00
+date: 2019-01-23 00:00:00
 description: "PHPのおフレームワークであるlaravelを用いてwebサービスを実装するチュートリアル"
-image: "./images/sergei-akulich-457851-unsplash.jpg"
+image: "./images/laravel-tutorial.jpg"
 slug: laravel-tutorial
 ---
 
