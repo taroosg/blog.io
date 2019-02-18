@@ -58,7 +58,7 @@ export default {
     /* font-family: 'Nunito', sans-serif; */
     font-family: 'M PLUS Rounded 1c', cursive;
     margin: 0;
-    font-size: 16px;
+    font-size: 1.1rem;
     padding: 0;
   }
 
@@ -87,6 +87,7 @@ export default {
   }
 
   pre{
+    font-size: 1.2rem;
     margin-left: 20px;
     background: #364549;
     color: #e3e3e3;

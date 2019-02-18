@@ -52,7 +52,7 @@ export default {
   }
 
   .article h2, .article h3{
-    margin-top: 2rem;
+    margin-top: 3rem;
   }
   .article img {
     width: 100%;
