@@ -75,4 +75,8 @@ export default {
     font-family: 'Mali', cursive;
     font-weight: bold;
   }
+  pre{
+    background: 'eee',
+    color: #222
+  }
 </style>
