@@ -79,8 +79,8 @@ export default {
   }
   pre{
     margin-left: 20px;
-    background: #222;
-    color: #eee;
+    background: #364549;
+    color: #e3e3e3;
     padding: 15px;
     white-space: pre-wrap;
   }
