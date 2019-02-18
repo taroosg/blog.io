@@ -44,6 +44,7 @@ export default {
   h1, h2, h3, h4, h5, h6 {
     /* font-family: 'Mali', cursive; */
     font-family: 'M PLUS Rounded 1c', cursive;
+    color: ##bd93f8
   }
 
   h1 {
@@ -65,7 +66,6 @@ export default {
   .heading-link {
     color: black;
     text-decoration: none;
-    color: #dbddde;
   }
 
   .layout {
@@ -84,6 +84,7 @@ export default {
     margin-bottom: 20px;
     font-family: 'Mali', cursive;
     font-weight: bold;
+    color: #51fa7b;
   }
 
   pre{
