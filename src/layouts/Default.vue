@@ -50,7 +50,7 @@ export default {
 
   body {
     font-family: 'Nunito', sans-serif;
-    margin: 0;
+    margin: 10px;
     font-size: 16px;
     padding: 0;
   }
