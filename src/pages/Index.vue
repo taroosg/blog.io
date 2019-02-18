@@ -47,6 +47,7 @@
 
   ul li a h2 {
     margin-bottom: 10px;
+    margin-top: 0;
   }
 
   span {
