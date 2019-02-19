@@ -1,6 +1,6 @@
 ---
 title: githubを準備し，コードをアップするまでの手順
-date: 2019-02-18 09:30:00
+date: 2019-02-18 00:00:00
 description: "github使い始めにどうすればよいのかわからないことが多いのでpushまでの手順をまとめた．"
 image: "./images/push-to-github.jpg"
 slug: push-to-github
