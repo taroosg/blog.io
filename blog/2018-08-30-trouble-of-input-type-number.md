@@ -1,7 +1,7 @@
 ---
-title: <input type="number">でハマった
+title: `<input type="number">`でハマった
 date: 2018-08-30 00:00:00
-description: '<input type="number">で数値を入れて取得しようとしたところ激しくハマったのでメモ'
+description: '`<input type="number">`で数値を入れて取得しようとしたところ激しくハマったのでメモ'
 image: "./images/trouble-of-input-type-number.jpg"
 slug: trouble-of-input-type-number
 ---
