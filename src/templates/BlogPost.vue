@@ -47,7 +47,7 @@ export default {
   }
 
   .article h1, .article h2 {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 3px solid #ddd;
     padding-bottom: .1em;
   }
 

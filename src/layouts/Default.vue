@@ -100,4 +100,8 @@ export default {
     word-wrap: break-word;
     border-radius: 5px;
   }
+
+  blockquote{
+    border-left: 3px solid #bd93f8;
+  }
 </style>
