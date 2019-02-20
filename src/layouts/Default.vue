@@ -32,6 +32,7 @@ export default {
   } */
   html{
     max-width: 1024px;
+    margin: 0 auto;
     color: #dbddde;
     background: #10171d;
     font-feature-settings : "palt";
