@@ -36,7 +36,6 @@ export default {
   } */
 
   .article {
-    max-width: 1024px;
     margin-top: 15px;
     background: #24303d;
     padding: 15px;

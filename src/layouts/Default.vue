@@ -31,6 +31,7 @@ export default {
     padding: 0;
   } */
   html{
+    max-width: 1024px;
     color: #dbddde;
     background: #10171d;
     font-feature-settings : "palt";
