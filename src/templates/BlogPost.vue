@@ -40,6 +40,7 @@ export default {
     background: #24303d;
     padding: 15px;
     border-radius: 5px;
+    word-break: break-word;
   }
 
   .article h1 {
