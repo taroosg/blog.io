@@ -1,9 +1,9 @@
 ---
-title: fukuoka-firebase-#00
+title: fukuoka-firebase-00
 date: 2019-02-21 00:00:00
 description: "福岡で新たに始動したfirebaseLTイベントに参加してきた！"
-image: "./images/fukuoka-firebase-#00.jpg"
-slug: fukuoka-firebase-#00
+image: "./images/fukuoka-firebase-00.jpg"
+slug: fukuoka-firebase-00
 ---
 
 福岡で新たに始動したfirebaseイベントに参加してきた！
