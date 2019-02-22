@@ -76,7 +76,7 @@ Yuki Kakazu さん
 - チャットをイチから作ったことないので実際やってみると仕組みが理解深まりそう！
 
 
-## **LT01 AuthからはじめるFirebaseの第一歩**
+## **LT02 AuthからはじめるFirebaseの第一歩**
 
 massyuu さん
 
@@ -126,7 +126,7 @@ SDKバージョンは自前でボタンなど作成．UIではfirebaseが用意�
 - 一回きちんと実装しよう．．．UIがいいかな．
 - rulesは認証後の課題！
 
-## **LT01 JSでFirebaseのML Kitを使う**
+## **LT03 JSでFirebaseのML Kitを使う**
 
 ayasamind さん
 
@@ -181,7 +181,7 @@ ayasamind さん
 - firebaseの延長でできるのは良い！
 - webでできるようにならんかな(´・ω・｀)
 
-## **LT01 Firebaseアプリ開発のテストについて考えてみる**
+## **LT04 Firebaseアプリ開発のテストについて考えてみる**
 
 DaikiUrata さん
 
