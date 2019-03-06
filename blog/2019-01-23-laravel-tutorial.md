@@ -1,6 +1,6 @@
 ---
 title: MVCフレームワーク開発の基礎
-date: 2019-01-23 00:00:00
+date: 2019-03-06 00:00:00
 description: "PHPのフレームワークであるlaravelを用いてwebサービスを実装するチュートリアル"
 image: "./images/laravel-clud-example.jpg"
 slug: laravel-clud-example
@@ -8,13 +8,13 @@ slug: laravel-clud-example
 
 作成日：2019/01/23
 
-更新日：2019/02/03
+更新日：2019/03/06
 
 実行環境：cloud9
 
-PHPバージョン：7.2.14
+PHPバージョン：7.3.2
 
-Laravelバージョン：5.7.21
+Laravelバージョン：5.8.3
 
 <div style="page-break-before:always"></div>
 
@@ -166,7 +166,7 @@ $ sudo composer self-update
 ```
 出力結果
 ```bash
-Updating to version 1.8.0 (stable channel).
+Updating to version 1.8.4 (stable channel).
    Downloading (100%)         
 Use composer self-update --rollback to return to version 1.5.1
 ```
@@ -182,7 +182,7 @@ $ composer
 / /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
 \____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
                     /_/
-Composer version 1.8.0 2018-12-03 10:31:16
+Composer version 1.8.4 2019-02-11 10:52:10
 
 Usage:
   command [options] [arguments]
@@ -234,7 +234,7 @@ Reading package lists... Done
 
 以下を実行
 ```bash
-$ sudo apt-get install libapache2-mod-php7.2
+$ sudo apt-get install libapache2-mod-php7.3
 ```
 途中で下記出力された場合はすべて「y」で続行
 ```bash
@@ -243,8 +243,8 @@ Do you want to continue? [Y/n]
 実行結果
 ```bash
 ...
-Creating config file /etc/php/7.2/apache2/php.ini with new version
-libapache2-mod-php7.2: php5 module already enabled, not enabling PHP 7.2
+Creating config file /etc/php/7.3/apache2/php.ini with new version
+libapache2-mod-php7.3: php5 module already enabled, not enabling PHP 7.3
 Processing triggers for libc-bin (2.19-0ubuntu6.11) ...
 ```
 
@@ -261,23 +261,23 @@ To activate the new configuration, you need to run:
 
 以下を実行
 ```bash
-$ sudo a2enmod php7.2
+$ sudo a2enmod php7.3
 ```
 出力結果
 ```bash
-Considering dependency mpm_prefork for php7.2:
+Considering dependency mpm_prefork for php7.3:
 Considering conflict mpm_event for mpm_prefork:
 Considering conflict mpm_worker for mpm_prefork:
 Module mpm_prefork already enabled
-Considering conflict php5 for php7.2:
-Enabling module php7.2.
+Considering conflict php5 for php7.3:
+Enabling module php7.3.
 To activate the new configuration, you need to run:
   service apache2 restart
 ```
 
 以下を実行
 ```bash
-$ sudo apt-get install php7.2-dom php7.2-mbstring php7.2-zip php7.2-mysql
+$ sudo apt-get install php7.3-dom php7.3-mbstring php7.3-zip php7.3-mysql
 ```
 途中で下記出力された場合はすべて「y」で続行
 ```bash
@@ -285,9 +285,9 @@ Do you want to continue? [Y/n]
 ```
 実行結果
 ```bash
-reating config file /etc/php/7.2/mods-available/zip.ini with new version
+Creating config file /etc/php/7.3/mods-available/zip.ini with new version
 Processing triggers for libc-bin (2.19-0ubuntu6.11) ...
-Processing triggers for libapache2-mod-php7.2 (7.2.14-1+ubuntu14.04.1+deb.sury.org+1) ...
+Processing triggers for libapache2-mod-php7.3 (7.3.2-3+ubuntu14.04.1+deb.sury.org+1) ...
 ```
 
 アップデート後のPHPバージョン確認
@@ -296,10 +296,10 @@ $ php -v
 ```
 実行結果（バージョンは7.2.14）
 ```bash
-PHP 7.2.14-1+ubuntu14.04.1+deb.sury.org+1 (cli) (built: Jan 13 2019 10:33:56) ( NTS )
+PHP 7.3.2-3+ubuntu14.04.1+deb.sury.org+1 (cli) (built: Feb  8 2019 16:00:14) ( NTS )
 Copyright (c) 1997-2018 The PHP Group
-Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies
-    with Zend OPcache v7.2.14-1+ubuntu14.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
+Zend Engine v3.3.2, Copyright (c) 1998-2018 Zend Technologies
+    with Zend OPcache v7.3.2-3+ubuntu14.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
 ```
 
 <div style="page-break-before:always"></div>
@@ -352,16 +352,16 @@ Application key set successfully.
 $ cd cms
 $ php artisan --version
 ```
-実行結果（バージョンは5.7.21）
+実行結果（バージョンは5.8.3）
 ```bash
-Laravel Framework 5.7.21
+Laravel Framework 5.8.3
 ```
 
 ### **【参考】Laravelのバージョン指定**
 
 今回は最新版を使用してプロジェクトを作成しているが，バージョンを指定することもできる．
 
-現在（2019年1月）で最新のLTS（長期サポートバージョン）は5.5となっているため，本番環境へのデプロイを意図する場合はバージョン5.5を指定したほうがサポート期間が長く安心である．
+現在（2019年3月）で最新のLTS（長期サポートバージョン）は5.5となっているため，本番環境へのデプロイを意図する場合はバージョン5.5を指定したほうがサポート期間が長く安心である．
 
 バージョン指定（5.5）する際には，プロジェクト作成時のコマンドを下記のように変更する．
 
