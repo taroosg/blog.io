@@ -174,7 +174,7 @@ Use composer self-update --rollback to return to version 1.5.1
 ```bash
 $ composer
 ```
-実行結果（バージョンは1.8.0）
+実行結果（バージョンは1.8.4）
 ```bash
    ______
   / ____/___  ____ ___  ____  ____  ________  _____
