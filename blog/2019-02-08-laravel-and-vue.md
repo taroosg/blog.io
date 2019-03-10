@@ -245,7 +245,7 @@ Processing triggers for libapache2-mod-php7.3 (7.3.2-1+ubuntu14.04.1+deb.sury.or
 ```bash
 $ php -v
 ```
-実行結果（バージョンは7.3.2）
+実行結果（バージョンは7.3.3）
 ```bash
 PHP 7.3.3-1+ubuntu14.04.1+deb.sury.org+1 (cli) (built: Mar  7 2019 20:48:45) ( NTS )
 Copyright (c) 1997-2018 The PHP Group
