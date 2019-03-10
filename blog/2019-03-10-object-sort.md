@@ -1,7 +1,7 @@
 ---
 title: objectのarrayを特定のvalueでソートしてみる
 date: 2019-03-19 00:00:00
-description: "objectのarrayを新しい順に並べたいぞ，とかくときの話"
+description: "objectのarrayを新しい順に並べたいぞ，とかいうときの話"
 image: "./images/object-sort.jpg"
 slug: object-sort
 ---
