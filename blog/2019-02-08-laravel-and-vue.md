@@ -1,6 +1,6 @@
 ---
 title: Laravel API & vue-routerでSPA開発
-date: 2019-02-08 00:00:00
+date: 2019-03-10 00:00:00
 description: "フロントエンドはvue.js，サーバはLaravelのAPIでつくるSPAアプリケーションのチュートリアル"
 image: "./images/laravel-vue-spa-example.jpg"
 slug: laravel-vue-spa-example
@@ -8,13 +8,13 @@ slug: laravel-vue-spa-example
 
 作成日：2019/02/08
 
-更新日：2019/02/08
+更新日：2019/03/10
 
 実行環境：cloud9
 
-PHPバージョン：7.3.2
+PHPバージョン：7.3.3
 
-Laravelバージョン：5.7.25
+Laravelバージョン：5.8.3
 
 ## **目次**
 - APIを用いたSPA
@@ -117,7 +117,7 @@ $ sudo composer self-update
 ```
 出力結果
 ```bash
-Updating to version 1.8.3 (stable channel).
+Updating to version 1.8.4 (stable channel).
    Downloading (100%)         
 Use composer self-update --rollback to return to version 1.5.1
 ```
@@ -125,7 +125,7 @@ Use composer self-update --rollback to return to version 1.5.1
 ```bash
 $ composer
 ```
-実行結果（バージョンは1.8.3）
+実行結果（バージョンは1.8.4）
 ```bash
    ______
   / ____/___  ____ ___  ____  ____  ________  _____
@@ -133,7 +133,7 @@ $ composer
 / /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
 \____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
                     /_/
-Composer version 1.8.3 2019-01-30 08:31:33
+Composer version 1.8.4 2019-02-11 10:52:10
 
 Usage:
   command [options] [arguments]
@@ -247,7 +247,7 @@ $ php -v
 ```
 実行結果（バージョンは7.3.2）
 ```bash
-PHP 7.3.2-1+ubuntu14.04.1+deb.sury.org+1 (cli) (built: Feb  7 2019 18:57:51) ( NTS )
+PHP 7.3.3-1+ubuntu14.04.1+deb.sury.org+1 (cli) (built: Mar  7 2019 20:48:45) ( NTS )
 Copyright (c) 1997-2018 The PHP Group
 Zend Engine v3.3.2, Copyright (c) 1998-2018 Zend Technologies
     with Zend OPcache v7.3.2-1+ubuntu14.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
@@ -303,9 +303,9 @@ Application key set successfully.
 $ cd spa
 $ php artisan --version
 ```
-実行結果（バージョンは5.7.25）
+実行結果（バージョンは5.8.3）
 ```bash
-Laravel Framework 5.7.25
+Laravel Framework 5.8.3
 ```
 
 ### **【参考】Laravelのバージョン指定**
@@ -1426,7 +1426,7 @@ $ php artisan make:resource TaskCollection
 実行結果
 
 ```bash
-php artisan make:resource TaskCollection
+Resource collection created successfully.
 ```
 
 コレクションファイルは`/app/Http/Resources/TaskCollection.php`が作成される．（特に追記等は必要なし）
