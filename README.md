@@ -1,5 +1,5 @@
-# Gridsome Starter Blog
+# input and output of taroosg 
 
-This is a minimal starter blog kit for markdown.
+This is a input and output blog of taroosg.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gridsome/gridsome-starter-markdown-blog)
+[a blog of taroosg](https://taroosg.io/)
