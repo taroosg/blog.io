@@ -978,7 +978,7 @@ Route::get('/', function () {
 - });
 
 +Route::get('/{any}', function () {
-+     return view('task');
++     return view('tasks');
 +})->where('any', '.*');
 ```
 
