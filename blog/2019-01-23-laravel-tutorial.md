@@ -2370,7 +2370,7 @@ public function store(Request $request) {
 +public function edit($task_id) {
 +   $task = Task::where('user_id',Auth::user()->id)->find($task_id);
     return view('tasksedit', [
-        'task' => $tasks
+        'task' => $task
     ]);
 }
 ...
