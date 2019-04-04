@@ -4,19 +4,19 @@
       <h1>{{ $page.blogPost.title }}</h1>
       <span>{{ $page.blogPost.date }}</span>
       <g-image :src="$page.blogPost.image"/>
-      <div class="content" v-html="$page.blogPost.content" />
+      <div class="content" v-html="$page.blogPost.content"/>
     </div>
   </Layout>
 </template>
 
 <script>
 export default {
-  metaInfo () {
+  metaInfo() {
     return {
       title: this.$page.blogPost.title
-    }
+    };
   }
-}
+};
 </script>
 
 <page-query>
@@ -25,75 +25,79 @@ export default {
       title
       date (format: "D MMMM, YYYY")
       content
-      image
+      
     }
   }
 </page-query>
 
 <style>
-  /* .header {
+/* .header {
     margin-bottom: 70px;
   } */
 
-  .article {
-    margin-top: 15px;
-    background: #24303d;
-    padding: 15px;
-    border-radius: 5px;
-    word-break: break-word;
-  }
+.article {
+  margin-top: 15px;
+  background: #24303d;
+  padding: 15px;
+  border-radius: 5px;
+  word-break: break-word;
+}
 
-  .article h1 {
-    font-size: 40px;
-  }
+.article h1 {
+  font-size: 40px;
+}
 
-  .article h1, .article h2 {
-    border-bottom: 3px solid #ddd;
-    padding-bottom: .1em;
-  }
+.article h1,
+.article h2 {
+  border-bottom: 3px solid #ddd;
+  padding-bottom: 0.1em;
+}
 
-  .article h2, .article h3{
-    margin-top: 3rem;
-  }
-  .article img {
-    width: 100%;
-    border-radius: 5px;
-  }
+.article h2,
+.article h3 {
+  margin-top: 3rem;
+}
+.article img {
+  width: 100%;
+  border-radius: 5px;
+}
 
-  .article a {
-    color: #4dba87;
-    text-decoration: underline;
-  }
+.article a {
+  color: #4dba87;
+  text-decoration: underline;
+}
 
-  .article a:hover {
-    text-decoration: none;
-  }
+.article a:hover {
+  text-decoration: none;
+}
 
-  .article span {
-    font-size: 80%;
-    margin-bottom: 20px;
-  }
+.article span {
+  font-size: 80%;
+  margin-bottom: 20px;
+}
 
-  .article ol, .article ul {
-    list-style-position: outside;
-  }
+.article ol,
+.article ul {
+  list-style-position: outside;
+}
 
-  .article ul {
-    list-style: disc;
-  }
+.article ul {
+  list-style: disc;
+}
 
-  .article ul li, .article ol li {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+.article ul li,
+.article ol li {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
-  .article .content p:first-child {
-    margin-top: 15px;
-  }
+.article .content p:first-child {
+  margin-top: 15px;
+}
 
-  .article .content p {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-  }
+.article .content p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
 </style>
