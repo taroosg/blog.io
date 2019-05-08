@@ -33,6 +33,7 @@ export default {
 <style>
 /* .header {
     margin-bottom: 70px;
+    上のcontentの下にimage追加するとimg入れられる
   } */
 
 .article {
