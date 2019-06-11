@@ -1,20 +1,22 @@
 ---
 title: MVCフレームワーク開発の基礎
-date: 2019-03-06 00:00:00
+date: 2019-06-11 00:00:00
 description: "PHPのフレームワークであるlaravelを用いてwebサービスを実装するチュートリアル"
-image: "./images/laravel-clud-example.jpg"
-slug: laravel-clud-example
+image: "./images/laravel-crud-example.jpg"
+slug: laravel-crud-example
 ---
 
 作成日：2019/01/23
 
-更新日：2019/03/06
+更新日：2019/06/11
 
-実行環境：cloud9
+実行環境：aws cloud9
 
-PHPバージョン：7.3.2
+実行OS：ubuntu 18.04
 
-Laravelバージョン：5.8.3
+PHPバージョン：7.3.6
+
+Laravelバージョン：5.8.21
 
 <div style="page-break-before:always"></div>
 
@@ -87,25 +89,29 @@ Laravelバージョン：5.8.3
 
 ## **開発環境準備**
 
-- クラウド開発環境である「cloud9」を使用して開発を進める．
+- クラウド開発環境である「aws cloud9」を使用して開発を進める．
 
-### workspace の準備
+### environment の準備
 
-- wokspaceとはアプリケーションを管理するフォルダのようなもの．
-- 1つのwebアプリケーションに対して，1つのworkspace，という理解でOK．
-- name  
-アプリケーション名を入力．自身が区別できるものでOK．
-- description  
-アプリケーションの説明．任意で入力する．
-- Clone from Git or Mercurial URL (optional)  
-githubのリポジトリと連携することができる．後からでも連携できるが，この時点でgithubのリポジトリを作成して連携しておくほうが簡単なのでオススメ．
-- Choose a template  
-「PHP」を選択．
-- 入力完了したら「Create workspace」をクリックするとworkspaceの作成が始まるのでしばらく待つ．
-- 入力画面は下記
-![workspace設定画面](img/20190123-cloud9-setup.png)
-- workspace設定完了後の画面
-![設定完了後の画面](img/20190123-cloud9-workspace.png)
+- environmentとはアプリケーションを管理するフォルダのようなもの．
+- 1つのwebアプリケーションに対して，1つのenvironment，という理解でOK．
+
+- awsのマネジメントコンソールから「cloud9」を探してアクセスする．
+![awsコンソール画面](img/20190611-aws_console.png)
+- 下記の画面になるので「create environment」をクリック．
+![cloud9初期画面](img/20190611-create_environment.png)
+
+- 名前を適当に入力．（Descriptionは任意）
+![名前入力画面](img/20190611-input_name.png)
+
+- 【重要】「Platform」は「ubuntu server 18.04 LTS」を選択．その他はデフォルトで「create environment」をクリック．
+![セットアップ画面01](img/20190611-setup_01.png)
+
+- 確認画面が出るので「next step」をクリック．
+![セットアップ画面02](img/20190611-setup_02.png)
+
+- しばらく待つと下記の画面が表示される．これで準備完了．
+![設定完了後の画面](img/20190611-cloud9_aws.png)
 
 <div style="page-break-before:always"></div>
 
@@ -128,13 +134,13 @@ githubのリポジトリと連携することができる．後からでも連�
 ```bash
 $ php -v
 ```
-出力結果（バージョンは5.5.9）
+出力結果（バージョンは7.2.19）
 ```bash
-PHP 5.5.9-1ubuntu4.22 (cli) (built: Aug  4 2017 19:40:28) 
-Copyright (c) 1997-2014 The PHP Group
-Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
-    with Zend OPcache v7.0.3, Copyright (c) 1999-2014, by Zend Technologies
-    with Xdebug v2.5.5, Copyright (c) 2002-2017, by Derick Rethans
+PHP 7.2.19-0ubuntu0.18.04.1 (cli) (built: Jun  4 2019 14:48:12) ( NTS )
+Copyright (c) 1997-2018 The PHP Group
+Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies
+    with Zend OPcache v7.2.19-0ubuntu0.18.04.1, Copyright (c) 1999-2018, by Zend Technologies
+    with Xdebug v2.6.0, Copyright (c) 2002-2018, by Derick Rethans
 ```
 
 ### **2. compoerのバージョン確認**
@@ -143,38 +149,43 @@ Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
 ```bash
 $ composer
 ```
-出力結果（バージョンは1.5.1）
+出力結果（インストールされていない）
 ```
-   ______
-  / ____/___  ____ ___  ____  ____  ________  _____
- / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
-/ /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
-\____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
-                    /_/
-Composer version 1.5.1 2017-08-09 16:07:22
+Command 'composer' not found, but can be installed with:
 
-Usage:
-  command [options] [arguments]
-...
+sudo apt install composer
 ```
 
-### **3. composerのアップデート**
+<div style="page-break-before:always"></div>
+
+### **3. composerのインストール**
 
 ターミナルで以下を実行
+
 ```bash
-$ sudo composer self-update
+$ curl -sS https://getcomposer.org/installer | php
 ```
-出力結果
+
+実行結果
 ```bash
-Updating to version 1.8.4 (stable channel).
-   Downloading (100%)         
-Use composer self-update --rollback to return to version 1.5.1
+All settings correct for using Composer
+Downloading...
+
+Composer (version 1.8.5) successfully installed to: /home/ubuntu/environment/composer.phar
+Use it: php composer.phar
 ```
-再度バージョン確認
+
+続いて以下を実行．ダウンロードしたcomposerファイルを保存場所に移動させる．エラーが出なければOK．
+```bash
+$ sudo mv composer.phar /usr/bin/composer
+```
+
+バージョンを確認する．
 ```bash
 $ composer
 ```
-実行結果（バージョンは1.8.4）
+
+実行結果（バージョンは1.8.5）
 ```bash
    ______
   / ____/___  ____ ___  ____  ____  ________  _____
@@ -182,19 +193,20 @@ $ composer
 / /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
 \____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
                     /_/
-Composer version 1.8.4 2019-02-11 10:52:10
+Composer version 1.8.5 2019-04-09 17:46:47
 
 Usage:
   command [options] [arguments]
 ...
 ```
+
 
 <div style="page-break-before:always"></div>
 
 ### **4. PHPのバージョンアップ**
 
 - Laravelの最新バージョンでは「PHP7.0以上」が必要となる．
-- 現在のバージョンは5.5.9なので，以下の手順でバージョンアップを行う．
+- とりあえず最新版にしておく．
 
 ターミナルで以下を実行．
 ```bash
@@ -207,14 +219,16 @@ Press [ENTER] to continue or ctrl-c to cancel adding it
 実行結果
 ```bash
 ...
-gpg: keyring `/tmp/tmpgu2gq6me/secring.gpg' created
-gpg: keyring `/tmp/tmpgu2gq6me/pubring.gpg' created
-gpg: requesting key E5267A6C from hkp server keyserver.ubuntu.com
-gpg: /tmp/tmpgu2gq6me/trustdb.gpg: trustdb created
-gpg: key E5267A6C: public key "Launchpad PPA for Ondřej Surý" imported
-gpg: Total number processed: 1
-gpg:               imported: 1  (RSA: 1)
-OK
+Hit:1 https://download.docker.com/linux/ubuntu bionic InRelease
+Hit:2 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic InRelease                      
+Hit:3 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease              
+Hit:4 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease            
+Hit:5 http://security.ubuntu.com/ubuntu bionic-security InRelease                             
+Get:6 http://ppa.launchpad.net/ondrej/php/ubuntu bionic InRelease [20.8 kB]
+Get:7 http://ppa.launchpad.net/ondrej/php/ubuntu bionic/main amd64 Packages [45.1 kB]
+Get:8 http://ppa.launchpad.net/ondrej/php/ubuntu bionic/main Translation-en [22.1 kB]
+Fetched 88.0 kB in 3s (33.8 kB/s)                   
+Reading package lists... Done
 ```
 
 引き続き，以下を実行  
@@ -223,14 +237,14 @@ $ sudo apt-get update
 ```
 実行結果
 ```bash
-...
-Get:52 http://asia-east1.gce.clouds.archive.ubuntu.com trusty/universe i386 Packages [7597 kB]
-Get:53 http://asia-east1.gce.clouds.archive.ubuntu.com trusty/multiverse i386 Packages [172 kB]
-Fetched 37.0 MB in 18s (1971 kB/s)                                             
+Hit:1 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic InRelease
+Hit:2 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease              
+Hit:3 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease            
+Hit:4 https://download.docker.com/linux/ubuntu bionic InRelease                                 
+Hit:5 http://ppa.launchpad.net/ondrej/php/ubuntu bionic InRelease                               
+Hit:6 http://security.ubuntu.com/ubuntu bionic-security InRelease
 Reading package lists... Done
 ```
-
-<div style="page-break-before:always"></div>
 
 以下を実行
 ```bash
@@ -243,20 +257,23 @@ Do you want to continue? [Y/n]
 実行結果
 ```bash
 ...
+Creating config file /etc/php/7.3/cli/php.ini with new version
+Setting up libapache2-mod-php7.3 (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
+
 Creating config file /etc/php/7.3/apache2/php.ini with new version
-libapache2-mod-php7.3: php5 module already enabled, not enabling PHP 7.3
-Processing triggers for libc-bin (2.19-0ubuntu6.11) ...
+libapache2-mod-php7.3: php7.2 module already enabled, not enabling PHP 7.3
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
 ```
 
 以下を実行
 ```bash
-$ sudo a2dismod php5
+$ sudo a2dismod php7.2
 ```
 出力結果
 ```bash
-Module php5 disabled.
+Module php7.2 disabled.
 To activate the new configuration, you need to run:
-  service apache2 restart
+  systemctl restart apache2
 ```
 
 以下を実行
@@ -272,7 +289,7 @@ Module mpm_prefork already enabled
 Considering conflict php5 for php7.3:
 Enabling module php7.3.
 To activate the new configuration, you need to run:
-  service apache2 restart
+  systemctl restart apache2
 ```
 
 以下を実行
@@ -285,21 +302,23 @@ Do you want to continue? [Y/n]
 ```
 実行結果
 ```bash
+Creating config file /etc/php/7.3/mods-available/pdo_mysql.ini with new version
+Setting up php7.3-zip (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
+
 Creating config file /etc/php/7.3/mods-available/zip.ini with new version
-Processing triggers for libc-bin (2.19-0ubuntu6.11) ...
-Processing triggers for libapache2-mod-php7.3 (7.3.2-3+ubuntu14.04.1+deb.sury.org+1) ...
+Processing triggers for libapache2-mod-php7.3 (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
 ```
 
 アップデート後のPHPバージョン確認
 ```bash
 $ php -v
 ```
-実行結果（バージョンは7.2.14）
+実行結果（バージョンは7.3.6）
 ```bash
-PHP 7.3.2-3+ubuntu14.04.1+deb.sury.org+1 (cli) (built: Feb  8 2019 16:00:14) ( NTS )
+PHP 7.3.6-1+ubuntu18.04.1+deb.sury.org+1 (cli) (built: May 31 2019 11:06:48) ( NTS )
 Copyright (c) 1997-2018 The PHP Group
-Zend Engine v3.3.2, Copyright (c) 1998-2018 Zend Technologies
-    with Zend OPcache v7.3.2-3+ubuntu14.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
+Zend Engine v3.3.6, Copyright (c) 1998-2018 Zend Technologies
+    with Zend OPcache v7.3.6-1+ubuntu18.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
 ```
 
 <div style="page-break-before:always"></div>
@@ -339,6 +358,7 @@ $ composer create-project laravel/laravel cms
 実行結果
 ```bash
 ...
+Discovered Package: fideloper/proxy
 Discovered Package: laravel/tinker
 Discovered Package: nesbot/carbon
 Discovered Package: nunomaduro/collision
@@ -352,9 +372,9 @@ Application key set successfully.
 $ cd cms
 $ php artisan --version
 ```
-実行結果（バージョンは5.8.3）
+実行結果（バージョンは5.8.21）
 ```bash
-Laravel Framework 5.8.3
+Laravel Framework 5.8.21
 ```
 
 ### **【参考】Laravelのバージョン指定**
@@ -375,113 +395,28 @@ $ composer create-project laravel/laravel cms 5.5.* --prefer-dist
 - Laravelインストールの確認にはwebブラウザで動作させて確認する．
 - cloud9にはwebサーバが標準で搭載されているため，以下の手順で確認を行う．
 
-1. 「Run Project」ボタンをクリック．
-2. 表示されたURLをクリックし「open」を選択．
-3. 表示されたwebページで「Open the App」ボタンをクリック．
-4. ディレクトリ構成の画面（下記）が表示される．
-![初回起動画面](img/20190123-first-top.png)
-5. 以下のアドレスにアクセスし，トップページの表示を確認する．上の画面から「cms/」「public/」の順にクリックでもOK．
-```
-https://プロジェクト名-ユーザ名.c9users.io/cms/public/
-```
-6. 下記画面が表示されればインストール完了．
-![トップ画面](img/20190123-top.png)
-
-<div style="page-break-before:always"></div>
-
-## **webサーバの設定変更**
-
-- 現状では，ルートディレクトリでトップページが表示されず，「/cms/public/」を追加する必要がある．
-- ドキュメントルートアクセス時にトップページが表示されるよう設定を変更する．
-
-### ※ドキュメントルートとは？
-
-- `https://hogehoge.com`などのURLにアクセスしたときに表示されるファイルの入っているディレクトリのこと．
-
-変更前のトップページのURL
-```
-https://プロジェクト名-ユーザ名.c9users.io/cms/public/
-```
-変更後のトップページのURL
-```
-https://プロジェクト名-ユーザ名.c9users.io
-```
-
-### **1. webサーバのドキュメントルート変更**
-
-ターミナルで以下を実行．vimというエディタで設定ファイルを開く．
+下記を実行．
 ```bash
-$ sudo vim /etc/apache2/sites-enabled/001-cloud9.conf
+$ php artisan serve --port=8080
 ```
+
 実行結果
-```
-<VirtualHost *:8080>
-    DocumentRoot /home/ubuntu/workspace
-    ServerName https://${C9_HOSTNAME}:443
-
-    LogLevel info
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    <Directory /home/ubuntu/workspace>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
-
-ServerName https://${C9_HOSTNAME}
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-```
-
-「i」キーを押すと左下に「INSERT」が表示されるので，表示された状態で下記のように編集する．
-```diff
-<VirtualHost *:8080>
--   DocumentRoot /home/ubuntu/workspace
-+   DocumentRoot /home/ubuntu/workspace/cms/public
-    ServerName https://${C9_HOSTNAME}:443
-
-    LogLevel info
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    <Directory /home/ubuntu/workspace>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
-
-ServerName https://${C9_HOSTNAME}
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-```
-
-編集が終了したら「esc」を押下する．INSERTが消えるので，消えた状態で「:wq」を入力して「Enter」を押下して完了．
-
-
-### **2. webサーバ設定完了後の画面確認**
-
-- ターミナルのカレントディレクトリが「cms」であることを確認する．ターミナルの「$」の前が「`/cms`」となっていればOK．
-
-- 「`/cms`」でない場合はターミナルで以下を実行してディレクトリを移動する．
 ```bash
-$ cd cms
+Laravel development server started: <http://127.0.0.1:8080>
 ```
-- ターミナルで以下のコマンドを実行．
-```bash
-$ sudo composer update
-```
-- 「Run Project」ボタンを押下．
-- 下記のアドレスを入力し，トップ画面が表示されればOK．
-```
-https://プロジェクト名-ユーザ名.c9users.io
-```
-トップ画面
-![トップ画面](img/20190123-top.png)
+【重要】サーバーが動いた状態となるが，停止する場合は「ctrl + c」で停止できる．
+
+下記手順で動作を確認．
+
+1. 上部の「preview」をクリック．
+2. 「prewiew running application」をクリック．
+3. 右下にプレビュー画面が表示される．
+4. プレビュー画面右上の「Browserの右側のボタン」をクリック．
+5. 新しいタブで下記画面が表示されればOK．
+![トップ画面](img/top.png)
 
 <div style="page-break-before:always"></div>
+
 
 ## **【参考】Laravelルートディレクトリのファイル構成**
 
@@ -566,7 +501,7 @@ https://プロジェクト名-ユーザ名.c9users.io
 
 3. 「`.env`」ファイルをダブルクリックして開く．
 
-4. ファイルの内容を以下のように編集する．ユーザ名はURLの`ide.c9.io/`以下となる．
+4. ファイルの内容を以下のように編集する．
 
 `.env`ファイルの内容
 ```diff
@@ -575,11 +510,11 @@ DB_CONNECTION=mysql
 +DB_HOST=localhost
 DB_PORT=3306
 -DB_DATABASE=homestead
-+DB_DATABASE=c9
++DB_DATABASE=cms
 -DB_USERNAME=homestead
-+DB_USERNAME=ユーザ名
++DB_USERNAME=root
 -DB_PASSWORD=secret
-+DB_PASSWORD=
++DB_PASSWORD=root
 ```
 
 ### **2. データベースの確認**
@@ -591,9 +526,14 @@ DB_PORT=3306
 $ cd cms
 ```
 
-続けて以下を入力し，mysqlを起動する．
+続けて以下を入力し，mysqlを起動する．はじめは管理者権限でないとログインできない．
 ```bash
-$ mysql-ctl cli
+$ sudo mysql -u root -p
+```
+
+パスワードを求められるので「root」を入力．表示はされないので注意．
+```bash
+Enter password: 
 ```
 
 実行結果．以降，mysql内で操作を行う．
@@ -604,14 +544,54 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql> 
 ```
 
-データベース一覧を表示し，「c9」が存在することを確認する．
+管理者権限でなくてもログインできるように設定を変更．
+```bash
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+```
+
+実行結果
+```bash
+Query OK, 0 rows affected (0.01 sec)
+mysql>
+```
+
+mysqlからログアウトする．
+```bash
+mysql> exit;
+Bye
+```
+
+管理者権限でなくてもログインできることを確認する．
+```bash
+$ mysql -u root -p
+```
+（パスワードを求められるので「root」を入力）
+
+実行結果（ログイン完了）
+```bash
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+```
+
+データベースを作成する．以下のコマンドで「cms」データベースを作成．
+```bash
+mysql> create database cms;
+```
+
+実行結果
+```bash
+Query OK, 1 row affected (0.00 sec)
+```
+
+データベース一覧を表示し，「cms」が存在することを確認する．
 ```bash
 mysql> show databases;
 +--------------------+
 | Database           |
 +--------------------+
 | information_schema |
-| c9                 |
+| cms                |
 | mysql              |
 | performance_schema |
 | phpmyadmin         |
@@ -621,7 +601,7 @@ mysql> show databases;
 
 「c9」データベースを選択．
 ```bash
-mysql> use c9;
+mysql> use cms;
 Database changed
 ```
 
@@ -639,7 +619,57 @@ Bye
 
 <div style="page-break-before:always"></div>
 
-## **todo管理アプリの作成②-テーブルの作成**
+## **todo管理アプリの作成②-モデルの作成**
+
+### **1. Eloquent Model**
+
+- Eloquent ModelはLaravel標準のORM（object-relational mapper）である．
+- ORMとは，DBのレコードをオブジェクトとして直感的に扱えるようにしたもので，SQLを意識せずにプログラムで処理を記述することができる．
+- Eloquent Modelは定義された「model」を用いることで簡単にDBへのデータ保存・取得を行える．
+- 1つのモデルが1つのテーブルに対応する．例えば，`tasks`テーブルに対して`Task`のようにモデルを定義すると自動的に対応する．モデル内に明示的に対応を記述することもできる．
+
+### **2. モデル作成コマンド**
+
+下記コマンドでモデルを作成する．「-m」をつけることで対応するマイグレーションファイルも自動的に作成されるのでおすすめ．（マイグレーションに関しては後述）
+
+コマンド例
+```bash
+$ php artisan make:model モデル名
+```
+
+今回はtodo管理アプリなので「`Task`」モデルを定義する．下記をターミナルで実行する．
+```bash
+$ php artisan make:model Task -m
+```
+
+実行結果．「`tasks`」テーブルに対応するマイグレーションファイル（2019_06_11_024618_create_tasks_table）も同時に作成される．
+```bash
+Model created successfully.
+Created Migration: 2019_06_11_024618_create_tasks_table
+```
+
+### **3. モデル確認**
+
+`/app/Task.php`が作成される．
+内容は以下の通り．
+```php
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Task extends Model
+{
+    //
+}
+```
+
+<div style="page-break-before:always"></div>
+
+
+
+## **todo管理アプリの作成②-マイグレーション**
 
 ### **1. データベースマイグレーション**
 
@@ -647,7 +677,11 @@ Bye
 
 テーブル一つに対して，1つのマイグレーションファイルが作成・実行されるイメージ．
 
-【解説】コマンド書式
+手順は「マイグレーションファイルでテーブルの構成を定義」→「マイグレーション実行でテーブル作成」となる．
+
+今回はモデル作成時に合わせてマイグレーションファイルを作成したので新たに作成は行わない．
+
+【参考】コマンド書式
 ```bash
 $ php artisan make:migration ファイル名 --create=テーブル名
 ``` 
@@ -700,25 +734,9 @@ $table->string('email')->nullable();    //nullを許可
 $table->string('email')->unique();      //カラムの値を一意にする
 ```
 
-### **2. マイグレーションファイルの作成**
+### **2. マイグレーションファイルの準備**
 
-今回は，
-- ファイル名「`create_tasks_table`」
-- テーブル名「`tasks`」※テーブル名は複数形（重要）
-
-の名前でマイグレーションファイルとテーブルを作成する．
-
-ターミナルで以下を実行．
-```bash
-$ php artisan make:migration create_tasks_table --create=tasks
-```
-
-実行結果
-```bash
-Created Migration: 2019_**_**_******_create_tasks_table
-```
-
-以下の場所にマイグレーションファイルが作成されるので内容を確認する．
+モデル作成時に，以下の場所にマイグレーションファイルが作成されているので内容を確認する．
 ```
 /cms/database/migrations
 ```
@@ -794,15 +812,14 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        //
+    }
     public function boot()
     {
 -       //
 +       Schema::defaultStringLength(191);
-    }
-
-    public function register()
-    {
-        //
     }
 }
 ```
@@ -823,8 +840,8 @@ Migrating: 2014_10_12_000000_create_users_table
 Migrated:  2014_10_12_000000_create_users_table
 Migrating: 2014_10_12_100000_create_password_resets_table
 Migrated:  2014_10_12_100000_create_password_resets_table
-Migrating: 2019_01_23_000319_create_tasks_table
-Migrated:  2019_01_23_000319_create_tasks_table
+Migrating: 2019_06_11_024618_create_tasks_table
+Migrated:  2019_06_11_024618_create_tasks_table
 ```
 
 うまくいかないときはマイグレーションファイルを見直して以下を実行．
@@ -834,7 +851,7 @@ $ php artisan migrate:fresh
 
 mysqlでテーブルの状況を確認する．ターミナルで以下を実行する．
 ```bash
-$ mysql-ctl cli
+$ mysql -u root -p
 ```
 
 実行結果
@@ -847,7 +864,7 @@ mysql>
 
 データベース変更．
 ```bash
-mysql> use c9;
+mysql> use cms;
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
@@ -858,7 +875,7 @@ Database changed
 ```bash
 mysql> show tables;
 +-----------------+
-| Tables_in_c9    |
+| Tables_in_cms   |
 +-----------------+
 | migrations      |
 | password_resets |
@@ -921,66 +938,22 @@ $ php artisan migrate:status
 
 <div style="page-break-before:always"></div>
 
-## **todo管理アプリの作成③-モデルの作成**
-
-### **1. Eloquent Model**
-
-- Eloquent ModelはLaravel標準のORM（object-relational mapper）である．
-- ORMとは，DBのレコードをオブジェクトとして直感的に扱えるようにしたもので，SQLを意識せずにプログラムで処理を記述することができる．
-- Eloquent Modelは定義された「model」を用いることで簡単にDBへのデータ保存・取得を行える．
-- 1つのモデルが1つのテーブルに対応する．例えば，`tasks`テーブルに対して`Task`のようにモデルを定義すると自動的に対応する．モデル内に明示的に対応を記述することもできる．
-
-### **2. モデル作成コマンド**
-
-下記コマンドでモデルを作成する．
-```bash
-$ php artisan make:model モデル名
-```
-
-今回は「`tasks`」テーブルに対応する「`Task`」モデルを定義する．下記をターミナルで実行する．
-```bash
-$ php artisan make:model Task
-```
-
-実行結果
-```bash
-Model created successfully.
-```
-
-### **3. モデル確認**
-
-`/app/Task.php`が作成される．
-内容は以下の通り．
-```php
-<?php
-
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Task extends Model
-{
-    //
-}
-```
-
-<div style="page-break-before:always"></div>
 
 ## **todo管理アプリの作成④-ルーティング**
 
 ### **1. ルートとは**
 
-`https://******.c9users.io/`のURLドメインの最後の「`/`」がルートとなる．
+`https://******.com/`などのURLドメインの最後の「`/`」がルートとなる．
 
 ### **2. ルーティング**
 
 例：
 
-`https://******.c9users.io/`  
-`https://******.c9users.io/home`  
-`https://******.c9users.io/login`
+`https://******.com/`  
+`https://******.com/home`  
+`https://******.com/login`
 
-上の「`/`」と「`****`」がルーティングで指定できる場所．ルーティングは「`/`」以降の文字列を使用し，アプリケーションの処理と紐付ける．
+上の「`/home`」などの部分がルーティングで指定できる場所．ルーティングは「`/`」以降の文字列を使用し，アプリケーションの処理と紐付ける．
 
 
 ### **3. 必要なルーティング**
@@ -1172,13 +1145,23 @@ Route::get('/', function () {
 
 必要なビューが全て揃ったので，ブラウザで表示を確認する．
 
+下記実行し，表示を確認．
+```bash
+$ php artisan serve --port=8080
+```
+
+1. 上部の「preview」をクリック．
+2. 「prewiew running application」をクリック．
+3. 右下にプレビュー画面が表示される．
+4. プレビュー画面右上の「Browserの右側のボタン」をクリック．
+
 以下にアクセスする．
 ```bash
 https://プロジェクト名-ユーザ名.c9users.io/
 ```
 
 デザインを適用していないので，下記のようなシンプルなフォームが表示される．
-![フォーム配置](img/20190123-top-form.png)
+![フォーム配置](img/top-form.png)
 
 ### **【参考】bladeテンプレート内の変数表示**
 
@@ -1364,7 +1347,7 @@ Viewへ変数を渡せたので，この変数から必要なデータを取り�
 
 ブラウザで表示すると，下記のように登録済みタスクが表示される．input欄に入力してsavaボタンを押下するとリストに追加される様子が確認できる．
 
-![リスト表示](img/20190123-top-list.png)
+![リスト表示](img/top-list.png)
 
 
 ### **【参考】Bladeテンプレートの制御構文**
@@ -1436,7 +1419,7 @@ Viewへ変数を渡せたので，この変数から必要なデータを取り�
 
 ブラウザで表示すると，各タスクに対して削除ボタンが追加されていることが確認できる．
 
-![削除ボタン](img/20190123-top-delete-btn.png)
+![削除ボタン](img/top-delete-btn.png)
 
 
 ### **【解説】CSRF**
@@ -1467,7 +1450,7 @@ Route::post('/task/{task}', function (Task $task) {
 
 ブラウザで削除ボタンをクリックすると，表示されたタスクが削除される様子を確認できる．
 
-![削除処理](img/20190123-top-delete.png)
+![削除処理](img/top-delete.png)
 
 
 <div style="page-break-before:always"></div>
@@ -1480,7 +1463,7 @@ Route::post('/task/{task}', function (Task $task) {
 [https://getbootstrap.com/docs/4.1/getting-started/introduction/](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
 
 「Bootstrap CDN」以下のコード（以下の画像部分）をコピーする．cssとjsの両方コピー．
-![bootstrap](img/20190123-bootstrap.png)
+![bootstrap](img/bootstrap.png)
 
 ### **2. bootstrapをViewに組み込む**
 
@@ -1502,7 +1485,7 @@ Route::post('/task/{task}', function (Task $task) {
 
 ブラウザで表示すると，以下のようにデザインが整っている状態が確認できる．
 
-![bootstrap適用](img/20190123-top-bootstrap.png)
+![bootstrap適用](img/top-bootstrap.png)
 
 
 <div style="page-break-before:always"></div>
@@ -1544,7 +1527,7 @@ Route::post('/task/{task}', function (Task $task) {
 
 ブラウザで表示すると以下の通り入力欄が追加されていることが確認できる．
 
-![入力欄追加](img/20190123-top-input-all.png)
+![入力欄追加](img/top-input-all.png)
 
 ### **2. データ表示欄の追加**
 
@@ -1590,7 +1573,7 @@ Route::post('/task/{task}', function (Task $task) {
 
 ブラウザで表示すると，項目が追加されていることが確認できる．
 
-![表示項目追加](img/20190123-top-show-all.png)
+![表示項目追加](img/top-show-all.png)
 
 
 ### **3. バリデーションと登録処理の追加**
@@ -1631,7 +1614,7 @@ Route::post('/tasks', function (Request $request) {
 
 ブラウザで表示して入力→送信すると，入力した内容が反映されていることが確認できる．
 
-![登録処理完成](img/20190123-top-store-all.png)
+![登録処理完成](img/top-store-all.png)
 
 
 <div style="page-break-before:always"></div>
@@ -1704,7 +1687,7 @@ Route::post('/tasks', function (Request $request) {
 
 ブラウザで更新ボタンをクリックすると，更新画面に遷移する．それぞれのinput欄に，登録されたデータが表示されていればOK．
 
-![更新画面](img/20190123-edit.png)
+![更新画面](img/edit.png)
 
 ### **3. 更新処理の作成**
 
@@ -1745,7 +1728,7 @@ Route::post('/tasksedit/{task}', function(Task $task) {
 
 ブラウザで更新ボタン→更新画面で変更→saveすると一覧画面で情報が更新されていることが確認できる．
 
-![更新画面](img/20190123-update.png)
+![更新画面](img/update.png)
 
 
 <div style="page-break-before:always"></div>
@@ -2082,25 +2065,25 @@ class HomeController extends Controller
 
 ### **3. ログイン認証機能の状況を確認する**
 
-ブラウザで下記のURLにアクセスし，ログイン画面が表示されることを確認する．
+ブラウザで下記のURLにアクセスし，ログイン画面が表示されることを確認する．（***はユニークな文字列）
 
 ```bash
-http://プロジェクト名-ユーザ名.c9users.io/home
+http://********.amazonaws.com/home
 ```
 
 表示される画面は以下の通り．
 
-![ログイン画面](img/20190123-home.png)
+![ログイン画面](img/home.png)
 
 なお，アクセス時にリダイレクトされてURLが下記になっている点に注意．
 
 ```bash
-http://プロジェクト名-ユーザ名.c9users.io/login
+http://********.amazonaws.com/login
 ```
 
 「register」から各データを登録してログインすると下記の画面が表示される．
 
-![ログイン状態](img/20190123-login.png)
+![ログイン状態](img/login.png)
 
 ### **4. 他のページもログイン状態のみ表示されるようにする**
 
@@ -2225,7 +2208,7 @@ Schema::create('tasks', function (Blueprint $table) {
 $ php artisan migrate:reset
 ```
 
-実行結果．エラーが出るときは`$ mysql-ctl cli`でmysqlを起動してから再度実行する．（mysqlはすぐ`exit;`で終了でOK）
+実行結果．エラーが出るときは`$  mysql -u root -p`でmysqlを起動してから再度実行する．（mysqlはすぐ`exit;`で終了でOK）
 
 ```bash
 Rolling back: 2019_01_25_135543_create_tasks_table
@@ -2259,12 +2242,12 @@ Migrated:  2019_01_25_135543_create_tasks_table
 ターミナルで以下を実行する．
 
 ```bash
-$ mysql-ctl cli
+$ mysql -u root -p
 ```
 
 mysqlに入ったら，DBをc9に変更する．
 ```bash
-mysql> use c9;
+mysql> use cms;
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
@@ -2276,7 +2259,7 @@ Database changed
 ```bash
 mysql> show tables;
 +-----------------+
-| Tables_in_c9    |
+| Tables_in_cms   |
 +-----------------+
 | migrations      |
 | password_resets |
@@ -2370,7 +2353,7 @@ public function store(Request $request) {
 +public function edit($task_id) {
 +   $task = Task::where('user_id',Auth::user()->id)->find($task_id);
     return view('tasksedit', [
-        'task' => $task
+        'task' => $tasks
     ]);
 }
 ...
@@ -2536,11 +2519,11 @@ Auth::routes();
 
 ここまでできたら，ブラウザで状態を確認する．まず，ログインした後の一覧画面は以下．
 
-![APIページ用リンク設置](img/20190123-api_link.png)
+![APIページ用リンク設置](img/api_link.png)
 
 上記画面で「API処理画面」ボタンをクリックし，以下のページが表示されることを確認する．
 
-![APIページ](img/20190123-api_top.png)
+![APIページ](img/api_top.png)
 
 ここまででルーティングとViewの準備は完了．
 
@@ -2803,7 +2786,7 @@ function deleteData(id){
 
 このデータはオブジェクトを配列にした形となっており，必要なデータを取り出すには`data[0].task`のように記述する．
 
-![APIデータ取得テスト](img/20190123-api_console.png)
+![APIデータ取得テスト](img/api_console.png)
 
 ここから，実際に取得したデータをhtmlに追加し，webブラウザ上に表示するための処理を追加する．
 
@@ -2858,7 +2841,7 @@ function indexData(){
 
 ここまで記述したらブラウザで表示を確認する．DBに保存されているデータが下のようにリスト表示されていればOK．
 
-![APIリスト表示](img/20190123-api_list.png)
+![APIリスト表示](img/api_list.png)
 
 ### **【解説】$.ajax()と$.getJSON()**
 
@@ -2983,7 +2966,7 @@ function storeData(){
 
 ここまで記述したらブラウザで表示を確認する．フォームに入力し，送信ボタンクリック時にリスト表示に追加されればOK．
 
-![APIデータ登録](img/20190123-api_store.png)
+![APIデータ登録](img/api_store.png)
 
 ### **6. javascriptを用いたAPIの呼び出しと画面表示④ -削除処理**
 
@@ -3042,7 +3025,7 @@ function deleteData(id){
 
 記述したらブラウザで表示を確認する．削除ボタンをクリックして，該当するデータが表示されなくなればOK．
 
-![APIデータ削除](img/20190123-api_destroy.png)
+![APIデータ削除](img/api_destroy.png)
 
 ここまでで，APIの機能を用いた「登録」「表示」「削除」の機能が完成した．
 
