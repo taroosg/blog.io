@@ -599,7 +599,7 @@ mysql> show databases;
 5 rows in set (0.00 sec)
 ```
 
-「c9」データベースを選択．
+「cms」データベースを選択．
 ```bash
 mysql> use cms;
 Database changed
@@ -1154,11 +1154,6 @@ $ php artisan serve --port=8080
 2. 「prewiew running application」をクリック．
 3. 右下にプレビュー画面が表示される．
 4. プレビュー画面右上の「Browserの右側のボタン」をクリック．
-
-以下にアクセスする．
-```bash
-https://プロジェクト名-ユーザ名.c9users.io/
-```
 
 デザインを適用していないので，下記のようなシンプルなフォームが表示される．
 ![フォーム配置](img/top-form.png)

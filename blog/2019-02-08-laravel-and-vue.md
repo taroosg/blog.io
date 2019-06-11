@@ -8,13 +8,15 @@ slug: laravel-vue-spa-example
 
 作成日：2019/02/08
 
-更新日：2019/03/10
+更新日：2019/06/11
 
-実行環境：cloud9
+実行環境：aws cloud9
 
-PHPバージョン：7.3.3
+実行OS：ubuntu 18.04
 
-Laravelバージョン：5.8.3
+PHPバージョン：7.3.6
+
+Laravelバージョン：5.8.21
 
 ## **目次**
 - APIを用いたSPA
@@ -38,25 +40,29 @@ Laravelバージョン：5.8.3
 
 ## **開発環境準備**
 
-- クラウド開発環境である「cloud9」を使用して開発を進める．
+- クラウド開発環境である「aws cloud9」を使用して開発を進める．
 
-### **workspaceの準備**
+### environment の準備
 
-- wokspaceとはアプリケーションを管理するフォルダのようなもの．
-- 1つのwebアプリケーションに対して，1つのworkspace，という理解でOK．
-- **name**  
-アプリケーション名を入力．自身が区別できるものでOK．
-- **description**  
-アプリケーションの説明．任意で入力する．
-- **Clone from Git or Mercurial URL (optional)**  
-githubのリポジトリと連携することができる．後からでも連携できるが，この時点でgithubのリポジトリを作成して連携しておくほうが簡単なのでオススメ．
-- **Choose a template**  
-「PHP」を選択．
-- 入力完了したら「Create workspace」をクリックするとworkspaceの作成が始まるのでしばらく待つ．
-- 入力画面は下記
-![workspace設定画面](img/20190208-cloud9-setup.png)
-- workspace設定完了後の画面
-![設定完了後の画面](img/20190208-cloud9-workspace.png)
+- environmentとはアプリケーションを管理するフォルダのようなもの．
+- 1つのwebアプリケーションに対して，1つのenvironment，という理解でOK．
+
+- awsのマネジメントコンソールから「cloud9」を探してアクセスする．
+![awsコンソール画面](img/20190611-aws_console.png)
+- 下記の画面になるので「create environment」をクリック．
+![cloud9初期画面](img/20190611-create_environment.png)
+
+- 名前を適当に入力．（Descriptionは任意）
+![名前入力画面](img/20190611-input_name.png)
+
+- 【重要】「Platform」は「ubuntu server 18.04 LTS」を選択．その他はデフォルトで「create environment」をクリック．
+![セットアップ画面01](img/20190611-setup_01.png)
+
+- 確認画面が出るので「next step」をクリック．
+![セットアップ画面02](img/20190611-setup_02.png)
+
+- しばらく待つと下記の画面が表示される．これで準備完了．
+![設定完了後の画面](img/20190611-cloud9_aws.png)
 
 <div style="page-break-before:always"></div>
 
@@ -79,13 +85,13 @@ githubのリポジトリと連携することができる．後からでも連�
 ```bash
 $ php -v
 ```
-出力結果（バージョンは5.5.9）
+出力結果（バージョンは7.2.19）
 ```bash
-PHP 5.5.9-1ubuntu4.22 (cli) (built: Aug  4 2017 19:40:28) 
-Copyright (c) 1997-2014 The PHP Group
-Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
-    with Zend OPcache v7.0.3, Copyright (c) 1999-2014, by Zend Technologies
-    with Xdebug v2.5.5, Copyright (c) 2002-2017, by Derick Rethans
+PHP 7.2.19-0ubuntu0.18.04.1 (cli) (built: Jun  4 2019 14:48:12) ( NTS )
+Copyright (c) 1997-2018 The PHP Group
+Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies
+    with Zend OPcache v7.2.19-0ubuntu0.18.04.1, Copyright (c) 1999-2018, by Zend Technologies
+    with Xdebug v2.6.0, Copyright (c) 2002-2018, by Derick Rethans
 ```
 
 ### **2. compoerのバージョン確認**
@@ -94,38 +100,43 @@ Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
 ```bash
 $ composer
 ```
-出力結果（バージョンは1.5.1）
+出力結果（インストールされていない）
 ```
-   ______
-  / ____/___  ____ ___  ____  ____  ________  _____
- / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
-/ /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
-\____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
-                    /_/
-Composer version 1.5.1 2017-08-09 16:07:22
+Command 'composer' not found, but can be installed with:
 
-Usage:
-  command [options] [arguments]
-...
+sudo apt install composer
 ```
 
-### **3. composerのアップデート**
+<div style="page-break-before:always"></div>
+
+### **3. composerのインストール**
 
 ターミナルで以下を実行
+
 ```bash
-$ sudo composer self-update
+$ curl -sS https://getcomposer.org/installer | php
 ```
-出力結果
+
+実行結果
 ```bash
-Updating to version 1.8.4 (stable channel).
-   Downloading (100%)         
-Use composer self-update --rollback to return to version 1.5.1
+All settings correct for using Composer
+Downloading...
+
+Composer (version 1.8.5) successfully installed to: /home/ubuntu/environment/composer.phar
+Use it: php composer.phar
 ```
-再度バージョン確認
+
+続いて以下を実行．ダウンロードしたcomposerファイルを保存場所に移動させる．エラーが出なければOK．
+```bash
+$ sudo mv composer.phar /usr/bin/composer
+```
+
+バージョンを確認する．
 ```bash
 $ composer
 ```
-実行結果（バージョンは1.8.4）
+
+実行結果（バージョンは1.8.5）
 ```bash
    ______
   / ____/___  ____ ___  ____  ____  ________  _____
@@ -133,19 +144,20 @@ $ composer
 / /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
 \____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
                     /_/
-Composer version 1.8.4 2019-02-11 10:52:10
+Composer version 1.8.5 2019-04-09 17:46:47
 
 Usage:
   command [options] [arguments]
 ...
 ```
+
 
 <div style="page-break-before:always"></div>
 
 ### **4. PHPのバージョンアップ**
 
-- Laravelの最新バージョンでは「PHP7.1.3以上」が必要となる．
-- 現在のバージョンは5.5.9なので，以下の手順でバージョンアップを行う．
+- Laravelの最新バージョンでは「PHP7.0以上」が必要となる．
+- とりあえず最新版にしておく．
 
 ターミナルで以下を実行．
 ```bash
@@ -158,14 +170,16 @@ Press [ENTER] to continue or ctrl-c to cancel adding it
 実行結果
 ```bash
 ...
-gpg: keyring `/tmp/tmpgu2gq6me/secring.gpg' created
-gpg: keyring `/tmp/tmpgu2gq6me/pubring.gpg' created
-gpg: requesting key E5267A6C from hkp server keyserver.ubuntu.com
-gpg: /tmp/tmpgu2gq6me/trustdb.gpg: trustdb created
-gpg: key E5267A6C: public key "Launchpad PPA for Ondřej Surý" imported
-gpg: Total number processed: 1
-gpg:               imported: 1  (RSA: 1)
-OK
+Hit:1 https://download.docker.com/linux/ubuntu bionic InRelease
+Hit:2 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic InRelease                      
+Hit:3 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease              
+Hit:4 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease            
+Hit:5 http://security.ubuntu.com/ubuntu bionic-security InRelease                             
+Get:6 http://ppa.launchpad.net/ondrej/php/ubuntu bionic InRelease [20.8 kB]
+Get:7 http://ppa.launchpad.net/ondrej/php/ubuntu bionic/main amd64 Packages [45.1 kB]
+Get:8 http://ppa.launchpad.net/ondrej/php/ubuntu bionic/main Translation-en [22.1 kB]
+Fetched 88.0 kB in 3s (33.8 kB/s)                   
+Reading package lists... Done
 ```
 
 引き続き，以下を実行  
@@ -174,14 +188,14 @@ $ sudo apt-get update
 ```
 実行結果
 ```bash
-...
-Get:52 http://asia-east1.gce.clouds.archive.ubuntu.com trusty/universe i386 Packages [7597 kB]
-Get:53 http://asia-east1.gce.clouds.archive.ubuntu.com trusty/multiverse i386 Packages [172 kB]
-Fetched 37.0 MB in 18s (1971 kB/s)                                             
+Hit:1 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic InRelease
+Hit:2 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease              
+Hit:3 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease            
+Hit:4 https://download.docker.com/linux/ubuntu bionic InRelease                                 
+Hit:5 http://ppa.launchpad.net/ondrej/php/ubuntu bionic InRelease                               
+Hit:6 http://security.ubuntu.com/ubuntu bionic-security InRelease
 Reading package lists... Done
 ```
-
-<div style="page-break-before:always"></div>
 
 以下を実行
 ```bash
@@ -194,20 +208,23 @@ Do you want to continue? [Y/n]
 実行結果
 ```bash
 ...
+Creating config file /etc/php/7.3/cli/php.ini with new version
+Setting up libapache2-mod-php7.3 (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
+
 Creating config file /etc/php/7.3/apache2/php.ini with new version
-libapache2-mod-php7.3: php5 module already enabled, not enabling PHP 7.3
-Processing triggers for libc-bin (2.19-0ubuntu6.11) ...
+libapache2-mod-php7.3: php7.2 module already enabled, not enabling PHP 7.3
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
 ```
 
 以下を実行
 ```bash
-$ sudo a2dismod php5
+$ sudo a2dismod php7.2
 ```
 出力結果
 ```bash
-Module php5 disabled.
+Module php7.2 disabled.
 To activate the new configuration, you need to run:
-  service apache2 restart
+  systemctl restart apache2
 ```
 
 以下を実行
@@ -223,7 +240,7 @@ Module mpm_prefork already enabled
 Considering conflict php5 for php7.3:
 Enabling module php7.3.
 To activate the new configuration, you need to run:
-  service apache2 restart
+  systemctl restart apache2
 ```
 
 以下を実行
@@ -236,21 +253,23 @@ Do you want to continue? [Y/n]
 ```
 実行結果
 ```bash
+Creating config file /etc/php/7.3/mods-available/pdo_mysql.ini with new version
+Setting up php7.3-zip (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
+
 Creating config file /etc/php/7.3/mods-available/zip.ini with new version
-Processing triggers for libc-bin (2.19-0ubuntu6.11) ...
-Processing triggers for libapache2-mod-php7.3 (7.3.2-1+ubuntu14.04.1+deb.sury.org+1) ...
+Processing triggers for libapache2-mod-php7.3 (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
 ```
 
 アップデート後のPHPバージョン確認
 ```bash
 $ php -v
 ```
-実行結果（バージョンは7.3.3）
+実行結果（バージョンは7.3.6）
 ```bash
-PHP 7.3.3-1+ubuntu14.04.1+deb.sury.org+1 (cli) (built: Mar  7 2019 20:48:45) ( NTS )
+PHP 7.3.6-1+ubuntu18.04.1+deb.sury.org+1 (cli) (built: May 31 2019 11:06:48) ( NTS )
 Copyright (c) 1997-2018 The PHP Group
-Zend Engine v3.3.2, Copyright (c) 1998-2018 Zend Technologies
-    with Zend OPcache v7.3.2-1+ubuntu14.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
+Zend Engine v3.3.6, Copyright (c) 1998-2018 Zend Technologies
+    with Zend OPcache v7.3.6-1+ubuntu18.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
 ```
 
 <div style="page-break-before:always"></div>
@@ -290,6 +309,7 @@ $ composer create-project laravel/laravel spa
 実行結果
 ```bash
 ...
+Discovered Package: fideloper/proxy
 Discovered Package: laravel/tinker
 Discovered Package: nesbot/carbon
 Discovered Package: nunomaduro/collision
@@ -300,12 +320,12 @@ Application key set successfully.
 
 以下でLaravelのバージョンを確認できる．
 ```bash
-$ cd spa
+$ cd cms
 $ php artisan --version
 ```
-実行結果（バージョンは5.8.3）
+実行結果（バージョンは5.8.21）
 ```bash
-Laravel Framework 5.8.3
+Laravel Framework 5.8.21
 ```
 
 ### **【参考】Laravelのバージョン指定**
@@ -326,113 +346,28 @@ $ composer create-project laravel/laravel spa 5.5.* --prefer-dist
 - Laravelインストールの確認にはwebブラウザで動作させて確認する．
 - cloud9にはwebサーバが標準で搭載されているため，以下の手順で確認を行う．
 
-1. 「Run Project」ボタンをクリック．
-2. 表示されたURLをクリックし「open」を選択．
-3. 表示されたwebページで「Open the App」ボタンをクリック．
-4. ディレクトリ構成の画面（下記）が表示される．
-![初回起動画面](img/20190208-first-top.png)
-5. 以下のアドレスにアクセスし，トップページの表示を確認する．上の画面から「spa/」「public/」の順にクリックでもOK．
-```
-https://プロジェクト名-ユーザ名.c9users.io/spa/public/
-```
-6. 下記画面が表示されればインストール完了．
-![トップ画面](img/20190208-top.png)
-
-<div style="page-break-before:always"></div>
-
-## **webサーバの設定変更**
-
-- 現状では，ルートディレクトリでトップページが表示されず，「/spa/public/」を追加する必要がある．
-- ドキュメントルートアクセス時にトップページが表示されるよう設定を変更する．
-
-### ※ドキュメントルートとは？
-
-- `https://hogehoge.com`などのURLにアクセスしたときに表示されるファイルの入っているディレクトリのこと．
-
-変更前のトップページのURL
-```
-https://プロジェクト名-ユーザ名.c9users.io/spa/public/
-```
-変更後のトップページのURL
-```
-https://プロジェクト名-ユーザ名.c9users.io
-```
-
-### **1. webサーバのドキュメントルート変更**
-
-ターミナルで以下を実行．vimというエディタで設定ファイルを開く．
+下記を実行．
 ```bash
-$ sudo vim /etc/apache2/sites-enabled/001-cloud9.conf
+$ php artisan serve --port=8080
 ```
+
 実行結果
-```
-<VirtualHost *:8080>
-    DocumentRoot /home/ubuntu/workspace
-    ServerName https://${C9_HOSTNAME}:443
-
-    LogLevel info
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    <Directory /home/ubuntu/workspace>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
-
-ServerName https://${C9_HOSTNAME}
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-```
-
-「i」キーを押すと左下に「INSERT」が表示されるので，表示された状態で下記のように編集する．
-```diff
-<VirtualHost *:8080>
--   DocumentRoot /home/ubuntu/workspace
-+   DocumentRoot /home/ubuntu/workspace/spa/public
-    ServerName https://${C9_HOSTNAME}:443
-
-    LogLevel info
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    <Directory /home/ubuntu/workspace>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
-
-ServerName https://${C9_HOSTNAME}
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-```
-
-編集が終了したら「esc」を押下する．INSERTが消えるので，消えた状態で「:wq」を入力して「Enter」を押下して完了．
-
-
-### **2. webサーバ設定完了後の画面確認**
-
-- ターミナルのカレントディレクトリが「spa」であることを確認する．ターミナルの「$」の前が「`/spa`」となっていればOK．
-
-- 「`/spa`」でない場合はターミナルで以下を実行してディレクトリを移動する．
 ```bash
-$ cd spa
+Laravel development server started: <http://127.0.0.1:8080>
 ```
-- ターミナルで以下のコマンドを実行．
-```bash
-$ sudo composer update
-```
-- 「Run Project」ボタンを押下．
-- 下記のアドレスを入力し，トップ画面が表示されればOK．
-```
-https://プロジェクト名-ユーザ名.c9users.io
-```
-トップ画面
-![トップ画面](img/20190208-top.png)
+【重要】サーバーが動いた状態となるが，停止する場合は「ctrl + c」で停止できる．
+
+下記手順で動作を確認．
+
+1. 上部の「preview」をクリック．
+2. 「prewiew running application」をクリック．
+3. 右下にプレビュー画面が表示される．
+4. プレビュー画面右上の「Browserの右側のボタン」をクリック．
+5. 新しいタブで下記画面が表示されればOK．
+![トップ画面](img/top.png)
 
 <div style="page-break-before:always"></div>
+
 
 ## **【参考】Laravelルートディレクトリのファイル構成**
 
@@ -499,32 +434,6 @@ https://プロジェクト名-ユーザ名.c9users.io
 
 <div style="page-break-before:always"></div>
 
-## **DBの準備**
-
-1. 「`.env`」ファイルにデータベースの設定を記述する．spaディレクトリ直下に配置されている．
-
-2. 「`.env`」ファイルは隠しファイルなので，表示されていない場合は，ファイルツリー画面右上の歯車マークをクリックして「Show Hidden Files」にチェックを入れると表示される．
-
-3. 「`.env`」ファイルをダブルクリックして開く．
-
-4. ファイルの内容を以下のように編集する．ユーザ名はURLの`ide.c9.io/`以下となる．
-
-`.env`ファイルの内容
-```diff
-DB_CONNECTION=mysql
--DB_HOST=127.0.0.1
-+DB_HOST=localhost
-DB_PORT=3306
--DB_DATABASE=homestead
-+DB_DATABASE=c9
--DB_USERNAME=homestead
-+DB_USERNAME=ユーザ名
--DB_PASSWORD=secret
-+DB_PASSWORD=
-```
-
-
-<div style="page-break-before:always"></div>
 
 ## **vue.jsとvue-routerの準備**
 
@@ -627,6 +536,29 @@ $ npm run watch
 
 ### **1. DBの準備**
 
+1. 「`.env`」ファイルにデータベースの設定を記述する．cmsディレクトリ直下に配置されている．
+
+2. 「`.env`」ファイルは隠しファイルなので，表示されていない場合は，ファイルツリー画面右上の歯車マークをクリックして「Show Hidden Files」にチェックを入れると表示される．
+
+3. 「`.env`」ファイルをダブルクリックして開く．
+
+4. ファイルの内容を以下のように編集する．
+
+`.env`ファイルの内容
+```diff
+DB_CONNECTION=mysql
+-DB_HOST=127.0.0.1
++DB_HOST=localhost
+DB_PORT=3306
+-DB_DATABASE=homestead
++DB_DATABASE=spa
+-DB_USERNAME=homestead
++DB_USERNAME=root
+-DB_PASSWORD=secret
++DB_PASSWORD=root
+```
+
+
 記述したらDBの状態を確認する．ターミナルのカレントディレクトリが「spa」であることを確認する．ターミナルの「$」の前が「`/spa`」となっていればOK．
 
 「`/spa`」でない場合はターミナルで以下を実行してディレクトリを移動する．
@@ -636,7 +568,12 @@ $ cd spa
 
 続けて以下を入力し，mysqlを起動する．
 ```bash
-$ mysql-ctl cli
+$ sudo mysql -u root -p
+```
+
+パスワードを求められるので「root」を入力．表示はされないので注意．
+```bash
+Enter password: 
 ```
 
 実行結果．以降，mysql内で操作を行う．
@@ -647,14 +584,54 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql> 
 ```
 
-データベース一覧を表示し，「c9」が存在することを確認する．
+管理者権限でなくてもログインできるように設定を変更．
+```bash
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+```
+
+実行結果
+```bash
+Query OK, 0 rows affected (0.01 sec)
+mysql>
+```
+
+mysqlからログアウトする．
+```bash
+mysql> exit;
+Bye
+```
+
+管理者権限でなくてもログインできることを確認する．
+```bash
+$ mysql -u root -p
+```
+（パスワードを求められるので「root」を入力）
+
+実行結果（ログイン完了）
+```bash
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+```
+
+データベースを作成する．以下のコマンドで「cms」データベースを作成．
+```bash
+mysql> create database cms;
+```
+
+実行結果
+```bash
+Query OK, 1 row affected (0.00 sec)
+```
+
+データベース一覧を表示し，「spa」が存在することを確認する．
 ```bash
 mysql> show databases;
 +--------------------+
 | Database           |
 +--------------------+
 | information_schema |
-| c9                 |
+| spa                |
 | mysql              |
 | performance_schema |
 | phpmyadmin         |
@@ -664,7 +641,7 @@ mysql> show databases;
 
 「c9」データベースを選択．
 ```bash
-mysql> use c9;
+mysql> use spa;
 Database changed
 ```
 
@@ -852,7 +829,7 @@ $ php artisan migrate:fresh
 
 mysqlでテーブルの状況を確認する．ターミナルで以下を実行する．
 ```bash
-$ mysql-ctl cli
+$ mysql -u root -p
 ```
 
 実行結果
@@ -865,7 +842,7 @@ mysql>
 
 データベース変更．
 ```bash
-mysql> use c9;
+mysql> use spa;
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
@@ -876,7 +853,7 @@ Database changed
 ```bash
 mysql> show tables;
 +-----------------+
-| Tables_in_c9    |
+| Tables_in_spa   |
 +-----------------+
 | migrations      |
 | password_resets |
@@ -943,17 +920,17 @@ $ php artisan migrate:status
 
 ### **1. ルートとは**
 
-`https://******.c9users.io/`のURLドメインの最後の「`/`」がルートとなる．
+`https://******.com/`などのURLドメインの最後の「`/`」がルートとなる．
 
 ### **2. ルーティング**
 
 例：
 
-`https://******.c9users.io/`  
-`https://******.c9users.io/home`  
-`https://******.c9users.io/login`
+`https://******.com/`  
+`https://******.com/home`  
+`https://******.com/login`
 
-上の「`/`」と「`****`」がルーティングで指定できる場所．ルーティングは「`/`」以降の文字列を使用し，アプリケーションの処理と紐付ける．
+上の「`/home`」などの部分がルーティングで指定できる場所．ルーティングは「`/`」以降の文字列を使用し，アプリケーションの処理と紐付ける．
 
 ### **3. ルーティングファイルの作成**
 
@@ -1031,12 +1008,15 @@ Route::get('/', function () {
 
 ### **4. ビューの確認**
 
-必要なビューが全て揃ったので，ブラウザで表示を確認する．
-
-以下にアクセスする．
+下記実行し，表示を確認．
 ```bash
-https://プロジェクト名-ユーザ名.c9users.io/
+$ php artisan serve --port=8080
 ```
+
+1. 上部の「preview」をクリック．
+2. 「prewiew running application」をクリック．
+3. 右下にプレビュー画面が表示される．
+4. プレビュー画面右上の「Browserの右側のボタン」をクリック．
 
 まだコンポーネントを作成していないので，下記のようなサンプルビューが表示される．
 
@@ -1275,13 +1255,13 @@ Vue.use(VueAxios, axios);
 
 それぞれ異なるコンポーネントが呼び出されることを確認する．
 
-1. `https://プロジェクト名-ユーザ名.c9users.io/`
-2. `https://プロジェクト名-ユーザ名.c9users.io/tasks`
-3. `https://プロジェクト名-ユーザ名.c9users.io/create`
-4. `https://プロジェクト名-ユーザ名.c9users.io/edit/1`
+1. `http://********.amazonaws.com/`
+2. `http://********.amazonaws.com/tasks`
+3. `http://********.amazonaws.com/create`
+4. `http://********.amazonaws.com/edit/1`
 
 どの場合でも構成は共通した画面で，コンポーネントが切り替わる動作となる．  
-（下図は`https://プロジェクト名-ユーザ名.c9users.io/tasks`アクセス時の例）
+（下図は`http://********.amazonaws.com/tasks`アクセス時の例）
 
 ![コンポーネント表示](img/20190208-vue-component.png)
 
@@ -1386,7 +1366,7 @@ Vue.use(VueAxios, axios);
 </script>
 ```
 
-記述したら`https://プロジェクト名-ユーザ名.c9users.io/create`にアクセスし，下記のように表示されればOK．
+記述したら`http://********.amazonaws.com/create`にアクセスし，下記のように表示されればOK．
 
 ![フォーム表示](img/20190208-vue-form.png)
 
