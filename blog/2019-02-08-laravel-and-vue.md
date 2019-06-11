@@ -1,6 +1,6 @@
 ---
 title: Laravel API & vue-routerでSPA開発
-date: 2019-03-10 00:00:00
+date: 2019-06-12 00:00:00
 description: "フロントエンドはvue.js，サーバはLaravelのAPIでつくるSPAアプリケーションのチュートリアル"
 image: "./images/laravel-vue-spa-example.jpg"
 slug: laravel-vue-spa-example
@@ -8,7 +8,7 @@ slug: laravel-vue-spa-example
 
 作成日：2019/02/08
 
-更新日：2019/06/11
+更新日：2019/06/12
 
 実行環境：aws cloud9
 
