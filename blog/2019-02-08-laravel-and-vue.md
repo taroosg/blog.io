@@ -364,7 +364,7 @@ Laravel development server started: <http://127.0.0.1:8080>
 3. 右下にプレビュー画面が表示される．
 4. プレビュー画面右上の「Browserの右側のボタン」をクリック．
 5. 新しいタブで下記画面が表示されればOK．
-![トップ画面](img/top.png)
+![トップ画面](img/20190123-top.png)
 
 <div style="page-break-before:always"></div>
 
@@ -639,7 +639,7 @@ mysql> show databases;
 5 rows in set (0.00 sec)
 ```
 
-「c9」データベースを選択．
+「spa」データベースを選択．
 ```bash
 mysql> use spa;
 Database changed

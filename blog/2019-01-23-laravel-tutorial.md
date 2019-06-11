@@ -413,7 +413,7 @@ Laravel development server started: <http://127.0.0.1:8080>
 3. 右下にプレビュー画面が表示される．
 4. プレビュー画面右上の「Browserの右側のボタン」をクリック．
 5. 新しいタブで下記画面が表示されればOK．
-![トップ画面](img/top.png)
+![トップ画面](img/20190123-top.png)
 
 <div style="page-break-before:always"></div>
 
@@ -1156,7 +1156,7 @@ $ php artisan serve --port=8080
 4. プレビュー画面右上の「Browserの右側のボタン」をクリック．
 
 デザインを適用していないので，下記のようなシンプルなフォームが表示される．
-![フォーム配置](img/top-form.png)
+![フォーム配置](img/20190123-top-form.png)
 
 ### **【参考】bladeテンプレート内の変数表示**
 
@@ -1342,7 +1342,7 @@ Viewへ変数を渡せたので，この変数から必要なデータを取り�
 
 ブラウザで表示すると，下記のように登録済みタスクが表示される．input欄に入力してsavaボタンを押下するとリストに追加される様子が確認できる．
 
-![リスト表示](img/top-list.png)
+![リスト表示](img/20190123-top-list.png)
 
 
 ### **【参考】Bladeテンプレートの制御構文**
@@ -1414,7 +1414,7 @@ Viewへ変数を渡せたので，この変数から必要なデータを取り�
 
 ブラウザで表示すると，各タスクに対して削除ボタンが追加されていることが確認できる．
 
-![削除ボタン](img/top-delete-btn.png)
+![削除ボタン](img/20190123-top-delete-btn.png)
 
 
 ### **【解説】CSRF**
@@ -1445,7 +1445,7 @@ Route::post('/task/{task}', function (Task $task) {
 
 ブラウザで削除ボタンをクリックすると，表示されたタスクが削除される様子を確認できる．
 
-![削除処理](img/top-delete.png)
+![削除処理](img/20190123-top-delete.png)
 
 
 <div style="page-break-before:always"></div>
@@ -1458,7 +1458,7 @@ Route::post('/task/{task}', function (Task $task) {
 [https://getbootstrap.com/docs/4.1/getting-started/introduction/](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
 
 「Bootstrap CDN」以下のコード（以下の画像部分）をコピーする．cssとjsの両方コピー．
-![bootstrap](img/bootstrap.png)
+![bootstrap](img/20190123-bootstrap.png)
 
 ### **2. bootstrapをViewに組み込む**
 
@@ -1480,7 +1480,7 @@ Route::post('/task/{task}', function (Task $task) {
 
 ブラウザで表示すると，以下のようにデザインが整っている状態が確認できる．
 
-![bootstrap適用](img/top-bootstrap.png)
+![bootstrap適用](img/20190123-top-bootstrap.png)
 
 
 <div style="page-break-before:always"></div>
@@ -1522,7 +1522,7 @@ Route::post('/task/{task}', function (Task $task) {
 
 ブラウザで表示すると以下の通り入力欄が追加されていることが確認できる．
 
-![入力欄追加](img/top-input-all.png)
+![入力欄追加](img/20190123-top-input-all.png)
 
 ### **2. データ表示欄の追加**
 
@@ -1568,7 +1568,7 @@ Route::post('/task/{task}', function (Task $task) {
 
 ブラウザで表示すると，項目が追加されていることが確認できる．
 
-![表示項目追加](img/top-show-all.png)
+![表示項目追加](img/20190123-top-show-all.png)
 
 
 ### **3. バリデーションと登録処理の追加**
@@ -1609,7 +1609,7 @@ Route::post('/tasks', function (Request $request) {
 
 ブラウザで表示して入力→送信すると，入力した内容が反映されていることが確認できる．
 
-![登録処理完成](img/top-store-all.png)
+![登録処理完成](img/20190123-top-store-all.png)
 
 
 <div style="page-break-before:always"></div>
@@ -1682,7 +1682,7 @@ Route::post('/tasks', function (Request $request) {
 
 ブラウザで更新ボタンをクリックすると，更新画面に遷移する．それぞれのinput欄に，登録されたデータが表示されていればOK．
 
-![更新画面](img/edit.png)
+![更新画面](img/20190123-edit.png)
 
 ### **3. 更新処理の作成**
 
@@ -1723,7 +1723,7 @@ Route::post('/tasksedit/{task}', function(Task $task) {
 
 ブラウザで更新ボタン→更新画面で変更→saveすると一覧画面で情報が更新されていることが確認できる．
 
-![更新画面](img/update.png)
+![更新画面](img/20190123-update.png)
 
 
 <div style="page-break-before:always"></div>
@@ -2068,7 +2068,7 @@ http://********.amazonaws.com/home
 
 表示される画面は以下の通り．
 
-![ログイン画面](img/home.png)
+![ログイン画面](img/20190123-home.png)
 
 なお，アクセス時にリダイレクトされてURLが下記になっている点に注意．
 
@@ -2078,7 +2078,7 @@ http://********.amazonaws.com/login
 
 「register」から各データを登録してログインすると下記の画面が表示される．
 
-![ログイン状態](img/login.png)
+![ログイン状態](img/20190123-login.png)
 
 ### **4. 他のページもログイン状態のみ表示されるようにする**
 
@@ -2240,7 +2240,7 @@ Migrated:  2019_01_25_135543_create_tasks_table
 $ mysql -u root -p
 ```
 
-mysqlに入ったら，DBをc9に変更する．
+mysqlに入ったら，DBをcmsに変更する．
 ```bash
 mysql> use cms;
 Reading table information for completion of table and column names
@@ -2514,11 +2514,11 @@ Auth::routes();
 
 ここまでできたら，ブラウザで状態を確認する．まず，ログインした後の一覧画面は以下．
 
-![APIページ用リンク設置](img/api_link.png)
+![APIページ用リンク設置](img/20190123-api_link.png)
 
 上記画面で「API処理画面」ボタンをクリックし，以下のページが表示されることを確認する．
 
-![APIページ](img/api_top.png)
+![APIページ](img/20190123-api_top.png)
 
 ここまででルーティングとViewの準備は完了．
 
@@ -2704,7 +2704,7 @@ protected $middlewareGroups = [
 +});
 ```
 
-保存したら`http://プロジェクト名-ユーザ名.c9users.io/api_ajax`にアクセスし，アラートが表示されればOK．
+保存したら`http://********.amazonaws.com/api_ajax`にアクセスし，アラートが表示されればOK．
 
 続いて，APIを呼び出して各処理を行う処理を作成する．
 
@@ -2781,7 +2781,7 @@ function deleteData(id){
 
 このデータはオブジェクトを配列にした形となっており，必要なデータを取り出すには`data[0].task`のように記述する．
 
-![APIデータ取得テスト](img/api_console.png)
+![APIデータ取得テスト](img/20190123-api_console.png)
 
 ここから，実際に取得したデータをhtmlに追加し，webブラウザ上に表示するための処理を追加する．
 
@@ -2836,7 +2836,7 @@ function indexData(){
 
 ここまで記述したらブラウザで表示を確認する．DBに保存されているデータが下のようにリスト表示されていればOK．
 
-![APIリスト表示](img/api_list.png)
+![APIリスト表示](img/20190123-api_list.png)
 
 ### **【解説】$.ajax()と$.getJSON()**
 
@@ -2961,7 +2961,7 @@ function storeData(){
 
 ここまで記述したらブラウザで表示を確認する．フォームに入力し，送信ボタンクリック時にリスト表示に追加されればOK．
 
-![APIデータ登録](img/api_store.png)
+![APIデータ登録](img/20190123-api_store.png)
 
 ### **6. javascriptを用いたAPIの呼び出しと画面表示④ -削除処理**
 
@@ -3020,7 +3020,7 @@ function deleteData(id){
 
 記述したらブラウザで表示を確認する．削除ボタンをクリックして，該当するデータが表示されなくなればOK．
 
-![APIデータ削除](img/api_destroy.png)
+![APIデータ削除](img/20190123-api_destroy.png)
 
 ここまでで，APIの機能を用いた「登録」「表示」「削除」の機能が完成した．
 
