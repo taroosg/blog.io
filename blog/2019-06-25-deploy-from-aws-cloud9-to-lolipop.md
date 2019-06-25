@@ -33,7 +33,7 @@ slug: deploy-from-aws-cloud9-to-lolipop
 
 登録したらプロジェクトページを開いておくと良い．
 
-[https://mc.lolipop.jp/signup?cp=gs_academy](https://mc.lolipop.jp/signup?cp=gs_academy)
+[https://mc.lolipop.jp/signup](https://mc.lolipop.jp/signup)
 
 ## **2. aws cloud9でssh-keyを作成する．**
 **※aws cloud9での操作**
