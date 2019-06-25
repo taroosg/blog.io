@@ -23,6 +23,8 @@ slug: deploy-from-aws-cloud9-to-lolipop
 - 6. lolipopでssh-keyを発行し，githubに登録する．
 - 7. lolipopへデプロイする．
 
+※以下，AWScloud9ではlaravelのプロジェクトを実装しているものとして進める．
+
 <div style="page-break-before:always"></div>
 
 
