@@ -1,5 +1,5 @@
 ---
-title: ubuntuでnodejsとnpmをインストールしたときのメモ
+title: ubuntuでnode.jsとnpmをインストールしたときのメモ
 date: 2019-06-26 00:00:00
 description: "開発するときたいていnodeが必要になるので一通りの流れをメモ"
 slug: node-install-at ubuntu
