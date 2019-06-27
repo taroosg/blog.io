@@ -1,6 +1,6 @@
 ---
 title: SQLで自分のIDを除外したいとき
-date: 2019-06-26 00:00:00
+date: 2019-06-27 00:00:00
 description: "ユーザを検索するときに，ログインしているユーザは検索結果から除外したかった．"
 slug: where-without-me-at-sql
 ---
