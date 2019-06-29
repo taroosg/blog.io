@@ -15,8 +15,8 @@ javascriptの備忘録的なやつ．
 
 こういうときに環境変数によらず`options`が全部trueになる．．．
 ```javascript
-    const options = hoge.env.DEBUG
-      ? { hoge: true }: { hoge: false };
+const options = hoge.env.DEBUG
+  ? { hoge: true }: { hoge: false };
 ```
 
 ## **原因**
@@ -32,8 +32,8 @@ javascriptの備忘録的なやつ．
 こうじゃ！
 
 ```javascript
-    const options = JSON.parse(hoge.env.DEBUG)
-      ? { hoge: true }: { hoge: false };
+const options = JSON.parse(hoge.env.DEBUG)
+  ? { hoge: true }: { hoge: false };
 ```
 
 以上だ( `･ω･)b
