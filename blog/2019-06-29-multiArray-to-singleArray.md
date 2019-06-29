@@ -9,7 +9,7 @@ slug: multiArray-to-singleArray
 
 更新日：2019/06/29
 
-備忘録的なやつ．
+javascriptの備忘録的なやつ．
 
 ## **状況**
 
@@ -39,6 +39,8 @@ const multiArray2singleArray = (multiArray) => {
     }, []);
 };
 ```
+
+`reduce`関数で配列を要素に分け，配列じゃなくなるまで再帰的に実行する．
 
 後は実行してあげればOK！
 ```javascript
