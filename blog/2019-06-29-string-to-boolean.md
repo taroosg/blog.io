@@ -1,6 +1,6 @@
 ---
 title: 文字列のtrueをbooleanのtrueにしたい
-date: 2019-06-27 00:00:00
+date: 2019-06-29 00:00:00
 description: "環境変数でtrueとかfalseとか読み込んだら文字列として認識されて死んだ"
 slug: string-to-boolean
 ---
