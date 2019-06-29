@@ -107,3 +107,4 @@ slug: mental-for-self-running
 
 - ### **無力さを知ることで対応できる！**
 
+以上だ( `･ω･)b

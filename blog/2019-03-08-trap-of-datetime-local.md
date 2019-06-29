@@ -49,4 +49,4 @@ slug: trap-of-datetime-local
 1. strtotime()関数でunix時間になおす．
 2. date()関数でフォーマットを合わせる．\Tを入れる点に注意．
 
-以上である！！
+以上だ( `･ω･)b

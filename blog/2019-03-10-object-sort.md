@@ -64,4 +64,4 @@ console.log(arr.sort(compare));
 
 ソートの順序を逆にするには`return`のところで`-1`を外せばOK！
 
-以上である！！
+以上だ( `･ω･)b

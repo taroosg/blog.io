@@ -25,3 +25,5 @@ slug: reset-auto-increment
 ```sql
 ALTER TABLE テーブル名 AUTO_INCREMENT = 1;
 ```
+
+以上だ( `･ω･)b

@@ -1739,5 +1739,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 いずれの処理を実行する際にも，画面の更新や遷移は発生せず，コンポーネントの切り替えのみで実行されている点に着目しよう．
 
+以上だ( `･ω･)b
 
 

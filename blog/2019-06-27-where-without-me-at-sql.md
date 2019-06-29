@@ -9,7 +9,7 @@ slug: where-without-me-at-sql
 
 更新日：2019/06/27
 
-備忘録的なやつ．
+sqlの備忘録的なやつ．
 
 ## **状況**
 
@@ -79,4 +79,4 @@ MariaDB [mydb]> select * from users where id<4 and id!=1;
 
 phpで実行する場合は，`id!=1`の部分をログインユーザのidを取得してきて置き換えてあげればOK！
 
-以上だ( `･ω･)
+以上だ( `･ω･)b

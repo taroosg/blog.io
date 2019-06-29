@@ -372,4 +372,4 @@ $ ln -s /var/www/project/public/ /var/www/html
 
 ブラウザでプロジェクトのurlにアクセスして表示されればOK！
 
-以上である！！！
+以上だ( `･ω･)b

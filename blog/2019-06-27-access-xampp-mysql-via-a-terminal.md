@@ -59,4 +59,4 @@ export PATH="/Applications/xampp/xamppfiles/bin:$PATH"
 $ mysql -u root -p
 ```
 
-以上だ( `･ω･)
+以上だ( `･ω･)b

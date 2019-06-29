@@ -64,3 +64,5 @@ flexboxは横並びだけでなく縦並びでも活躍する．
 大体のレイアウトが載っているサンプル集．
 
 [https://www.nxworld.net/tips/flexbox-examples.html](https://www.nxworld.net/tips/flexbox-examples.html)
+
+以上だ( `･ω･)b
