@@ -2685,14 +2685,26 @@ protected $middlewareGroups = [
 
 `public/js`に`api_ajax.js`を作成する．（この時点では中身は空のままでOK）
 
-続いて，上記ファイルを読み込みを行うよう，`resources/views/layouts/app.blade.php`に以下を追記する．ajax通信に使用するjqueryライブラリの読み込みも合わせて記述する．
+続いて，上記ファイルを読み込みを行うよう，`resources/views/api_ajax.blade.php`に以下を追記する．
+
+`@section`のすぐ下に追記すればOK．
+
+```diff
+@extends('layouts.app')
+@section('content')
++   <script src="{{ secure_asset('js/api_ajax.js') }}" defer></script>
+    <div class="panel-body">
+        <form class="form-horizontal" id="api_form">
+...
+```
+
+また，ajax通信に使用するjqueryライブラリの読み込みも合わせて記述する．こちらは他のファイルで使用する可能性もあるので`resources/views/layouts/app.blade.php`に追記する．
 
 ```diff
 ...
     <!-- Scripts -->
     <script src="{{ secure_asset('js/app.js') }}" defer></script>
 +   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-+   <script src="{{ secure_asset('js/api_ajax.js') }}" defer></script>
 ...
 ```
 
