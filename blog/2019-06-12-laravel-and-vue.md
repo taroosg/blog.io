@@ -1,6 +1,6 @@
 ---
 title: Laravel API & vue-routerでSPA開発
-date: 2019-06-12 00:00:00
+date: 2019-07-15 00:00:00
 description: "フロントエンドはvue.js，サーバはLaravelのAPIでつくるSPAアプリケーションのチュートリアル"
 image: "./images/laravel-vue-spa-example.jpg"
 slug: laravel-vue-spa-example
@@ -8,7 +8,7 @@ slug: laravel-vue-spa-example
 
 作成日：2019/02/08
 
-更新日：2019/06/12
+更新日：2019/07/15
 
 実行環境：aws cloud9
 
@@ -302,7 +302,7 @@ Generating autoload files
 - 実際にLaravelプロジェクトを作成する．
 - インストールできる範囲で最新のLaravelがインストールされる．
 
-以下を入力．（cmsという名前でプロジェクトを作成する）
+以下を入力．（spaという名前でプロジェクトを作成する）
 ```bash
 $ composer create-project laravel/laravel spa
 ```
@@ -320,7 +320,7 @@ Application key set successfully.
 
 以下でLaravelのバージョンを確認できる．
 ```bash
-$ cd cms
+$ cd spa
 $ php artisan --version
 ```
 実行結果（バージョンは5.8.21）
@@ -536,7 +536,7 @@ $ npm run watch
 
 ### **1. DBの準備**
 
-1. 「`.env`」ファイルにデータベースの設定を記述する．cmsディレクトリ直下に配置されている．
+1. 「`.env`」ファイルにデータベースの設定を記述する．spaディレクトリ直下に配置されている．
 
 2. 「`.env`」ファイルは隠しファイルなので，表示されていない場合は，ファイルツリー画面右上の歯車マークをクリックして「Show Hidden Files」にチェックを入れると表示される．
 
@@ -614,9 +614,9 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql> 
 ```
 
-データベースを作成する．以下のコマンドで「cms」データベースを作成．
+データベースを作成する．以下のコマンドで「spa」データベースを作成．
 ```bash
-mysql> create database cms;
+mysql> create database spa;
 ```
 
 実行結果
