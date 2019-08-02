@@ -1,13 +1,13 @@
 ---
 title: 多次元配列を1次元配列にしたい
-date: 2019-06-29 00:00:00
+date: 2019-08-02 00:00:00
 description: "適当なところからデータを持ってきて配列に配列を入れたけど一つの配列にしたかった"
 slug: multiArray-to-singleArray
 ---
 
 作成日：2019/06/29
 
-更新日：2019/06/29
+更新日：2019/08/02
 
 javascriptの備忘録的なやつ．
 
@@ -53,5 +53,26 @@ const multiArray = [
 
 console.log(multiArray2singleArray(multiArray));
 ```
+
+## **2019/08/02追記**
+
+`Array.prototype.flat()`で一撃．．！
+
+古いブラウザは知らん．
+
+```javascript
+const multiArray = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12],
+    [13, 14, 15, 16]
+];
+
+console.log(multiArray.flat());
+```
+
+参考サイト
+
+[https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/flat](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
 
 以上だ( `･ω･)b
