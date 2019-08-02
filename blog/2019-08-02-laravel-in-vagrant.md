@@ -31,9 +31,11 @@ vagrantのコマンドを実行すると，自動でvagrant fileが読み込ま�
 ## **virtualboxとvagrantの準備**
 
 下記urlからvirtualboxのダウンロード -> インストール
+
 [https://www.virtualbox.org/](https://www.virtualbox.org/)
 
 下記urlからvagrantのダウンロード -> インストール．
+
 [https://www.vagrantup.com/downloads.html](https://www.vagrantup.com/downloads.html)
 
 ※ macOSの場合
