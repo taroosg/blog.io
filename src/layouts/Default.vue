@@ -1,107 +1,86 @@
 <template>
-  <div class="layout">
+  <div id="app">
     <header class="header">
-      <g-link class="heading-link" :to="{ name: 'home' }">
-        <component :is="titleTag" class="heading">{{ config.siteName }}</component>
-      </g-link>
+      <div class="header__left">
+        <Logo v-if="showLogo" />
+      </div>
+
+      <div class="header__right">
+        <ToggleTheme />
+      </div>
     </header>
-    <slot/>
+
+    <main class="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <span class="footer__copyright">Copyright © {{ new Date().getFullYear() }}.</span>
+      <span class="footer__links">
+        Powered by
+        <a href="//taroosg.io">prisma codes</a>
+      </span>
+    </footer>
   </div>
 </template>
 
 <script>
-import config from '~/.temp/config.js';
+import Logo from "~/components/Logo.vue";
+import ToggleTheme from "~/components/ToggleTheme.vue";
 
 export default {
-  computed: {
-    titleTag () {
-      return this.$route.name === 'home' ? 'h1' : 'h6'
-    },
-    config () {
-      return config
-    }
+  props: {
+    showLogo: { default: true }
+  },
+  components: {
+    Logo,
+    ToggleTheme
   }
-}
+};
 </script>
 
+<style lang="scss">
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--header-height);
+  padding: 0 calc(var(--space) / 2);
+  top: 0;
+  z-index: 10;
 
-<style lang="css">
-  /* * {
-    margin: 0;
-    padding: 0;
-  } */
-  html{
-    max-width: 1024px;
-    margin: 0 auto;
-    color: #dbddde;
-    background: #10171d;
-    font-feature-settings : "palt";
+  &__left,
+  &__right {
+    display: flex;
+    align-items: center;
   }
+
+  @media screen and (min-width: 1300px) {
+    //Make header sticky for large screens
+    position: sticky;
+    width: 100%;
+  }
+}
+
+.main {
+  margin: 0 auto;
+  padding: 1.5vw 15px 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--space) / 2);
+  text-align: center;
+  font-size: 0.8em;
+
+  > span {
+    margin: 0 0.35em;
+  }
+
   a {
-    /* color: #4dba87; */
-    /* color: #ffcb2e; */
-    text-decoration: none;
+    color: currentColor;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    /* font-family: 'Mali', cursive; */
-    font-family: 'M PLUS Rounded 1c', cursive;
-    color: #bd93f8
-  }
-
-  h1 {
-    font-size: 48px;
-  }
-
-  h6 {
-    font-size: 20px;
-  }
-
-  body {
-    /* font-family: 'Nunito', sans-serif; */
-    font-family: 'M PLUS Rounded 1c', cursive;
-    margin: 0;
-    font-size: 1.1rem;
-    padding: 0;
-  }
-
-  .heading-link {
-    color: black;
-    text-decoration: none;
-  }
-
-  .layout {
-    /* max-width: 600px; */
-    margin: 0 auto;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .layout {
-    margin-top: 30px;
-    margin-bottom: 50px;
-  }
-
-  .heading {
-    margin-bottom: 20px;
-    font-family: 'Mali', cursive;
-    font-weight: bold;
-    color: #51fa7b;
-  }
-
-  pre{
-    font-size: 1.2rem;
-    margin-left: 20px;
-    background: #364549;
-    color: #e3e3e3;
-    padding: 15px;
-    overflow: auto;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    border-radius: 5px;
-  }
-
-  blockquote{
-    border-left: 3px solid #bd93f8;
-  }
+}
 </style>

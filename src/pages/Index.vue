@@ -1,66 +1,53 @@
 <template>
-  <Layout class="home">
-    <ul>
-      <li v-for="{ node } in $page.allBlogPost.edges" :key="node._id">
-        <router-link :to="node.path">
-          <h2 v-html="node.title"/>
-        </router-link>
-        <span v-html="node.date"/>
-        <div v-html="node.description"/>
-      </li>
-    </ul>
+  <Layout :show-logo="false">
+    <!-- Author intro -->
+    <Author :show-title="true" />
+
+    <!-- List posts -->
+    <div class="posts">
+      <PostCard v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node" />
+    </div>
   </Layout>
 </template>
 
 <page-query>
-  query Home ($page: Int) {
-    allBlogPost (page: $page) {
-      edges {
-        node {
-          _id
+{
+  posts: allPost(filter: { published: { eq: true }}) {
+    edges {
+      node {
+        id
+        title
+        path
+        tags {
+          id
           title
-          date (format: "D MMMM, YYYY")
-          description
           path
+        }
+        date (format: "D. MMMM YYYY")
+        timeToRead
+        description
+        ...on Post {
+            id
+            title
+            path
         }
       }
     }
   }
+}
 </page-query>
 
-<style scoped>
-  .home >>> .heading {
-    margin-bottom: 70px;
-  }
+<script>
+import Author from "~/components/Author.vue";
+import PostCard from "~/components/PostCard.vue";
 
-  ul {
-    list-style: none;
-    padding: 0;
+export default {
+  components: {
+    Author,
+    PostCard
+  },
+  metaInfo: {
+    title: "prisma codes"
   }
-
-  ul li {
-    margin-bottom: 20px;
-    background: #24303d;
-    padding: 20px;
-    border-radius: 5px;
-  }
-
-  ul li a h2 {
-    margin-bottom: 10px;
-    margin-top: 0;
-  }
-
-  span {
-    font-size: 80%;
-    padding: 0;
-  }
-
-  ul li p:first-child {
-    margin-top: 3px;
-  }
-
-  ul li p {
-    margin: 0;
-    line-height: 1.5;
-  }
-</style>
+};
+</script>
