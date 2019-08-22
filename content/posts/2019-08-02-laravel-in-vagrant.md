@@ -11,12 +11,12 @@ slug: laravel-in-vagrant
 
 作成日：2019/08/02
 
-更新日：2019/08/02
+更新日：2019/08/22
 
 実行OS：macOS 10.14.6
 
 
-## **用語の解説**
+## **用語の解解説**
 
 - virtualbox
 virtualboxは仮想のPC．PCの中に仮想のPC（virtual machine）を入れることができる．
@@ -287,6 +287,22 @@ Bringing machine 'homestead-7' up with 'virtualbox' provider...
 ==> homestead-7: flag to force provisioning. Provisioners marked to run always will still run.
 ```
 
+
+## **【補足】windowsでうまく行かない場合**
+
+windowsでは，PC自体の仮想化設定が無効化されている場合がある．
+
+うまく仮想マシンが立ち上がらない場合は以下の手順を実行する．
+
+- biosに入る．
+
+- intelのcpuの場合は`Intel VT（Intel Virtualization Technology）`の項目を探し，有効化する．
+
+- AMDのcpuの場合は`svm`の項目を探し，有効化する．
+
+- 設定を保存して再起動し，再度`vagrant up`を実行する．
+
+
 ## **仮想マシンへログイン**
 
 起動に成功したら仮想マシンにログインする．以下のコマンドを実行．
@@ -489,7 +505,8 @@ Bye
 
 ホームディレクトリ直下の`code`ディレクトリにコードが保存されているので，vs codeなどで編集する．
 
-例：設定ファイル（.env）をいじる．
+例：設定ファイル（.env）をいじる．バージョンによってはユーザー名とパスワードが異なるが，下記のように設定すれば（多分）うまくいく．
+
 ```diff
 DB_CONNECTION=mysql
 DB_HOST=localhost
@@ -518,7 +535,7 @@ Created Migration: 2019_08_07_062548_create_hoge_table
 mysqlにログインして確認し，テーブルができていればOK．
 
 
-## **追加でプロジェクト作成する手順（例としてproject02を追加）**
+## **プロジェクト追加手順（例としてproject02を追加）**
 
 Homestedにログインしている場合はログアウトする．
 
@@ -532,7 +549,7 @@ vagrantを終了させておく
 $ vagrant halt
 ```
 
-homestead.yamlを編集する．プロジェクト名，アドレス，DBを追加．
+`homestead.yaml`を編集する．プロジェクト名，アドレス，DBを追加．
 
 ```diff
 ip: "192.168.30.10"
@@ -562,7 +579,7 @@ databases:
 +   - homestead_project02
 ```
 
-hostsに上記内容を追記する．
+`hosts`に上記内容を追記する．
 
 ```bash
 $ sudo vi /etc/hosts
@@ -576,7 +593,7 @@ windowsは管理者権限でメモ帳を開き，`C:\Windows\System32\drivers\et
 192.168.30.10 project01.test project02.test
 ```
 
-hostsとHomestead.yamlを編集したら以下を実行．
+`hosts`と`Homestead.yaml`を編集したら以下を実行．
 
 ```bash
 $ vagrant up --provision
@@ -602,7 +619,122 @@ vagrant@homestead:~/code$ laravel new project02
 - [http://project02.test](http://project02.test)
 
 
-## **その他補足**
+## **phpmyadminを追加してみる**
+
+### **準備**
+
+仮想サーバーにログインする．
+
+```bash
+$ vagrant ssh
+```
+
+ログインしたら，一旦ファイアーウォールを無効化する．
+
+```bash
+vagrant@homestead:~/code$ sudo ufw disable
+```
+
+### **phpmyadminのインストール**
+
+下記コマンドを実行する．
+
+```bash
+vagrant@homestead:~/code$ sudo apt-get update
+```
+
+続けて下記を実行．
+
+```bash
+vagrant@homestead:~/code$ sudo apt-get install phpmyadmin
+```
+
+途中で`Do you want to continue? [Y/n]`訊かれたらyですすめる．
+
+サーバーの選択は`apache2`を選択．
+
+`php.ini`に関する質問は`keep the local version currently installed`を選択．
+
+`Configure database for phpmyadmin with dbconfig-common?`は`No`を選択．
+
+実行結果
+```bash
+...
+Creating config file /etc/dbconfig-common/phpmyadmin.conf with new version
+
+Creating config file /etc/phpmyadmin/config-db.php with new version
+dbconfig-common: flushing administrative password
+Setting up php (2:7.3+69+ubuntu18.04.1+deb.sury.org+2+php7.3) ...
+```
+
+### **Homestead.yamlの修正**
+
+一旦仮想サーバーから出る．
+
+```bash
+vagrant@homestead:~/code$ exit
+```
+
+下記コマンドで`Homestead.yaml`を開く．
+
+```bash
+$ vi Homestead.yaml
+```
+
+下記のように追記する．
+
+```bash
+sites:
+    ...
+    - map: db.phpmyadmin
+      to: /usr/share/phpmyadmin/
+```
+
+### **hostsファイルの修正**
+
+`hosts`ファイルに追記する．以下のコマンドで`hosts`ファイルを開く．windowsは管理者権限でメモ帳を開き，`C:\Windows\System32\drivers\etc\hosts`を編集する．
+
+```bash
+$ sudo vi /etc/hosts
+```
+
+末尾に以下を追記する．
+
+```bash
+192.168.30.10 db.phpmyadmin
+```
+
+### **動作確認**
+
+以下のコマンドで仮想サーバーを立ち上げる．設定を反映するため`--provision`をつける必要がある．
+
+```bash
+$ vagrant up --provision
+```
+
+立ち上がったらブラウザで`http://db.phpmyadmin/`にアクセス．下記画面が表示されればOK．
+
+![phpmyadminログイン](img/20190802-vagrant_laravel_phpmyadmin_login.png)
+
+ユーザ名とパスワードは下記の通り．
+
+```text
+ユーザ名： homestead
+パスワード： secret
+```
+
+表示がおかしい場合はリロードすると大体直る．
+
+ダメな場合は一旦仮想サーバ落として再度設定ファイル読み込み→立ち上げでなんとかなる場合が多い．
+
+```bash
+$ vagrant halt
+$ vagrant provison
+$ vagrant up
+```
+
+
+## **削除関連**
 
 ### **プロジェクトの削除**
 
@@ -632,5 +764,6 @@ $ vagrant destroy
 ```
 
 残った`Homestead`フォルダを削除して完了．
+
 
 以上である( `･ω･)b
