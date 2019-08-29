@@ -1,4 +1,4 @@
-# prisma codes
+# prisma code
 
 > Notes on programming.
 

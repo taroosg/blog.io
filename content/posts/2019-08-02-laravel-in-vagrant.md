@@ -16,7 +16,7 @@ slug: laravel-in-vagrant
 実行OS：macOS 10.14.6
 
 
-## **用語の解解説**
+## **用語の解説**
 
 - virtualbox
 virtualboxは仮想のPC．PCの中に仮想のPC（virtual machine）を入れることができる．

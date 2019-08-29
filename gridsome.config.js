@@ -5,7 +5,7 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'Prisma Codes',
+  siteName: 'Prisma Code',
   siteDescription: 'Notes on programming.',
 
   plugins: [

@@ -18,7 +18,7 @@
       <span class="footer__copyright">Copyright © {{ new Date().getFullYear() }}.</span>
       <span class="footer__links">
         Powered by
-        <a href="//taroosg.io">prisma codes</a>
+        <a href="//taroosg.io">prisma code</a>
       </span>
     </footer>
   </div>

@@ -47,7 +47,7 @@ export default {
     PostCard
   },
   metaInfo: {
-    title: "Prisma Codes"
+    title: "Prisma Code"
   }
 };
 </script>
