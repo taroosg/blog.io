@@ -11,7 +11,7 @@ slug: laravel-crud-example
 
 作成日：2019/01/23
 
-更新日：2019/06/11
+更新日：2019/09/05
 
 実行環境：aws cloud9
 
@@ -512,12 +512,17 @@ DB_CONNECTION=mysql
 -DB_HOST=127.0.0.1
 +DB_HOST=localhost
 DB_PORT=3306
--DB_DATABASE=homestead
+-DB_DATABASE=laravel
 +DB_DATABASE=cms
--DB_USERNAME=homestead
-+DB_USERNAME=root
--DB_PASSWORD=secret
+DB_USERNAME=root
+-DB_PASSWORD=
 +DB_PASSWORD=root
+```
+
+5. 以下のコマンドを実行し，`.env`ファイルを読み込む．`.env`ファイルの内容はcacheに保存されているので，変更したらcacheを消去しないと変更内容が読み込まれない．サーバを再度立ち上げ直してもOK．
+
+```bash
+$ php artisan config:cache
 ```
 
 ### **2. データベースの確認**
