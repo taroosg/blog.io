@@ -22,13 +22,13 @@ todoリストを作成し，ログインユーザが登録したデータだけ�
 
 ## 認証機能の実装
 
-### google認証の準備
+### - google認証の準備
 
 1. コンソール画面から「Authentication」→「ログイン方法」に進み，「google」の項目で「有効にする」のトグルをオン．
 
 2. 「プロジェクトのサポートメール」でメールアドレスを選択し，「保存」をクリック．これでgoogleログインの準備は完了．
 
-### github認証の準備
+### - github認証の準備
 
 1. コンソール画面から「Authentication」→「ログイン方法」に進み，「github」の項目で「有効にする」のトグルをオン．画面は一旦このままにしておく．
 
@@ -44,7 +44,7 @@ todoリストを作成し，ログインユーザが登録したデータだけ�
 「同一のメールアドレスを使用して複数のアカウントを作成できるようにします」を選択して「保存」をクリック．
 
 
-### gcpコンソールでの操作
+### - gcpコンソールでの操作
 
 認証するには認証を実行するアプリのurlを追加しておく必要がある．
 
@@ -61,7 +61,7 @@ todoリストを作成し，ログインユーザが登録したデータだけ�
 「created_at」はtimestamp型で入れる．入力したら「保存」をクリック．
 
 
-## webアプリの実装
+## - webアプリの実装
 
 firebaseとの接続は済ませておく（APIキーの記述など）．
 htmlは`button`と`input`などを記述しておく．
@@ -101,7 +101,7 @@ htmlは`button`と`input`などを記述しておく．
 </script>
 ```
 
-### ログインとログアウトの実装
+### - ログインとログアウトの実装
 
 [googleログイン](https://firebase.google.com/docs/auth/web/google-signin)と[githubログイン](https://firebase.google.com/docs/auth/web/github-auth)を参考に進める．
 
@@ -137,7 +137,7 @@ const signout = () => {
 
 ```
 
-### データ追加処理の実装
+### - データ追加処理の実装
 
 [リファレンス](https://firebase.google.com/docs/firestore/quickstart?authuser=0#add_data)を参考に進める．
 
@@ -158,7 +158,7 @@ const addTodo = task => {
 }
 ```
 
-### データ取得処理の実装
+### - データ取得処理の実装
 
 ※ログイン・ログアウト処理の関数よりも上に記述する．
 とりあえずリアルタイムに全件取得する．
@@ -194,7 +194,7 @@ document.getElementById('submit').addEventListener('click', () => user.uid ? add
 
 ## データの並び替えとフィルタリング
 
-### データの並び替え
+### - データの並び替え
 
 古い順に表示したいので，orderbyを使用して順番を変更する．[リファレンス](https://firebase.google.com/docs/firestore/query-data/order-limit-data#order_and_limit_data)を参考にコードを修正する．
 
@@ -214,7 +214,7 @@ const getTodo = () => {
 }
 ```
 
-### データの絞り込み
+### - データの絞り込み
 
 ログインしているユーザが登録したデータだけを表示したいのでwhereを使用して絞り込みを行う．[リファレンス](https://firebase.google.com/docs/firestore/query-data/queries#simple_queries)を参考にコードを修正する．
 
