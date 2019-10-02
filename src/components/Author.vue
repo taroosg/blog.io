@@ -14,7 +14,7 @@
     <p class="author__intro">Notes on programming.</p>
 
     <p class="author__links">
-      <a href="//twitter.com/taro_osg" target>Follow on Twitter</a>
+      <a href="//twitter.com/taro_osg" target>Twitter</a>
       <a href="//github.com/taroosg">GitHub</a>
     </p>
   </div>
