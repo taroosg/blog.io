@@ -81,6 +81,7 @@ file_put_contents('data/data.txt', json_encode($array) . "\n", FILE_APPEND | LOC
 第3引数の`FILE_APPEND | LOCK_EX`はそれぞれ
 - 追記書き込み
 - 実行中はファイルロック
+
 を表している．上記を指定することで，`fopen()`と`fwrite()`を使用した方法と同じ挙動となる．
 
 引数がわかりやすい上に記述も短い．こちらを利用するほうが良さそう．
