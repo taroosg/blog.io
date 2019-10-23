@@ -213,7 +213,7 @@ Usage:
 
 ### PHPのバージョンアップ
 
-- Laravelの最新バージョンでは「PHP7.0以上」が必要となる．
+- Laravelの最新バージョンでは「PHP7.2以上」が必要となる．
 - とりあえず最新版にしておく．
 
 ターミナルで以下を実行．
@@ -1181,27 +1181,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 【Point】最初はどの処理が定義されているかがわかりにくいので，都度下記の表を確認することを推奨．それぞれの処理にurl（URI）が定義されており，名前もつけられている（Route Name）．どちらを使用してもOK（後述）．また，「PUT」「PATCH」「DELETE」メソッドはlaravel独自のもの（後述）．
 
-<!-- |Verb       |URI                |Action   |Route Name     |解説
-|---        |---                |---      |---            |---
-|GET      	|/tasks             |index    |tasks.index    |データの一覧を取得する処理
-|GET      	|/tasks/create     	|create	  |tasks.create   |データ追加画面へ移動する処理
-|POST	      |/tasks	            |store  	|tasks.store    |dbへデータを追加する処理
-|GET	      |/tasks/{task}	    |show	    |tasks.show     |データを1件取得する処理
-|GET	      |/tasks/{task}/edit |edit     |tasks.edit     |データ更新画面へ移動する処理
-|PUT/PATCH	|/tasks/{task}	    |update	  |tasks.update   |dbのデータを更新する処理
-|DELETE	    |/tasks/{task}      |destroy	|tasks.destroy  |dbのデータを削除する処理 -->
-
 ```
 +------------+---------------------+----------+----------------+---------------------------+
 | method     | uri                 | action   | route name     | explanation               |
 +------------+---------------------+----------+----------------+---------------------------+
 | GET        | /tasks              | index    | tasks.index    | データの一覧を取得する処理    |
-| GET        | /tasks/create       | create   | tasks.create   | データ追加画面へ移動する処理  |
-| POST       | /tasks              | store    | tasks.store    | dbへデータを追加する処理     |
-| GET        | /tasks/{task}       | show     | tasks.show     | データを1件取得する処理      |
-| GET        | /tasks/{task}/edit  | edit     | tasks.edit     | データ更新画面へ移動する処理  |
-| PUT/PATCH  | /tasks/{task}       | update   | tasks.update   | dbのデータを更新する処理     |
-| DELETE     | /tasks/{task}       | destroy  | tasks.destroy  | dbのデータを削除する処理     |
+| GET        | /tasks/create       | create   | tasks.create   | データ追加画面へ移動する処理   |
+| POST       | /tasks              | store    | tasks.store    | dbへデータを追加する処理      |
+| GET        | /tasks/{task}       | show     | tasks.show     | データを1件取得する処理       |
+| GET        | /tasks/{task}/edit  | edit     | tasks.edit     | データ更新画面へ移動する処理   |
+| PUT/PATCH  | /tasks/{task}       | update   | tasks.update   | dbのデータを更新する処理      |
+| DELETE     | /tasks/{task}       | destroy  | tasks.destroy  | dbのデータを削除する処理      |
 +------------+---------------------+----------+----------------+---------------------------+
 ```
 
