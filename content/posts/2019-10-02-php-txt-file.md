@@ -97,7 +97,7 @@ file_put_contents('data/data.txt', json_encode($array) . "\n", FILE_APPEND | LOC
 
 書き込みで作成したデータ（`data/data.txt`）を読み込み，json形式にしてechoする．
 
-### - fopen()fgets()する方法
+### - fopen()してfgets()する方法
 
 （多分）一般的な方法．流れもわかりやすい．
 
