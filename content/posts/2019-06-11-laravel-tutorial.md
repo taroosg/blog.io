@@ -529,7 +529,7 @@ laravelではwebアプリケーションでよく使用されるライブラリ�
 コマンドで以下を実行する．ターミナルのカレントディレクトリが「project01」であることを確認する．
 
 ```bash
-sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
+$ sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
 ```
 
 実行結果
@@ -850,19 +850,19 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTasksTable extends Migration
 {
-    public function up()
-    {
-        Schema::create('テーブル名', function (Blueprint $table) {
-            $table->increments('id');
-            //ここに必要なカラム名を追記する．
-            $table->timestamps();
-        });
-    }
+  public function up()
+  {
+    Schema::create('テーブル名', function (Blueprint $table) {
+      $table->increments('id');
+      //ここに必要なカラム名を追記する．
+      $table->timestamps();
+    });
+  }
 
-    public function down()
-    {
-        Schema::dropIfExists('テーブル名');
-    }
+  public function down()
+  {
+    Schema::dropIfExists('テーブル名');
+  }
 }
 ```
 
@@ -899,18 +899,18 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTasksTable extends Migration
 {
-    public function up()
-    {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
-    }
+  public function up()
+  {
+    Schema::create('tasks', function (Blueprint $table) {
+      $table->increments('id');
+      $table->timestamps();
+    });
+  }
 
-    public function down()
-    {
-        Schema::dropIfExists('tasks');
-    }
+  public function down()
+  {
+    Schema::dropIfExists('tasks');
+  }
 }
 ```
 
@@ -1181,7 +1181,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 【Point】最初はどの処理が定義されているかがわかりにくいので，都度下記の表を確認することを推奨．それぞれの処理にurl（URI）が定義されており，名前もつけられている（Route Name）．どちらを使用してもOK（後述）．また，「PUT」「PATCH」「DELETE」メソッドはlaravel独自のもの（後述）．
 
-|Verb       |URI                |Action   |Route Name     |解説
+<!-- |Verb       |URI                |Action   |Route Name     |解説
 |---        |---                |---      |---            |---
 |GET      	|/tasks             |index    |tasks.index    |データの一覧を取得する処理
 |GET      	|/tasks/create     	|create	  |tasks.create   |データ追加画面へ移動する処理
@@ -1189,7 +1189,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 |GET	      |/tasks/{task}	    |show	    |tasks.show     |データを1件取得する処理
 |GET	      |/tasks/{task}/edit |edit     |tasks.edit     |データ更新画面へ移動する処理
 |PUT/PATCH	|/tasks/{task}	    |update	  |tasks.update   |dbのデータを更新する処理
-|DELETE	    |/tasks/{task}      |destroy	|tasks.destroy  |dbのデータを削除する処理
+|DELETE	    |/tasks/{task}      |destroy	|tasks.destroy  |dbのデータを削除する処理 -->
+
+```
++------------+---------------------+----------+----------------+---------------------------+
+| method     | uri                 | action   | route name     | explanation               |
++------------+---------------------+----------+----------------+---------------------------+
+| GET        | /tasks              | index    | tasks.index    | データの一覧を取得する処理    |
+| GET        | /tasks/create       | create   | tasks.create   | データ追加画面へ移動する処理  |
+| POST       | /tasks              | store    | tasks.store    | dbへデータを追加する処理     |
+| GET        | /tasks/{task}       | show     | tasks.show     | データを1件取得する処理      |
+| GET        | /tasks/{task}/edit  | edit     | tasks.edit     | データ更新画面へ移動する処理  |
+| PUT/PATCH  | /tasks/{task}       | update   | tasks.update   | dbのデータを更新する処理     |
+| DELETE     | /tasks/{task}       | destroy  | tasks.destroy  | dbのデータを削除する処理     |
++------------+---------------------+----------+----------------+---------------------------+
+```
 
 これらのうち今回使用するのは`index`，`store`，`edit`，`update`，`destroy`，のみなので，`web.php`で使用するものだけを明記しておく．それぞれ以下のような処理を表す．
 
