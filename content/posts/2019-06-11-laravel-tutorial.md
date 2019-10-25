@@ -382,7 +382,7 @@ Application key set successfully.
 $ cd project01
 $ php artisan --version
 ```
-実行結果（バージョンは6.3.0）
+実行結果（バージョンは6.3.0）．実行時の最新版がインストールされる．
 ```bash
 Laravel Framework 6.3.0
 ```
@@ -526,13 +526,15 @@ laravelではwebアプリケーションでよく使用されるライブラリ�
 
 まず，インストールするために必要なメモリ領域を増やしておく．これをやらないとメモリ不足でエラーになる場合があるため．
 
-コマンドで以下を実行する．ターミナルのカレントディレクトリが「project01」であることを確認する．
+メモリのサイズ自体は変更できないが，記憶領域の一部をメモリ用に割り当てることにより使用できるメモリ領域を増やしている（スワップ領域）．
+
+コマンドで以下を実行する．実行前に，ターミナルのカレントディレクトリが「project01」であることを確認しておくこと．
 
 ```bash
 $ sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
 ```
 
-実行結果
+実行結果．少し時間がかかるので待つ．
 ```bash
 2048+0 records in
 2048+0 records out
@@ -597,7 +599,7 @@ Please run "npm install && npm run dev" to compile your fresh scaffolding.
 Authentication scaffolding generated successfully.
 ```
 
-以下を実行．
+以下を実行．やや時間がかかるので待つ．
 ```bash
 $ npm install
 ```
@@ -616,7 +618,7 @@ found 0 vulnerabilities
 
 ### 1.3 ファイルのビルド
 
-次は実行に必要なファイルをビルドする．以下を実行．
+次は実行に必要なファイルをビルドする．以下を実行．やや時間がかかるので待つ．
 ```bash
 $ npm run dev
 ```
@@ -683,14 +685,9 @@ Configuration cached successfully!
 $ cd project01
 ```
 
-続けて以下を入力し，mysqlを起動する．はじめは管理者権限でないとログインできない．
+続けて以下を入力し，mysqlを起動&ログインする．はじめは管理者権限でないとログインできない．
 ```bash
-$ sudo mysql -u root -p
-```
-
-パスワードを求められるが，そのままenterでOK．（管理者権限なのでログインできる状態）
-```bash
-Enter password:
+$ sudo mysql
 ```
 
 実行結果．以降，mysql内で操作を行う．
@@ -784,10 +781,13 @@ Bye
 - ORMとは，DBのレコードをオブジェクトとして直感的に扱えるようにしたもので，SQLを意識せずにプログラムで処理を記述することができる．
 - Eloquent Modelは定義された「model」を用いることで簡単にDBへのデータ保存・取得を行える．
 - 1つのモデルが1つのテーブルに対応する．例えば，`tasks`テーブルに対して`Task`のようにモデルを定義すると自動的に対応する．モデル内に明示的に対応を記述することもできる．
+- テーブルに対してデータ操作を行う場合，対応するモデルに対して処理を実行することでdb操作を行うことができる．
 
 ### 3.2 モデル作成コマンドの実行
 
-下記コマンドでモデルを作成する．「-m」をつけることで対応するマイグレーションファイルも自動的に作成されるのでおすすめ．（マイグレーションはテーブル作成に必要．同時に作成するとテーブル名の設定が自動で行われる）
+「モデル」と「対応するテーブル」を作成する．ただし，テーブルは直接作成できないので，テーブル作成に必要な「マイグレーションファイル」を作成する．
+
+下記コマンドでモデルを作成する．「-m」をつけることで対応するマイグレーションファイルも自動的に作成されるのでおすすめ．（マイグレーションはテーブル作成に使用．同時に作成するとテーブル名の設定が自動で行われる）
 
 コマンド例
 ```bash
@@ -799,7 +799,7 @@ $ php artisan make:model モデル名
 $ php artisan make:model Task -m
 ```
 
-実行結果．「`tasks`」テーブルに対応するマイグレーションファイル（2019_10_21_000348_create_tasks_table）も同時に作成される．
+実行結果．「`tasks`」テーブルを作成するために使うマイグレーションファイル（2019_10_21_000348_create_tasks_table）も同時に作成される．
 ```bash
 Model created successfully.
 Created Migration: 2019_10_21_000348_create_tasks_table
@@ -1113,17 +1113,19 @@ $ php artisan migrate:status
 
 「どのurlにリクエストが来たときに」「どの関数を実行するか」を定めたもの．
 
-例：
+例：ルーティングは以下のような形で記述する．
 
-`https://******.com/`
-`https://******.com/home`
-`https://******.com/login`
+```php
+Route::get('/user/profile', 'UserController@index')->name('profile');
+```
 
-上の「`/home`」などの部分がルーティングで指定できるurl．ルーティングは「`/`」以降の文字列を使用し，アプリケーションの処理と紐付ける．
+この場合，`https://******.com/user/profile`にリクエストを送ることでコントローラ（`UserController`）の`index()`関数を実行させることができる．
 
-上記の例ではurlを指定しているが，それぞれのルーティングに名前をつけることもできる（後述）．
+また，`->name('profile')`を記述することで，リクエストのurlに名前を設定できる．この機能を使用した場合，リクエスト送信先を以下のように記述することもできる．
 
-処理自体はコントローラに記載した関数の関数名を指定する．
+```php
+$url = route('profile');
+```
 
 ルーティングは`/project01/routes/web.php`に記述する．ただし，今回は後述のコマンドで自動的に作成されるため，自身では記述しない．
 
@@ -1195,6 +1197,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 +------------+---------------------+----------+----------------+---------------------------+
 ```
 
+上記の内容は下記コマンドで確認することができる，
+
+```bash
+$ php artisan route:list
+```
+
 これらのうち今回使用するのは`index`，`store`，`edit`，`update`，`destroy`，のみなので，`web.php`で使用するものだけを明記しておく．それぞれ以下のような処理を表す．
 
 - タスクを一覧表示する処理
@@ -1204,7 +1212,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 - 完了したタスクを削除する処理
 
 
-下記のように編集する．`only`を記述することで，上記7処理のうち使用するものだけを明記することができる．これを行わないと，リクエストが来た際に実行する処理が存在せずエラーが発生してしまう．
+`/project01/routes/web.php` を下記のように編集する．`only`を記述することで，上記7処理のうち使用するものだけを明記することができる．これを行わないと，リクエストが来た際に実行する処理が存在せずエラーが発生してしまう．
 
 ```php
 <?php
@@ -1216,7 +1224,7 @@ Route::get('/', function () {
 // 下記のように編集
 Route::resource('tasks', 'TasksController')->only([
     'index', 'store', 'edit', 'update', 'destroy'
-]);;
+]);
 
 Auth::routes();
 
@@ -1241,40 +1249,40 @@ use App\Task;
 
 class TasksController extends Controller
 {
-    public function index()
-    {
-        //
-    }
+  public function index()
+  {
+    //
+  }
 
-public function create()
-    {
-        //
-    }
+  public function create()
+  {
+    //
+  }
 
-    public function store(Request $request)
-    {
-        //
-    }
+  public function store(Request $request)
+  {
+    //
+  }
 
-    public function show($id)
-    {
-        //
-    }
+  public function show($id)
+  {
+    //
+  }
 
-    public function edit($id)
-    {
-        //
-    }
+  public function edit($id)
+  {
+    //
+  }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
+  public function update(Request $request, $id)
+  {
+    //
+  }
 
-    public function destroy($id)
-    {
-        //
-    }
+  public function destroy($id)
+  {
+    //
+  }
 }
 ```
 
@@ -1396,10 +1404,10 @@ laravelで画面を作成する際はテンプレートエンジン「bladeテ�
 
 ```php
 public function index()
-  {
+{
     // 下記追加
-    return view('tasks');
-  }
+  return view('tasks');
+}
 ```
 
 「`return view('ファイル名')`」と記述することで指定したビューを表示する．`view()`に引数として渡した`tasks`がファイル名となる．ここでは「`tasks.blade.php`」を表す．
@@ -1534,6 +1542,19 @@ public function index()
 
 `return view('tasks')`で`tasks.blade.php`を表示するよう記述されているが，`['tasks' => $tasks]`部分で`$tasks`の値（dbから取得したデータが入っている）を`tasks`という名前で`tasks.blade.php`側へ渡している．ビューへデータを渡すことにより，実際の画面へデータを表示させることができる．表示部分の処理は次項．
 
+【補足 / 変数の中身確認】
+
+dbから取得したデータなど，変数の中身を確認したい場合は`ddd()`関数を用いると良い．`ddd()`関数が実行されると，引数の値が画面に表示され，処理が中断される．PHPの`var_dump()`→`exit()`の流れと同じ．
+
+似た関数に`dd()`のあるが，`ddd()`のほうが表示される情報が多いのでオススメ．
+
+`ddd()`関数の実行例
+
+```php
+$tasks = Task::orderBy('deadline', 'asc')->get();
+ddd($tasks);  // $tasksの中身を出力
+```
+
 ### 7.2 dbからのデータ取得
 
 `/project01/resources/views/tasks.blade.php`に以下の内容を追記する．
@@ -1626,7 +1647,7 @@ public function destroy($id)
 {
   $task = Task::find($id);
   $task->delete();
-  return redirect()->route('task.index');
+  return redirect()->route('tasks.index');
 }
 ```
 
@@ -1851,6 +1872,8 @@ public function edit($id)
 
 現時点では画面を作成していないため，更新ボタンをクリックしてもうまく処理が実行されない．
 
+`$task = Task::find($id);`のあとに`ddd()`関数を実行して中身をチェックしてみても良いだろう．
+
 【解説】
 
 `edit()`関数にidが送信されると，テーブルから該当するidのレコードが取得され，`taskedit.blade.php`を表示する．`taskedit.blade.php`には，該当するレコードの内容が`task`という名前で渡されている．
@@ -1866,10 +1889,10 @@ public function edit($id)
 ```php
 @extends('layouts.app')
 @section('content')
-<div class="row">
+<div class="panel-body">
   <div class="col-sm-6">
     @include('common.errors')
-    <form action="{{ route('tasks.update',$task->id) }}" method="POST">
+    <form action="{{ route('tasks.update',$task->id) }}" method="POST"  class="form-horizontal">
       @method('PUT')
       @csrf
       <!-- task -->
@@ -1978,7 +2001,7 @@ laravelでは，webサービスでよく使用される認証の処理を手軽�
 
 ### 11.2 ログイン時の表示ページを変更
 
-登録すると，下記画面に移動する．しかし，認証完了時には下記画面ではなく，タスク一覧画面を表示させたい．下記画面を表示するよう設定しているのは`web.php`なので，下記のように編集する．編集する部分は最下部．
+登録すると，`You are logged in!`と表示された画面（`home.blade.php`）に移動する．しかし，認証完了時にはタスク一覧画面を表示させたい．上記画面を表示するよう設定しているのは`web.php`なので，下記のように編集する．編集する部分は最下部．
 
 ```php
 Auth::routes();
