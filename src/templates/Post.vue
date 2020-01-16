@@ -23,6 +23,13 @@
     </div>
 
     <Author class="post-author" />
+    <Adsense
+      class="mb-5"
+      ad-client="pub-7365457617485825"
+      ad-slot="8131664210"
+      ad-style="display:block !important;"
+      ad-format="auto"
+    ></Adsense>
   </Layout>
 </template>
 
@@ -30,12 +37,14 @@
 import PostMeta from "~/components/PostMeta";
 import PostTags from "~/components/PostTags";
 import Author from "~/components/Author.vue";
+import Adsense from "~/components/Adsense.vue";
 
 export default {
   components: {
     Author,
     PostMeta,
-    PostTags
+    PostTags,
+    Adsense
   },
   metaInfo() {
     return {
