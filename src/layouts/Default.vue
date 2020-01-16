@@ -27,6 +27,7 @@
 <script>
 import Logo from "~/components/Logo.vue";
 import ToggleTheme from "~/components/ToggleTheme.vue";
+import Adsense from "~/components/Adsense.vue";
 
 export default {
   props: {

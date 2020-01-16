@@ -7,6 +7,13 @@
     <div class="posts">
       <PostCard v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node" />
     </div>
+    <Adsense
+      class="mb-5"
+      ad-client="pub-7365457617485825"
+      ad-slot="8131664210"
+      ad-style="display:block !important;"
+      ad-format="auto"
+    ></Adsense>
   </Layout>
 </template>
 
@@ -40,11 +47,13 @@
 <script>
 import Author from "~/components/Author.vue";
 import PostCard from "~/components/PostCard.vue";
+import Adsense from "~/components/Adsense.vue";
 
 export default {
   components: {
     Author,
-    PostCard
+    PostCard,
+    Adsense
   },
   metaInfo: {
     title: "Prisma Code"
