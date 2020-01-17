@@ -35,7 +35,8 @@ export default {
   },
   components: {
     Logo,
-    ToggleTheme
+    ToggleTheme,
+    Adsense
   }
 };
 </script>
