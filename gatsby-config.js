@@ -16,6 +16,14 @@ module.exports = {
         publisherId: process.env.GOOGLE_ADSENSE_ID,
       },
     },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: config.url,
+        sitemap: `${config.url}/sitemap.xml`,
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
     'gatsby-plugin-emotion',
     'gatsby-plugin-material-ui',
     'gatsby-plugin-catch-links',
