@@ -6,10 +6,10 @@ module.exports = {
   url: 'https://taroosg.io', // スラッシュなしのサイトURL
   siteUrl: 'https://taroosg.io/', // スラッシュありのサイトURL
   siteLanguage: 'ja', // HTMLの言語（ここでは日本語）
-  logo: 'src/images/logo.png',
-  banner: 'src/images/banner.png',
+  logo: 'images/logo.png',
+  banner: 'images/banner.png',
   favicon: 'src/images/favicon.png', // ファビコン
-  shortName: 'CodeSite', // サイトの略称、12文字以下
+  shortName: 'PrismaCode', // サイトの略称、12文字以下
   author: 'Taro Osg', // schemaORGJSONLDの作成者
   themeColor: '#a59aca',
   backgroundColor: '#3C4556',

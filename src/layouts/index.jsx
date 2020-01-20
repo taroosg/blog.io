@@ -64,6 +64,7 @@ export default ({ children }) => (
           siteMetadata {
             title
             description
+            banner
             twitter
             github
           }
@@ -76,6 +77,7 @@ export default ({ children }) => (
           title={data.site.siteMetadata.title}
           description={data.site.siteMetadata.description || ' '}
           pathname={data.site.siteMetadata.url}
+          banner={data.site.siteMetadata.banner}
         // article
         />
         <Global styles={globalStyle} />
