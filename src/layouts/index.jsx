@@ -78,7 +78,7 @@ export default ({ children }) => (
           description={data.site.siteMetadata.description || ' '}
           pathname={data.site.siteMetadata.url}
           banner={data.site.siteMetadata.banner}
-        // article
+          article
         />
         <Global styles={globalStyle} />
         <Header title={data.site.siteMetadata.title} />
