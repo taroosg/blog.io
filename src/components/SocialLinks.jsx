@@ -16,10 +16,10 @@ const SocialLinks = props => {
       <Link to="/about">
         <InfoIcon />
       </Link>
-      <a href={props.twitter} target="_blank" rel="noopener noreferrer">
+      <a href={props.twitter} aria-label={`${props.twitter}`} target="_blank" rel="noopener noreferrer">
         <TwitterIcon />
       </a>
-      <a href={props.github} target="_blank" rel="noopener noreferrer">
+      <a href={props.github} aria-label={`${props.github}`} target="_blank" rel="noopener noreferrer">
         <GitHubIcon />
       </a>
     </div>

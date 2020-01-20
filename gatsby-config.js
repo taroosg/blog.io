@@ -3,6 +3,19 @@ const config = require('./config/site');
 module.exports = {
   siteMetadata: config,
   plugins: [
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+        head: true,
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-google-adsense',
+      options: {
+        publisherId: process.env.GOOGLE_ADSENSE_ID,
+      },
+    },
     'gatsby-plugin-emotion',
     'gatsby-plugin-material-ui',
     'gatsby-plugin-catch-links',
