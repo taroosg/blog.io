@@ -1,21 +1,42 @@
 {
   "name": "blog.io",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "gridsome build",
-    "develop": "gridsome develop",
-    "explore": "gridsome explore"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@gridsome/plugin-google-analytics": "^0.1.0",
-    "@gridsome/remark-prismjs": "^0.0.4",
-    "@gridsome/source-filesystem": "^0.3.0",
-    "@gridsome/transformer-remark": "^0.2.0",
-    "gridsome": "^0.5.0"
-  },
-  "devDependencies": {
-    "node-sass": "^4.11.0",
-    "sass-loader": "^7.1.0",
-    "vue-adsense": "^1.0.1"
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "@material-ui/core": "^4.8.3",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/styles": "^4.8.2",
+    "gatsby": "^2.18.23",
+    "gatsby-image": "^2.2.38",
+    "gatsby-plugin-catch-links": "^2.1.24",
+    "gatsby-plugin-emotion": "^4.1.21",
+    "gatsby-plugin-manifest": "^2.2.37",
+    "gatsby-plugin-material-ui": "^2.1.6",
+    "gatsby-plugin-offline": "^3.0.32",
+    "gatsby-plugin-purgecss": "^4.0.1",
+    "gatsby-plugin-react-helmet": "^3.1.21",
+    "gatsby-plugin-sharp": "^2.3.13",
+    "gatsby-plugin-sitemap": "^2.2.26",
+    "gatsby-prismjs-dracula": "^0.1.15",
+    "gatsby-remark-images": "^3.1.42",
+    "gatsby-remark-prismjs": "^3.3.30",
+    "gatsby-source-filesystem": "^2.1.46",
+    "gatsby-transformer-remark": "^2.6.48",
+    "gatsby-transformer-sharp": "^2.3.12",
+    "prismjs": "^1.19.0",
+    "purgecss": "^2.0.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1",
+    "typeface-noto-sans-full": "^1.0.1"
   }
 }
