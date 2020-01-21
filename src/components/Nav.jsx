@@ -4,7 +4,6 @@ import SosialLinks from './SocialLinks'
 
 const Nav = props => {
   return (
-
     <div>
       <p css={{ textAlign: 'center' }}>{props.description}</p>
       <SosialLinks

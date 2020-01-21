@@ -16,6 +16,10 @@ published: true
 実行OS：ubuntu 18.04
 
 
+## 参考サイト
+
+- [ロリポップマネージドクラウドでLaravelアプリのセットアップ手順](https://qiita.com/take2isk/items/85fe3b6cb747243fd4ff)
+
 ## **0.目次**
 - 1. マネクラでプロジェクトを作成する．
 - 2. aws cloud9でssh-keyを作成する．
