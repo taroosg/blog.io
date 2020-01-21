@@ -24,7 +24,7 @@ const globalStyle = css`
   body {
     margin: 0;
   }
-  h1, h2, h3, p, a, ul, li {
+  h1, h2, h3, p, a, ul, ol, li {
     font-feature-settings: "palt";
     letter-spacing: .2rem;
   }
@@ -45,6 +45,12 @@ const globalStyle = css`
   }
   li {
     line-height: 1.9;
+  }
+  pre {
+    border: 1px solid #a59aca;
+  }
+  pre, code {
+    letter-spacing: 0;
   }
   code {
     overflow: auto;

@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import Layout from '../layouts'
 // import { jsx, css } from "@emotion/core"
 import TagList from '../components/TagList'
+import Readmore from '../components/Readmore'
 import card from '../styles/card'
 import tagButton from '../styles/tagButton'
 
@@ -23,12 +24,11 @@ const Tag = ({ pageContext }) => {
             //   </Link>
             // </li>
             <div key={index} css={card}>
-              <Link to={post.frontmatter.path}>
-                <h3>{post.frontmatter.title}</h3>
-                <p>{post.frontmatter.date}</p>
-                <p>{post.frontmatter.description}</p>
-                {/* <p>{node.excerpt}</p> */}
-              </Link>
+              <h2>{post.frontmatter.title}</h2>
+              <p css={{ textAlign: 'center' }}>{post.frontmatter.date}</p>
+              <p>{post.frontmatter.description}</p>
+              {/* <p>{node.excerpt}</p> */}
+              <Readmore path={post.frontmatter.path} />
               <TagList tags={post.frontmatter.tags || []} />
             </div>
           )
