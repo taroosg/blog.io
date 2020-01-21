@@ -6,8 +6,8 @@ module.exports = {
   url: 'https://taroosg.io', // スラッシュなしのサイトURL
   siteUrl: 'https://taroosg.io/', // スラッシュありのサイトURL
   siteLanguage: 'ja', // HTMLの言語（ここでは日本語）
-  logo: 'images/logo.png',
-  banner: 'images/banner.png',
+  logo: 'images/logo.jpg',
+  banner: 'images/banner.jpg',
   favicon: 'src/images/favicon.png', // ファビコン
   shortName: 'PrismaCode', // サイトの略称、12文字以下
   author: 'Taro Osg', // schemaORGJSONLDの作成者
