@@ -72,21 +72,21 @@ module.exports = {
       },
     },
     'gatsby-plugin-offline',
-    {
-      resolve: "gatsby-plugin-purgecss",
-      options: {
-        content: [
-          require("path").join(
-            process.cwd(),
-            "src/**/!(*.d).{js,jsx,ts,tsx,md,mdx}"
-          ),
-        ],
-        printRejected: true,
-        develop: false,
-        // tailwind: true,
-        whitelist: ["emoji"],
-        ignore: ['/ignored.css', 'prismjs/', 'docsearch.js/'],
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-purgecss",
+    //   options: {
+    //     content: [
+    //       require("path").join(
+    //         process.cwd(),
+    //         "src/**/!(*.d).{js,jsx,ts,tsx,md,mdx}"
+    //       ),
+    //     ],
+    //     printRejected: true,
+    //     develop: true,
+    //     // tailwind: true,
+    //     whitelist: ["emoji"],
+    //     ignore: ['/ignored.css', 'prismjs/', 'docsearch.js/'],
+    //   },
+    // },
   ]
 }
