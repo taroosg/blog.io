@@ -10,12 +10,12 @@ module.exports = {
         head: true,
       }
     },
-    {
-      resolve: 'gatsby-plugin-google-adsense',
-      options: {
-        publisherId: process.env.GOOGLE_ADSENSE_ID,
-      },
-    },
+    // {
+    //   resolve: 'gatsby-plugin-google-adsense',
+    //   options: {
+    //     publisherId: process.env.GOOGLE_ADSENSE_ID,
+    //   },
+    // },
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
