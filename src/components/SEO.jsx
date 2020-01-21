@@ -89,19 +89,19 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
             <script type="application/ld+json">{JSON.stringify(schemaOrgJSONLD)}</script>
 
             {/* OpenGraph  */}
-            <meta property="og:url" content={seo.url} />
-            <meta property="og:type" content={article ? 'article' : null} />
-            <meta property="og:title" content={seo.title} />
-            <meta property="og:description" content={seo.description} />
-            <meta property="og:image" content={seo.image} />
+            {/* <meta property="og:url" content={seo.url} /> */}
+            {/* <meta property="og:type" content={article ? 'article' : null} /> */}
+            {/* <meta property="og:title" content={seo.title} /> */}
+            {/* <meta property="og:description" content={seo.description} /> */}
+            {/* <meta property="og:image" content={seo.image} /> */}
 
             {/* Twitter Card */}
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:site" content={`@${twitter}`} />
-            <meta name="twitter:creator" content={twitter} />
-            <meta name="twitter:title" content={seo.title} />
-            <meta name="twitter:description" content={seo.description} />
-            <meta name="twitter:image:src" content={seo.image} />
+            {/* <meta name="twitter:card" content="summary_large_image" /> */}
+            {/* <meta name="twitter:site" content={`@${twitter}`} /> */}
+            {/* <meta name="twitter:creator" content={`@${twitter}`} /> */}
+            {/* <meta name="twitter:title" content={seo.title} /> */}
+            {/* <meta name="twitter:description" content={seo.description} /> */}
+            {/* <meta name="twitter:image:src" content={seo.image} /> */}
           </Helmet>
         </>
       );
