@@ -87,12 +87,12 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
             { name: 'twitter:site', content: `@${twitter}` },
             { name: 'twitter:creator', content: `@${twitter}` },
             { name: 'twitter:title', content: seo.title },
-            { name: 'twitter:description', content: seo.description },
+            // { name: 'twitter:description', content: seo.description },
             { name: 'twitter:image', content: seo.image },
             { property: 'og:image', content: seo.image },
             { property: 'og:title', content: seo.title },
             { property: 'og:type', content: article ? 'article' : 'website' },
-            { property: 'og:description', content: seo.description },
+            // { property: 'og:description', content: seo.description },
             { property: 'og:url', content: seo.url }
           ]}
         />
