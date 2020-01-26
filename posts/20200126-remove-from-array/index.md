@@ -1,5 +1,5 @@
 ---
-path: '/remoove-from-array'
+path: '/remove-from-array'
 date: '2020-01-26'
 title: '配列から不要な要素を削除した新しい配列がほしい．'
 description: '配列の中から特定の要素を削除した新しい配列を作成したい．そして，元の配列はそのまま保持しておきたい．'
