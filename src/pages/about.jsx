@@ -29,8 +29,16 @@ export default ({ data }) => (
         <li>
           <p>Like: </p>
           <ul>
-            <li><p>Islay whiskey</p></li>
-            <li><p>Craft gin</p></li>
+            <li>
+              <a target="_blank" href="https://www.amazon.jp/hz/wishlist/ls/2W7J0GWI789YV?ref_=wl_share">
+                <p>Islay whiskey</p>
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://www.amazon.jp/hz/wishlist/ls/2QRAOKJ20INNP?ref_=wl_share">
+                <p>Craft gin</p>
+              </a>
+            </li>
           </ul>
         </li>
       </ul>

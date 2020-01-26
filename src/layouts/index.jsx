@@ -17,7 +17,7 @@ const globalStyle = css`
   html {
     background: #3C4556;
     color: #dbd0e6;
-    max-width: 768px;
+    max-width: 1024px;
     margin: 0 auto;
     font-family: Noto Sans;
   }
