@@ -110,7 +110,7 @@ const getGrass = url => {
   const grassElement = response.body.toString().match(/<rect(?: [\s\S]+?)?\/>/g);
   const grassArray = grassElement.map(x => {
     return { data_date: x.split(' ')[8].slice(11, 21), data_count: Number(x.split(' ')[7].split('"').join('').slice(11)) }
-  });
+  }).reverse();
   return grassArray;
 }
 ```
@@ -121,21 +121,22 @@ const getGrass = url => {
   - `data-date`と`data-count`がそれぞれ8番目と7番目なので取り出す．
   - `data-count`は`"`が不要なので削除．
   - 文字数をカウントして必要な部分をslice()で切り出す．
+  - 新しい順にほしいので最後に`reverse()`する．
 
 実行結果
 ```js
 [
   {
-    data_date: '2019-02-03',
-    data_count: 0
+    data_date: '2020-02-02',
+    data_count: 7
   },
   {
-    data_date: '2019-02-04',
-    data_count: 0
-    },
+    data_date: '2020-02-01',
+    data_count: 10
+  },
   {
-    data_date: '2019-02-05',
-    data_count: 0
+     data_date: '2020-01-31',
+      data_count: 22
   },
   ...
 ]
