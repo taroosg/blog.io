@@ -93,7 +93,7 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
             { property: 'og:image', content: seo.image },
             { property: 'og:title', content: seo.title },
             { property: 'og:type', content: article ? 'article' : 'website' },
-            // { property: 'og:description', content: seo.description },
+            { property: 'og:description', content: seo.description },
             { property: 'og:url', content: seo.url },
             { property: 'fb:admins', content: fb_admin_id }
           ]}
