@@ -15,4 +15,5 @@ module.exports = {
   backgroundColor: '#3C4556',
   twitter: 'taro_osg', // TwitterのID
   github: 'taroosg', // GithubのID
+  fb_admin_id: '104205393045272', // facebookのadmin_id
 };

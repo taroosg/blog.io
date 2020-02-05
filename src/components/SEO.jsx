@@ -21,6 +21,7 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
           defaultDescription,
           defaultBanner,
           twitter,
+          fb_admin_id,
         },
       },
     }) => {
@@ -93,7 +94,8 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
             { property: 'og:title', content: seo.title },
             { property: 'og:type', content: article ? 'article' : 'website' },
             // { property: 'og:description', content: seo.description },
-            { property: 'og:url', content: seo.url }
+            { property: 'og:url', content: seo.url },
+            { property: 'fb:admins', content: fb_admin_id }
           ]}
         />
       );
@@ -135,6 +137,7 @@ const query = graphql`
         defaultDescription: description
         defaultBanner: banner
         twitter
+        fb_admin_id
       }
     }
   }
