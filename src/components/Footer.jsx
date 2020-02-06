@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'gatsby'
 
 const footer = {
   backgroundColor: '#a59aca',
@@ -15,7 +16,12 @@ const footer = {
 const Footer = props => {
   return (
     <footer css={footer}>
-      <p css={{ textAlign: 'center' }}>© 2018 taroosg</p>
+      <p css={{ textAlign: 'center' }}>
+        {`© 2018 taroosg `}
+        <Link to={`/privacyPolicy`}>
+          {` privacy policy`}
+        </Link>
+      </p>
     </footer>
   )
 }
