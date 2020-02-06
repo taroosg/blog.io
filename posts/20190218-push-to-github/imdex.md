@@ -20,12 +20,29 @@ published: true
 - はじめてgithubに登録をしたとき．
 - 新しいPCでgithubにアクセスするとき．
 
-### **1.1 ホームディレクトリに移動する**
+### **1.1 ディレクトリの準備**
 
 ターミナルを起動するとホームディレクトリにいるはずだが一応下記を実行．
 
 ```bash
 $ cd ~
+```
+
+下記コマンドでフォルダの有無を確認する．
+
+```bash
+$ ls -a
+```
+
+**【`.ssh/`が存在しない場合のみ】**下記コマンドでホームディレクトリに`.ssh`を作成する．
+
+```bash
+$ mkdir -p ~/.ssh
+```
+
+**【ここから共通】**`.ssh`ディレクトリに移動する．
+```bash
+cd .ssh
 ```
 
 ### **1.2 ssh-keyの発行**
@@ -90,34 +107,13 @@ $ ls -la | grep github
 -rw-r--r--  1 vagrant vagrant  411 11月 20 12:18 2014 github_rsa.pub
 ```
 
-### **1.3 ssh-keyの配置**
-- ssh-keyは適切な場所に配置しないと動かない．
-- 以下のコマンドで動作する場所に配置する．
-
-下記コマンドでフォルダの有無を確認する．
-
-```bash
-$ ls -a
-```
-**`.ssh/`が存在しない場合のみ**下記コマンドでホームディレクトリに`.ssh`を作成する．
-
-```bash
-$ mkdir -p ~/.ssh
-```
-
-ここから共通．続けて以下を実行する．上で作成したディレクトリに作成したキーペアを移動する．
-
-```bash
-$ mv github_rsa* ~/.ssh
-```
-
-エラーが出なければOK．引き続き，以下のコマンドでssh-keyを動作するようにする．
+引き続き，以下のコマンドでssh-keyを動作するようにする．
 
 ```bash
 $ eval $(ssh-agent)
 ```
 
-実行結果
+実行結果（番号は各自で異なる）
 ```bash
 Agent pid 9899
 ```
@@ -135,7 +131,7 @@ Identity added: /home/vagrant/.ssh/github_rsa
 
 以上でssh-keyの準備は完了だが，設定ファイルに変更を加える必要がある．
 
-### **1.4 設定ファイルの書き込み**
+### **1.3 設定ファイルの書き込み**
 
 - 下記のコマンドで設定ファイルに書き込む．
 - 2行目の「vi \~….」ではターミナル内でエディタを起動する．画面が変わりますがパニックにならないよう注意！
@@ -143,8 +139,9 @@ Identity added: /home/vagrant/.ssh/github_rsa
 - インサートモードにするには「i」キーを押す．画面のどこかに—INSERT—や—挿入—などの文字列が表示される．その状態で「Host github」からの5行を追記する．
 - 追記が終わったら「esc(コマンドモードに戻る)」→「:wq(保存して終了のコマンド)」→「enter(実行)」で元の画面に戻る．
 - ミスったと感じたら「esc」→「:q!」→「enter」でエディタを終了できるので，もう一度「vi \~…..」を入力してやり直しましょう．
+- 操作は「vi コマンド」でググれ！
 
-ターミナルで以下を1行ずつ実行．1行目がファイルの作成で，2行目でエディタでファイルを開く．
+ターミナルで以下を1行ずつ実行．1行目がファイルの作成で，2行目でエディタでファイルを開いている．
 
 ```bash
 $ touch ~/.ssh/config
@@ -154,11 +151,11 @@ $ vi ~/.ssh/config
 `.ssh/config`ファイルを開くと空なので以下を追記する．
 
 ```diff
-+ Host github.com
-+ 	HostName github.com
-+ 	Identityfile ~/.ssh/github_rsa
-+ 	Port 22
-+ 	User git
+Host github.com
+  HostName github.com
+  Identityfile ~/.ssh/github_rsa
+  Port 22
+  User git
 ```
 
 続いて，設定ファイルの権限を変更する．ターミナルで以下を実行．
@@ -169,7 +166,7 @@ $ chmod 700 ~/.ssh/config
 
 エラーが出なければOK．
 
-### **1.5 githubへのssh-key登録**
+### **1.4 githubへのssh-key登録**
 
 githubのサイトにアクセスし，「設定」→「SSH keys」へ進む．「Add SSH key」をクリックして入力画面へ進む．
 
@@ -191,14 +188,14 @@ ssh-rsa ...
 上のように文字列が表示されたら，「ssh-rsa」から全てコピーし，githubサイトの入力欄に貼り付ける．タイトルはPC名など適当につけてOK．
 入力したら「Add key」をクリックして終了．
 
-### **1.6 初期設定**
+### **1.5 初期設定**
 
 githubのユーザ名とメールアドレスを登録する．ターミナルで下記コマンドを入力し，エンターを押す．
 (それぞれ自身のアカウントのものを入力する)
 
 ```bash
-$ git config --global user.name "taroosg"
-$ git config --global user.email "taro.osg@gsmail.com"
+$ git config --global user.name "自分のユーザ名"
+$ git config --global user.email "自分のメールアドレス"
 ```
 
 続いて以下を入力して内容を確認する．
@@ -209,12 +206,12 @@ $ git config -l
 
 実行結果
 ```bash
-user.name=taroosg
-user.email=taro.osg@gsmail.com
+user.name=ユーザ名
+user.email=メールアドレス
 ```
-上で入力した内容に間違いなければOK．エラーが出る場合は1.8参照．
+上で入力した内容に間違いなければOK．エラーが出る場合は1.7参照．
 
-### **1.7 githubとの接続テスト(ターミナル)**
+### **1.6 githubとの接続テスト(ターミナル)**
 
 ターミナルで書きを実行．途中でなにか訊かれたら「yes」で進める．
 
@@ -225,13 +222,13 @@ $ ssh -i ~/.ssh/github_rsa git@github.com
 実行結果
 
 ```bash
-Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+Hi ユーザ名! You've successfully authenticated, but GitHub does not provide shell access.
 Connection to github.com closed.
 ```
 
 上記のように表示されればOK．
 
-### **1.8 「xcrun: error」が発生する場合(macのみ)**
+### **1.7 「xcrun: error」が発生する場合(macのみ)**
 
 この場合，gitコマンドを実行する「`Command Line Tools(macOS High Sierra version 10.13) for XCode`」がインストールされていないことが原因．
 ウインドウが出てきたら指示に従ってインストールし，完了後に再度コマンドを実行すればOK．
