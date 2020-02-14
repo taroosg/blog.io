@@ -35,7 +35,7 @@ published: true
 
 - オススメ本を表示するSPA．
 - ページごとにカテゴリ別の本が一覧で表示される．
-- 本のデータは予めJSONファイルを用意しておき，読み込んで表示する．
+- 本のデータGoogle books APIから読み込んで表示する．
 
 ## 環境構築
 
@@ -47,6 +47,16 @@ $ node -v
 v12.15.0
 $ npm -v
 6.13.7
+```
+
+### プロジェクト作成用ツールをインストール
+
+- 公式が準備している．
+- コマンド一発でプロジェクト作成可能．
+- 下記の要領でインストール．
+
+```bash
+$ npm install -g create-react-app
 ```
 
 ### プロジェクトの作成
@@ -505,7 +515,7 @@ const App = () => {
 export default App;
 ```
 
-ここでは「`getData`」という名前で「keywordを入力するとgetDataFromJson(keyword)を実行する関数」を「`Booklist`コンポーネント」に渡している．
+ここでは「`getData`」という名前で「keywordを入力するとgetDataFromApi(keyword)を実行する関数」を「`Booklist`コンポーネント」に渡している．
 
 ### `props`からの受け取りと関数の実行
 
