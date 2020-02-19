@@ -59,6 +59,11 @@ const globalStyle = css`
   pre code{
     overflow-wrap: normal !important;
   }
+  .mainText h2, .mainText h3{
+    border-bottom: 1px solid #DBD0E6;
+    border-left: 6px solid #DBD0E6;
+    padding: .5rem;
+  }
 `;
 
 

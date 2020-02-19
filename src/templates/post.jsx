@@ -28,7 +28,7 @@ const Post = ({ data, pageContext }) => {
       <div css={article}>
         <h2>{title}</h2>
         <p css={{ textAlign: 'center' }}>{date}</p>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <div class="mainText" dangerouslySetInnerHTML={{ __html: html }} />
         <TagList tags={post.frontmatter.tags || []} />
       </div>
       <PreviousNext
