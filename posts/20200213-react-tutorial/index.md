@@ -370,7 +370,7 @@ const App = () => {
     <BrowserRouter>		// 追加（ルーティングは<BrowserRouter>の中で行う）
       <div>
         <h1>react app</h1>
-        <Route exact path='/react' component={Booklist} />		// 編集
+        <Route path='/react' component={Booklist} />		// 編集
         <Route path='/vue' component={Booklist} />		// 編集
         <Route path='/angular' component={Booklist} />	// 編集
       </div>
@@ -381,7 +381,6 @@ export default App;
 ```
 
 - `<BrowserRouter>`の中に`<Route>`を置き，`path`に対応させたいURLを，`component`に描画したいコンポーネントを渡す．
-- `exact`を設定しないと`path`が入力したURLに前方一致していれば描画されるため，`path='/'`にはexactを設定しています。
 - この時点では，各コンポーネントに`props`を渡していないため，URLを変更しても表示は変化しない．
 
 ### ルーティングしながらpropsを渡す
@@ -404,7 +403,7 @@ const App = () => {
     <BrowserRouter>
       <div>
         <h1>react app</h1>
-        <Route exact path='/react' render={props => <Booklist language={languages[0]} />} />	// 編集
+        <Route path='/react' render={props => <Booklist language={languages[0]} />} />	// 編集
         <Route path='/vue' render={props => <Booklist language={languages[1]} />} />		// 編集
         <Route path='/angular' render={props => <Booklist language={languages[2]} />} />	// 編集
       </div>
@@ -446,7 +445,7 @@ const App = () => {
           <li><Link to='/angular'>Angular</Link></li>
         </ul>
         <hr />									// この辺まで追加
-        <Route exact path='/react' render={props => <Booklist language={languages[0]} />} />
+        <Route path='/react' render={props => <Booklist language={languages[0]} />} />
         <Route path='/vue' render={props => <Booklist language={languages[1]} />} />
         <Route path='/angular' render={props => <Booklist language={languages[2]} />} />
       </div>
@@ -497,7 +496,6 @@ const App = () => {
         </ul>
         <hr />
         <Route
-          exact
           path='/react'
           render={
             props =>
@@ -567,7 +565,6 @@ const App = () => {
         </ul>
         <hr />
         <Route
-          exact
           path='/react'
           render={
             props =>
