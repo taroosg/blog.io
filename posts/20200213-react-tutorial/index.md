@@ -370,7 +370,7 @@ const App = () => {
     <BrowserRouter>		// 追加（ルーティングは<BrowserRouter>の中で行う）
       <div>
         <h1>react app</h1>
-        <Route exact path='/' component={Booklist} />		// 編集
+        <Route exact path='/react' component={Booklist} />		// 編集
         <Route path='/vue' component={Booklist} />		// 編集
         <Route path='/angular' component={Booklist} />	// 編集
       </div>
@@ -404,7 +404,7 @@ const App = () => {
     <BrowserRouter>
       <div>
         <h1>react app</h1>
-        <Route exact path='/' render={props => <Booklist language={languages[0]} />} />	// 編集
+        <Route exact path='/react' render={props => <Booklist language={languages[0]} />} />	// 編集
         <Route path='/vue' render={props => <Booklist language={languages[1]} />} />		// 編集
         <Route path='/angular' render={props => <Booklist language={languages[2]} />} />	// 編集
       </div>
@@ -441,12 +441,12 @@ const App = () => {
       <div>
         <h1>react app</h1>
         <ul>										// この辺から追加
-          <li><Link to='/'>React</Link></li>
+          <li><Link to='/react'>React</Link></li>
           <li><Link to='/vue'>Vue</Link></li>
           <li><Link to='/angular'>Angular</Link></li>
         </ul>
         <hr />									// この辺まで追加
-        <Route exact path='/' render={props => <Booklist language={languages[0]} />} />
+        <Route exact path='/react' render={props => <Booklist language={languages[0]} />} />
         <Route path='/vue' render={props => <Booklist language={languages[1]} />} />
         <Route path='/angular' render={props => <Booklist language={languages[2]} />} />
       </div>
@@ -491,14 +491,14 @@ const App = () => {
       <div>
         <h1>react app</h1>
         <ul>
-          <li><Link to='/'>React</Link></li>
+          <li><Link to='/react'>React</Link></li>
           <li><Link to='/vue'>Vue</Link></li>
           <li><Link to='/angular'>Angular</Link></li>
         </ul>
         <hr />
         <Route
           exact
-          path='/'
+          path='/react'
           render={
             props =>
               <Booklist
@@ -561,14 +561,14 @@ const App = () => {
       <div>
         <h1>react app</h1>
         <ul>
-          <li><Link to='/'>React</Link></li>
+          <li><Link to='/react'>React</Link></li>
           <li><Link to='/vue'>Vue</Link></li>
           <li><Link to='/angular'>Angular</Link></li>
         </ul>
         <hr />
         <Route
           exact
-          path='/'
+          path='/react'
           render={
             props =>
               <Booklist
