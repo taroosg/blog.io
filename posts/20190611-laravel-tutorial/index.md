@@ -1,7 +1,7 @@
 ---
 path: '/laravel-crud-example'
-date: '2019-10-21'
-title: 'laravel6チュートリアル'
+date: '2020-03-05'
+title: 'laravel7チュートリアル'
 description: 'PHPのフレームワークであるlaravelを用いてwebサービスを実装するチュートリアル'
 tags: ['php', 'laravel']
 published: true
@@ -10,17 +10,16 @@ published: true
 
 作成日：2019/01/23
 
-更新日：2019/10/21
+更新日：2020/03/05
 
 実行環境：aws cloud9
 
 実行OS：ubuntu 18.04
 
-PHPバージョン：7.3.10
+PHPバージョン：7.4.3
 
-Laravelバージョン：6.3.0
+Laravelバージョン：7.0.4
 
-<div style="page-break-before:always"></div>
 
 ## はじめに
 
@@ -120,7 +119,6 @@ Laravelバージョン：6.3.0
 - しばらく待つと下記の画面が表示される．これで準備完了．
 ![設定完了後の画面](./images/20190611-cloud9_aws.png)
 
-<div style="page-break-before:always"></div>
 
 ## Laravelのインストール
 
@@ -143,31 +141,19 @@ $ php -v
 ```
 出力結果（バージョンは7.2.19）
 ```bash
-PHP 7.2.19-0ubuntu0.18.04.1 (cli) (built: Jun  4 2019 14:48:12) ( NTS )
+PHP 7.2.24-0ubuntu0.18.04.3 (cli) (built: Feb 11 2020 15:55:52) ( NTS )
 Copyright (c) 1997-2018 The PHP Group
 Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies
-    with Zend OPcache v7.2.19-0ubuntu0.18.04.1, Copyright (c) 1999-2018, by Zend Technologies
+    with Zend OPcache v7.2.24-0ubuntu0.18.04.3, Copyright (c) 1999-2018, by Zend Technologies
     with Xdebug v2.6.0, Copyright (c) 2002-2018, by Derick Rethans
 ```
 
-### compoerのバージョン確認
-
-ターミナルで以下を実行
-```bash
-$ composer
-```
-出力結果（インストールされていない）
-```
-Command 'composer' not found, but can be installed with:
-
-sudo apt install composer
-```
-
-<div style="page-break-before:always"></div>
 
 ### composerのインストール
 
-ターミナルで以下を実行
+composerはPHPのパッケージなどを管理する便利ツール．laravelのインストールに際して使用するため準備する．
+
+ターミナルで以下を実行．
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
@@ -178,7 +164,7 @@ $ curl -sS https://getcomposer.org/installer | php
 All settings correct for using Composer
 Downloading...
 
-Composer (version 1.8.5) successfully installed to: /home/ubuntu/environment/composer.phar
+Composer (version 1.9.3) successfully installed to: /home/ubuntu/environment/composer.phar
 Use it: php composer.phar
 ```
 
@@ -192,7 +178,7 @@ $ sudo mv composer.phar /usr/bin/composer
 $ composer
 ```
 
-実行結果（バージョンは1.9.0）
+実行結果（バージョンは1.9.3）
 ```bash
    ______
   / ____/___  ____ ___  ____  ____  ________  _____
@@ -200,7 +186,7 @@ $ composer
 / /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
 \____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
                     /_/
-Composer version 1.9.0 2019-08-02 20:55:32
+Composer version 1.9.3 2020-02-04 12:58:49
 
 Usage:
   command [options] [arguments]
@@ -208,11 +194,9 @@ Usage:
 ```
 
 
-<div style="page-break-before:always"></div>
-
 ### PHPのバージョンアップ
 
-- Laravelの最新バージョンでは「PHP7.2以上」が必要となる．
+- Laravelの最新バージョンでは「PHP7.2.5以上」が必要となる．
 - とりあえず最新版にしておく．
 
 ターミナルで以下を実行．
@@ -226,15 +210,15 @@ Press [ENTER] to continue or ctrl-c to cancel adding it
 実行結果
 ```bash
 ...
-Hit:1 https://download.docker.com/linux/ubuntu bionic InRelease
-Hit:2 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic InRelease
-Hit:3 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease
-Hit:4 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease
+Hit:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu bionic InRelease
+Hit:2 http://us-west-2.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease
+Hit:3 http://us-west-2.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease
+Hit:4 https://download.docker.com/linux/ubuntu bionic InRelease
 Hit:5 http://security.ubuntu.com/ubuntu bionic-security InRelease
 Get:6 http://ppa.launchpad.net/ondrej/php/ubuntu bionic InRelease [20.8 kB]
-Get:7 http://ppa.launchpad.net/ondrej/php/ubuntu bionic/main amd64 Packages [45.1 kB]
-Get:8 http://ppa.launchpad.net/ondrej/php/ubuntu bionic/main Translation-en [22.1 kB]
-Fetched 88.0 kB in 3s (33.8 kB/s)
+Get:7 http://ppa.launchpad.net/ondrej/php/ubuntu bionic/main amd64 Packages [52.1 kB]
+Get:8 http://ppa.launchpad.net/ondrej/php/ubuntu bionic/main Translation-en [24.9 kB]
+Fetched 97.8 kB in 2s (57.1 kB/s)
 Reading package lists... Done
 ```
 
@@ -244,9 +228,9 @@ $ sudo apt-get update
 ```
 実行結果
 ```bash
-Hit:1 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic InRelease
-Hit:2 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease
-Hit:3 http://ap-northeast-1.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease
+Hit:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu bionic InRelease
+Hit:2 http://us-west-2.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease
+Hit:3 http://us-west-2.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease
 Hit:4 https://download.docker.com/linux/ubuntu bionic InRelease
 Hit:5 http://ppa.launchpad.net/ondrej/php/ubuntu bionic InRelease
 Hit:6 http://security.ubuntu.com/ubuntu bionic-security InRelease
@@ -255,7 +239,7 @@ Reading package lists... Done
 
 以下を実行
 ```bash
-$ sudo apt-get install libapache2-mod-php7.3
+$ sudo apt-get install libapache2-mod-php7.4
 ```
 途中で下記出力された場合はすべて「y」で続行
 ```bash
@@ -264,12 +248,12 @@ Do you want to continue? [Y/n]
 実行結果
 ```bash
 ...
-Creating config file /etc/php/7.3/cli/php.ini with new version
-Setting up libapache2-mod-php7.3 (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
-
-Creating config file /etc/php/7.3/apache2/php.ini with new version
-libapache2-mod-php7.3: php7.2 module already enabled, not enabling PHP 7.3
+Creating config file /etc/php/7.4/apache2/php.ini with new version
+libapache2-mod-php7.4: php7.2 module already enabled, not enabling PHP 7.4
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
 Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Processing triggers for php7.4-cli (7.4.3-4+ubuntu18.04.1+deb.sury.org+1) ...
+Processing triggers for libapache2-mod-php7.4 (7.4.3-4+ubuntu18.04.1+deb.sury.org+1)
 ```
 
 以下を実行
@@ -285,23 +269,23 @@ To activate the new configuration, you need to run:
 
 以下を実行
 ```bash
-$ sudo a2enmod php7.3
+$ sudo a2enmod php7.4
 ```
 出力結果
 ```bash
-Considering dependency mpm_prefork for php7.3:
+Considering dependency mpm_prefork for php7.4:
 Considering conflict mpm_event for mpm_prefork:
 Considering conflict mpm_worker for mpm_prefork:
 Module mpm_prefork already enabled
-Considering conflict php5 for php7.3:
-Enabling module php7.3.
+Considering conflict php5 for php7.4:
+Enabling module php7.4.
 To activate the new configuration, you need to run:
   systemctl restart apache2
 ```
 
 以下を実行
 ```bash
-$ sudo apt-get install php7.3-dom php7.3-mbstring php7.3-zip php7.3-mysql
+$ sudo apt-get install php7.4-dom php7.4-mbstring php7.4-zip php7.4-mysql
 ```
 途中で下記出力された場合はすべて「y」で続行
 ```bash
@@ -309,11 +293,10 @@ Do you want to continue? [Y/n]
 ```
 実行結果
 ```bash
-Creating config file /etc/php/7.3/mods-available/pdo_mysql.ini with new version
-Setting up php7.3-zip (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
-
-Creating config file /etc/php/7.3/mods-available/zip.ini with new version
-Processing triggers for libapache2-mod-php7.3 (7.3.6-1+ubuntu18.04.1+deb.sury.org+1) ...
+Creating config file /etc/php/7.4/mods-available/zip.ini with new version
+Processing triggers for libapache2-mod-php7.4 (7.4.3-4+ubuntu18.04.1+deb.sury.org+1) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Processing triggers for php7.4-cli (7.4.3-4+ubuntu18.04.1+deb.sury.org+1) ...
 ```
 
 アップデート後のPHPバージョン確認
@@ -322,15 +305,14 @@ $ php -v
 ```
 実行結果（バージョンは7.3.10）
 ```bash
-PHP 7.3.10-1+ubuntu18.04.1+deb.sury.org+1 (cli) (built: Oct  8 2019 05:33:38) ( NTS )
-Copyright (c) 1997-2018 The PHP Group
-Zend Engine v3.3.10, Copyright (c) 1998-2018 Zend Technologies
-    with Zend OPcache v7.3.10-1+ubuntu18.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
+PHP 7.4.3 (cli) (built: Feb 23 2020 07:24:28) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v3.4.0, Copyright (c) Zend Technologies
+    with Zend OPcache v7.4.3, Copyright (c), by Zend Technologies
 ```
 
 ※ ここまでのコマンド操作でエラーが発生した場合は，「environment の準備」からやり直すことをオススメ．下手にエラーを解決しようとするより，新しく作り直したほうが早い．
 
-<div style="page-break-before:always"></div>
 
 ### Laravelインストーラの準備
 
@@ -350,7 +332,10 @@ $ sudo composer global require "laravel/installer"
 ```bash
 ...
 symfony/console suggests installing symfony/lock
+symfony/console suggests installing psr/log (For using the console logger)
+guzzlehttp/psr7 suggests installing zendframework/zend-httphandlerrunner (Emit PSR-7 responses)
 guzzlehttp/guzzle suggests installing psr/log (Required for using the Log middleware)
+guzzlehttp/guzzle suggests installing ext-intl (Required for Internationalized Domain Name (IDN) support)
 Writing lock file
 Generating autoload files
 ```
@@ -367,7 +352,9 @@ $ composer create-project laravel/laravel project01
 実行結果
 ```bash
 ...
+Discovered Package: facade/ignition
 Discovered Package: fideloper/proxy
+Discovered Package: fruitcake/laravel-cors
 Discovered Package: laravel/tinker
 Discovered Package: nesbot/carbon
 Discovered Package: nunomaduro/collision
@@ -381,16 +368,14 @@ Application key set successfully.
 $ cd project01
 $ php artisan --version
 ```
-実行結果（バージョンは6.3.0）．実行時の最新版がインストールされる．
+実行結果（バージョンは7.0.4）．実行時の最新版がインストールされる．
 ```bash
-Laravel Framework 6.3.0
+Laravel Framework 7.0.4
 ```
 
 ### 【参考】Laravelのバージョン指定
 
 今回は最新版を使用してプロジェクトを作成しているが，バージョンを指定することもできる．
-
-現在（2019年10月）で最新のLTS（長期サポートバージョン）は6.3となっているためこのままで問題ないが，旧バージョンを指定することもできる．
 
 例えば，バージョン指定（5.8）する際にはプロジェクト作成時のコマンドを下記のように変更する．
 
@@ -398,12 +383,14 @@ Laravel Framework 6.3.0
 $ composer create-project laravel/laravel project01 5.8.* --prefer-dist
 ```
 
+ただし，laravelでは公式ドキュメントにバージョンアップの項があるが，1つ前のバージョンからしか記述がないので，基本的には最新バージョンのインストールがオススメである．
+
 
 ### Laravelのインストール確認
 
 - Laravelインストールの確認にはwebブラウザで動作させて確認する．
 - cloud9にはwebサーバが標準で搭載されているため，以下の手順で確認を行う．
-- コマンド実行中は他のコマンドを打てないため，新しくターミナルを立ち上げておくと便利．
+- コマンド実行中は他のコマンドを打てないため，別タブで新しくターミナルを立ち上げておくと便利．
 
 下記を実行．
 ```bash
@@ -412,9 +399,9 @@ $ php artisan serve --port=8080
 
 実行結果
 ```bash
-Laravel development server started: <http://127.0.0.1:8080>
+PHP 7.4.3 Development Server (http://127.0.0.1:8080) started
 ```
-【重要】サーバーが動いた状態となるが，停止する場合は「ctrl + c」で停止できる．
+【重要】サーバーが動いた状態となるが，停止する場合は「`ctrl + c`」で停止できる．
 
 下記手順で動作を確認．
 
@@ -425,7 +412,6 @@ Laravel development server started: <http://127.0.0.1:8080>
 5. 新しいタブで下記画面が表示されればOK．
 ![トップ画面](./images/20190123-top.png)
 
-<div style="page-break-before:always"></div>
 
 
 ## 【参考】Laravelルートディレクトリのファイル構成
@@ -495,7 +481,6 @@ Laravel development server started: <http://127.0.0.1:8080>
 
 - Model, Controllerを設定，保存
 
-<div style="page-break-before:always"></div>
 
 ## 0. アプリケーション作成の流れ
 
@@ -530,17 +515,17 @@ laravelではwebアプリケーションでよく使用されるライブラリ�
 コマンドで以下を実行する．実行前に，ターミナルのカレントディレクトリが「project01」であることを確認しておくこと．
 
 ```bash
-$ sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
+$ sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
 ```
 
 実行結果．少し時間がかかるので待つ．
 ```bash
-2048+0 records in
-2048+0 records out
-2147483648 bytes (2.1 GB, 2.0 GiB) copied, 32.4346 s, 66.2 MB/s
+1024+0 records in
+1024+0 records out
+1073741824 bytes (1.1 GB, 1.0 GiB) copied, 13.7428 s, 78.1 MB/s
 ```
 
-以下を実行．
+以下を1行ずつ実行．
 
 ```bash
 $ sudo chmod 600 /swapfile
@@ -549,8 +534,8 @@ $ sudo mkswap /swapfile
 
 実行結果
 ```bash
-Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
-no label, UUID=8944afa9-b99d-4975-92f0-cd0f64c31522
+Setting up swapspace version 1, size = 1024 MiB (1073737728 bytes)
+no label, UUID=c60c6cdf-b4fc-4810-b9cf-58bd2f376e7a
 ```
 
 以下を実行．
@@ -559,11 +544,11 @@ $ sudo swapon /swapfile
 $ free --mega
 ```
 
-実行結果（Swapの部分が2000以上になっていればOK）
+実行結果（Swapの部分が1500くらいになっていればOK）
 ```bash
               total        used        free      shared  buff/cache   available
-Mem:           1007         159          71          11         776         685
-Swap:          2597         269        2327
+Mem:           1007         228          69           1         708         627
+Swap:          1548         221        1326
 ```
 
 ### 1.2 ライブラリのインストール
@@ -579,6 +564,7 @@ $ composer require laravel/ui
 > @php artisan package:discover --ansi
 Discovered Package: facade/ignition
 Discovered Package: fideloper/proxy
+Discovered Package: fruitcake/laravel-cors
 Discovered Package: laravel/tinker
 Discovered Package: laravel/ui
 Discovered Package: nesbot/carbon
@@ -605,11 +591,12 @@ $ npm install
 
 実行結果
 ```bash
-npm notice created a lockfile as package-lock.json. You should commit this file.
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.9 (node_modules/fsevents):
-npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.9: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
+...
+added 1057 packages from 498 contributors and audited 17619 packages in 28.721s
 
-added 1008 packages from 486 contributors and audited 17157 packages in 27.219s
+34 packages are looking for funding
+  run `npm fund` for details
+
 found 0 vulnerabilities
 ```
 
@@ -627,11 +614,22 @@ $ npm run dev
 ...
 98% after emitting SizeLimitsPlugin
 
- DONE  Compiled successfully in 9659ms                                       11:21:31 PM
+ DONE  Compiled successfully in 10228ms                                   10:23:25 AM
 
        Asset      Size   Chunks             Chunk Names
-/css/app.css   173 KiB  /js/app  [emitted]  /js/app
+/css/app.css   177 KiB  /js/app  [emitted]  /js/app
   /js/app.js  1.06 MiB  /js/app  [emitted]  /js/app
+```
+
+### 1.4 swap領域の削除
+
+記憶領域から1GB借りてきているので元に戻す．
+
+下記を実行．
+
+```bash
+$ sudo swapoff /swapfile
+$ sudo rm /swapfile
 ```
 
 これで準備OK．ブラウザで表示を確認しておく．右上に「login」「register」が表示されていればOK．
@@ -651,19 +649,16 @@ $ npm run dev
 4. ファイルの内容を以下のように編集する．
 
 `.env`ファイルの内容
-```diff
+```txt
 DB_CONNECTION=mysql
--DB_HOST=127.0.0.1
-+DB_HOST=localhost
+DB_HOST=localhost   // 編集
 DB_PORT=3306
--DB_DATABASE=laravel
-+DB_DATABASE=project01
+DB_DATABASE=project01   // 編集
 DB_USERNAME=root
--DB_PASSWORD=
-+DB_PASSWORD=root
+DB_PASSWORD=root    // 編集
 ```
 
-5. 以下のコマンドを実行し，`.env`ファイルを読み込む．`.env`ファイルの内容はcacheに保存されているので，変更したらcacheを消去しないと変更内容が読み込まれない．サーバを再度立ち上げ直してもOK．
+5. **サーバが立ち上がっている場合は**以下のコマンドを実行し，`.env`ファイルを読み込む．`.env`ファイルの内容はcacheに保存されているので，変更したらcacheを消去しないと変更内容が読み込まれない．サーバを再度立ち上げ直してもOK．
 
 ```bash
 $ php artisan config:cache
@@ -770,7 +765,6 @@ mysql> exit;
 Bye
 ```
 
-<div style="page-break-before:always"></div>
 
 ## 3. モデルの作成とデータベースマイグレーション
 
@@ -801,7 +795,7 @@ $ php artisan make:model Task -m
 実行結果．「`tasks`」テーブルを作成するために使うマイグレーションファイル（2019_10_21_000348_create_tasks_table）も同時に作成される．
 ```bash
 Model created successfully.
-Created Migration: 2019_10_21_000348_create_tasks_table
+Created Migration: 2020_03_05_103021_create_tasks_table
 ```
 
 ### 3.3 【参考】モデル確認
@@ -892,16 +886,16 @@ $table->string('email')->unique();      //カラムの値を一意にする
 ```php
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTasksTable extends Migration
 {
   public function up()
   {
     Schema::create('tasks', function (Blueprint $table) {
-      $table->increments('id');
+      $table->id();
       $table->timestamps();
     });
   }
@@ -922,16 +916,16 @@ class CreateTasksTable extends Migration
 ```php
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTasksTable extends Migration
 {
   public function up()
   {
     Schema::create('tasks', function (Blueprint $table) {
-      $table->increments('id');
+      $table->id();
       // ここから追記
       $table->string('task');
       $table->date('deadline');
@@ -987,13 +981,13 @@ $ php artisan migrate
 ```bash
 Migration table created successfully.
 Migrating: 2014_10_12_000000_create_users_table
-Migrated:  2014_10_12_000000_create_users_table (0.17 seconds)
+Migrated:  2014_10_12_000000_create_users_table (0.12 seconds)
 Migrating: 2014_10_12_100000_create_password_resets_table
-Migrated:  2014_10_12_100000_create_password_resets_table (0.16 seconds)
+Migrated:  2014_10_12_100000_create_password_resets_table (0.13 seconds)
 Migrating: 2019_08_19_000000_create_failed_jobs_table
-Migrated:  2019_08_19_000000_create_failed_jobs_table (0.09 seconds)
-Migrating: 2019_10_21_000348_create_tasks_table
-Migrated:  2019_10_21_000348_create_tasks_table (0.08 seconds)
+Migrated:  2019_08_19_000000_create_failed_jobs_table (0.08 seconds)
+Migrating: 2020_03_05_103021_create_tasks_table
+Migrated:  2020_03_05_103021_create_tasks_table (0.08 seconds)
 ```
 
 うまくいかない場合はマイグレーションファイルの記述内容を見直して以下のコマンドを実行．
@@ -1101,8 +1095,6 @@ $ php artisan migrate:fresh
 $ php artisan migrate:status
 ```
 
-<div style="page-break-before:always"></div>
-
 
 ## 4. ルーティングとコントローラの作成
 
@@ -1166,7 +1158,7 @@ Controller created successfully.
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 // 下記1行を追加
@@ -1217,12 +1209,12 @@ $ php artisan route:list
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 // 下記のように編集
 Route::resource('tasks', 'TasksController')->only([
-    'index', 'store', 'edit', 'update', 'destroy'
+  'index', 'store', 'edit', 'update', 'destroy'
 ]);
 
 Auth::routes();
@@ -1236,7 +1228,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 `/project01/app/Http/Controllers/TasksController.php`を開き，内容を確認する（コメント部分は省略）．ルーティングで定義された7つの処理に対応する関数が自動的に作成されている．
 
-dbを扱う，入力チェックを行うために以下2行を追記する．
+モデルを扱う&入力チェックを行うために以下2行を追記する．
 
 ```php
 namespace App\Http\Controllers;
@@ -1285,7 +1277,6 @@ class TasksController extends Controller
 }
 ```
 
-<div style="page-break-before:always"></div>
 
 ## 5. ビューの作成
 
@@ -1404,7 +1395,7 @@ laravelで画面を作成する際はテンプレートエンジン「bladeテ�
 ```php
 public function index()
 {
-    // 下記追加
+  // 下記追加
   return view('tasks');
 }
 ```
@@ -1415,8 +1406,6 @@ public function index()
 
 ![ビューのテスト画面](./images/20190611-view-test.png)
 
-
-<div style="page-break-before:always"></div>
 
 ## 6. 登録処理の作成
 
@@ -1492,13 +1481,13 @@ mysql> select * from tasks;
 
 実行結果
 ```bash
-+----+-------+------------+---------+---------------------+---------------------+
-| id | task  | deadline   | comment | created_at          | updated_at          |
-+----+-------+------------+---------+---------------------+---------------------+
-|  1 | test  | 2019-10-21 | todo!   | 2019-10-22 03:56:13 | 2019-10-22 03:56:13 |
-|  2 | test2 | 2019-10-21 | todo!   | 2019-10-22 03:56:33 | 2019-10-22 03:56:33 |
-+----+-------+------------+---------+---------------------+---------------------+
-2 rows in set (0.01 sec)
++----+------+------------+---------+---------------------+---------------------+
+| id | task | deadline   | comment | created_at          | updated_at          |
++----+------+------------+---------+---------------------+---------------------+
+|  1 | hoge | 2020-03-05 | todo!   | 2020-03-05 10:46:16 | 2020-03-05 10:46:16 |
+|  2 | fuga | 2020-03-05 | todo!   | 2020-03-05 10:46:34 | 2020-03-05 10:46:34 |
++----+------+------------+---------+---------------------+---------------------+
+2 rows in set (0.00 sec)
 ```
 
 上記のようにデータが保存されていればOK．
@@ -1509,7 +1498,6 @@ mysql> select * from tasks;
 mysql> exit;
 ```
 
-<div style="page-break-before:always"></div>
 
 ## 7. 表示処理の作成
 
@@ -1602,7 +1590,6 @@ ddd($tasks);  // $tasksの中身を出力
 ここでは，`$tasks`にデータが1レコード以上入っている場合のみ（`@if (count($tasks) > 0)`），データを一覧で表示する（`@foreach ($tasks as $task)`）処理を行っている．`$tasks`にdbから取得した全レコードが入っており，`$task`に1レコードずつ入れて表示させている．`$task->task`ではtasksテーブルのカラム名を指定しているイメージ．
 
 
-<div style="page-break-before:always"></div>
 
 ## 8. 削除処理の作成
 
@@ -1656,8 +1643,6 @@ public function destroy($id)
 
 削除の処理が完了したら，`redirect()`関数で一覧画面へ移動している．
 
-
-<div style="page-break-before:always"></div>
 
 ## 9. 入力フォームと一覧表示の項目追加
 
@@ -1809,8 +1794,6 @@ public function store(Request $request)
 
 ![一覧表示追記](./images/20190611-view-param-added.png)
 
-
-<div style="page-break-before:always"></div>
 
 ## 10. 更新処理の作成
 
@@ -1970,8 +1953,6 @@ public function update(Request $request, $id)
 処理の流れは登録の処理に酷似している．`$task = Task::find($id);`部分でidを指定しているため，該当するレコードが更新される．一方，登録処理のようにidを指定せずに実行するとデータが新しく作成される．
 
 
-<div style="page-break-before:always"></div>
-
 ## 11. 認証処理の作成
 
 laravelでは，webサービスでよく使用される認証の処理を手軽に実装することができる．
@@ -2077,13 +2058,13 @@ $ php artisan migrate:fresh
 Dropped all tables successfully.
 Migration table created successfully.
 Migrating: 2014_10_12_000000_create_users_table
-Migrated:  2014_10_12_000000_create_users_table (0.14 seconds)
+Migrated:  2014_10_12_000000_create_users_table (0.13 seconds)
 Migrating: 2014_10_12_100000_create_password_resets_table
 Migrated:  2014_10_12_100000_create_password_resets_table (0.13 seconds)
 Migrating: 2019_08_19_000000_create_failed_jobs_table
 Migrated:  2019_08_19_000000_create_failed_jobs_table (0.08 seconds)
-Migrating: 2019_10_21_000348_create_tasks_table
-Migrated:  2019_10_21_000348_create_tasks_table (0.07 seconds)
+Migrating: 2020_03_05_103021_create_tasks_table
+Migrated:  2020_03_05_103021_create_tasks_table (0.07 seconds)
 ```
 
 mysqlにログインし，テーブルの構造を確認する．
