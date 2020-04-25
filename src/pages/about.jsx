@@ -39,10 +39,14 @@ export default ({ data }) => (
                 <p>Craft gin</p>
               </a>
             </li>
+            <li>
+              <a href="https://www.buymeacoffee.com/Bt1hreN" target="_blank" style={{ verticalAlign: 'middle' }}>
+                <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style={{ height: 51, width: 217, }} />
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
-
 
     </div>
   </Layout>
