@@ -1,12 +1,12 @@
-import React from 'react'
-import { graphql, StaticQuery } from 'gatsby'
-import SEO from '../components/SEO'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Nav from '../components/Nav'
-import SosialLinks from '../components/SocialLinks'
-import { Global, css } from "@emotion/core"
-import 'typeface-noto-sans-full'
+import React from "react";
+import { graphql, StaticQuery } from "gatsby";
+import SEO from "../components/SEO";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Nav from "../components/Nav";
+import SosialLinks from "../components/SocialLinks";
+import { Global, css } from "@emotion/core";
+import "typeface-noto-sans-full";
 // import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 // import styled from "@emotion/styled"
 
@@ -15,7 +15,7 @@ const globalStyle = css`
     box-sizing: border-box;
   }
   html {
-    background: #3C4556;
+    background: #3c4556;
     color: #dbd0e6;
     max-width: 1024px;
     margin: 0 auto;
@@ -24,20 +24,27 @@ const globalStyle = css`
   body {
     margin: 0;
   }
-  h1, h2, h3, p, a, ul, ol, li {
+  h1,
+  h2,
+  h3,
+  p,
+  a,
+  ul,
+  ol,
+  li {
     font-feature-settings: "palt";
-    letter-spacing: .2rem;
+    letter-spacing: 0.2rem;
   }
   h1 {
     font-size: 1.5em;
   }
-  h2{
+  h2 {
     font-size: 1.35em;
   }
   a {
     color: #d0c0e0;
     text-decoration: none;
-    overflow-wrap : break-word;
+    overflow-wrap: break-word;
   }
   p {
     line-height: 1.9;
@@ -49,23 +56,26 @@ const globalStyle = css`
   pre {
     border: 1px solid #a59aca;
   }
-  pre, code {
+  pre,
+  code {
     letter-spacing: 0;
   }
   code {
     overflow: auto;
     overflow-wrap: break-word !important;
   }
-  pre code{
+  pre code {
     overflow-wrap: normal !important;
   }
-  .mainText h2, .mainText h3{
-    border-bottom: 1px solid #DBD0E6;
-    border-left: 6px solid #DBD0E6;
-    padding: .5rem;
+  .mainText h2,
+  .mainText h3 {
+    border-left: 6px solid #dbd0e6;
+    padding: 0.5rem;
+  }
+  .mainText h2 {
+    border-bottom: 1px solid #dbd0e6;
   }
 `;
-
 
 export default ({ children }) => (
   <StaticQuery
@@ -82,11 +92,11 @@ export default ({ children }) => (
         }
       }
     `}
-    render={data => (
+    render={(data) => (
       <div>
         <SEO
           title={data.site.siteMetadata.title}
-          description={data.site.siteMetadata.description || ' '}
+          description={data.site.siteMetadata.description || " "}
           pathname={data.site.siteMetadata.url}
           banner={data.site.siteMetadata.banner}
           article
@@ -122,4 +132,4 @@ export default ({ children }) => (
       </div>
     )}
   />
-)
+);
