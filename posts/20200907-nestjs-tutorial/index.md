@@ -1,6 +1,6 @@
 ---
 path: "/nestjs-tutorial"
-date: "2020-09-07"
+date: "2020-09-12"
 title: "NestJSで簡単なtudoリストを実装するチュートリアル"
 description: "Node.jsのフレームワークであるNestJSでシンプルなtodoリストを実装する"
 tags: ["node.js", "nestjs", "typescript"]
@@ -8,6 +8,8 @@ published: true
 ---
 
 - 作成日：2020/09/07
+
+- 更新日：2020/09/12
 
 - 実行環境：Ubuntu 20.04 LTS
 
@@ -188,12 +190,12 @@ export class AppModule {}
 
 - `Entity`とはテーブルの構造をクラス構文で表現したもの．今回は Item テーブルを作成するので，テーブルに格納するデータの構造を定義する．
 
-`src`ディレクトリの中に`entities`ディレクトリを作成し，その中に`items.entity.ts`を作成する．
+`src`ディレクトリの中に`entities`ディレクトリを作成し，その中に`item.entity.ts`を作成する．
 
-作成した`items.entity.ts`以下の内容を記述する．
+作成した`item.entity.ts`以下の内容を記述する．
 
 ```ts
-// items.entity.ts
+// item.entity.ts
 import {
   Entity,
   Column,
@@ -639,6 +641,7 @@ update 処理時の DTO を定義する．
 `item/item.dto.ts`を以下のように編集する．
 
 ```ts
+// item.dto.ts
 import { IsNotEmpty, IsString, IsOptional } from "class-validator"; // 編集！
 
 export class CreateItemDTO {
@@ -722,6 +725,7 @@ $ curl http://localhost:3000/item/2/update -X PUT -d "limit=2020-09-30"
 `item/item.dto.ts`に追記．
 
 ```ts
+// item.dto.ts
 // ...
 // ↓追記
 export class DeleteItemDTO {
@@ -731,10 +735,10 @@ export class DeleteItemDTO {
 }
 ```
 
-`item/item.dto.ts`に以下の処理を追記する．
+`item/item.service.ts`に以下の処理を追記する．
 
 ```ts
-// item/item.service.ts
+// item.service.ts
 // ...省略（Create，Update，Deleteの処理など）
 
 // 追記！（パスワードを使用した削除）
