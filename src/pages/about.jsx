@@ -27,16 +27,16 @@ export default ({ data }) => (
           <p>Interests: </p>
           <ul>
             <li>
-              <p>Javascript</p>
+              <p>JavaScript</p>
             </li>
             <li>
-              <p>Typescript</p>
+              <p>TypeScript</p>
             </li>
             <li>
               <p>React</p>
             </li>
             <li>
-              <p>Firebase</p>
+              <p>Node.js</p>
             </li>
             <li>
               <p>PHP</p>
