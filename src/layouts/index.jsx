@@ -17,9 +17,10 @@ const globalStyle = css`
   html {
     background: #3c4556;
     color: #dbd0e6;
-    max-width: 1024px;
+    max-width: 720px;
     margin: 0 auto;
     font-family: Noto Sans;
+    font-size: 1.15rem;
   }
   body {
     margin: 0;
@@ -32,8 +33,8 @@ const globalStyle = css`
   ul,
   ol,
   li {
-    font-feature-settings: "palt";
-    letter-spacing: 0.2rem;
+    font-feature-settings: "palt" 1;
+    letter-spacing: 0.075rem;
   }
   h1 {
     font-size: 1.5em;
