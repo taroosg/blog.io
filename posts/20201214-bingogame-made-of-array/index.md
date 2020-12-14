@@ -1,17 +1,15 @@
 ---
 path: "/bingogame-made-of-array"
-date: "2020-12-15"
+date: "2020-12-14"
 title: "JavaScriptでビンゴゲームをつくったら配列だった話"
 description: "何かを開発するときは配列処理が強い味方になる．一通りの配列処理を把握することは，簡単なアプリケーションをつくる助けになるだろう．"
 tags: ["javascript"]
 published: true
 ---
 
-- 作成日：2020/12/15
+- 作成日：2020/12/14
 
-- 更新日：2020/12/15
-
-この記事は[ジーズアカデミー Advent Calendar 2020](https://qiita.com/advent-calendar/2020/gsacademy)の 15 日目記事です．
+- 更新日：2020/12/14
 
 ## はじめに
 
