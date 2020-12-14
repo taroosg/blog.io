@@ -63,7 +63,12 @@ const globalStyle = css`
   }
   code {
     overflow: auto;
-    overflow-wrap: break-word !important;
+  }
+  h1 > code,
+  h2 > code,
+  h3 > code,
+  p > code {
+    color: #a59aca !important;
   }
   pre code {
     overflow-wrap: normal !important;
@@ -109,18 +114,6 @@ export default ({ children }) => (
           twitter={`https://twitter.com/${data.site.siteMetadata.twitter}`}
           github={`https://github.com/${data.site.siteMetadata.github}`}
         />
-        {/* <Link to="/">
-          <h1>{data.site.siteMetadata.title}</h1>
-        </Link> */}
-        {/* <p>{data.site.siteMetadata.description}</p>
-        <a href={`https://twitter.com/${data.site.siteMetadata.twitter}`} target="_blank" rel="noopener noreferrer"><p>Twitter</p></a>
-        <a href={`https://github.com/${data.site.siteMetadata.github}`} target="_blank" rel="noopener noreferrer"><p>Github</p></a> */}
-        {/* <Link to="/">
-          <p>Home</p>
-        </Link>
-        <Link to="/about">
-          <p>About</p>
-        </Link> */}
         {children}
         <SosialLinks
           twitter={`https://twitter.com/${data.site.siteMetadata.twitter}`}
