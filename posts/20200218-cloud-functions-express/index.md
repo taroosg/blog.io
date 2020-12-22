@@ -1,34 +1,33 @@
 ---
-path: '/cloud-functions-express'
-date: '2020-02-18'
-title: 'Cloud Functions + ExpressでサーバレスAPIを実装'
-description: 'Cloud Functionsでサーバの処理を実装したいが，そのままでは扱いにくいのでExpressを導入して実装してみた．'
-tags: ['node.js','firebase']
+path: "/cloud-functions-express"
+date: "2020-02-18"
+title: "Cloud Functions + ExpressでサーバレスAPIを実装"
+description: "Cloud Functionsでサーバの処理を実装したいが，そのままでは扱いにくいのでExpressを導入して実装してみた．"
+tags: ["node.js", "firebase"]
 published: true
 ---
-
 
 作成日：2020/02/16
 
 ## 今回の趣旨
 
-- Cloud Functions上でGoogle books APIから情報を取得する．
-- クライアントから送信されてきたキーワードを受け取り，APIに投げる．
-- APIから返ってきたデータをクライアントに送信する．
-- Cloud Functionsを利用することでサーバを用意することなくAPIを実装！
+- Cloud Functions 上で Google books API から情報を取得する．
+- クライアントから送信されてきたキーワードを受け取り，API に投げる．
+- API から返ってきたデータをクライアントに送信する．
+- Cloud Functions を利用することでサーバを用意することなく API を実装！
 
 ## 環境構築
 
-### Firebaseのプロジェクト作成
+### Firebase のプロジェクト作成
 
-- Firebaseのコンソールにログインし，新規プロジェクトを作成する．
+- Firebase のコンソールにログインし，新規プロジェクトを作成する．
 - プロジェクト名は任意．
-- DBなどは特に設定しなくてOK．
+- DB などは特に設定しなくて OK．
 
 ### 必要なツールのバージョン確認
 
-- Node.jsとnpmが必要なので，以下のコマンドで状況を確認する．
-- バージョンが表示されればOK．
+- Node.js と npm が必要なので，以下のコマンドで状況を確認する．
+- バージョンが表示されれば OK．
 
 ```bash
 $ node -v
@@ -37,9 +36,9 @@ $ npm -v
 6.13.7
 ```
 
-### Fiirebaseを扱うツールのインストール
+### Fiirebase を扱うツールのインストール
 
-- firebase関連のコマンドを実行するため，下記のコマンドでインストールする．
+- firebase 関連のコマンドを実行するため，下記のコマンドでインストールする．
 
 ```bash
 $ npm install -g firebase-tools
@@ -59,7 +58,7 @@ $ firebase init
 ```
 
 - 選択肢が出るので，十字キーで`Functions`を選択してスペースキーでチェックを入れる（下図参照）．
-- チェックを入れたらEnter．
+- チェックを入れたら Enter．
 
 ```bash
 ? Which Firebase CLI features do you want to set up for this folder? Press Space
@@ -73,7 +72,7 @@ $ firebase init
 ```
 
 - 続いて，以下の選択肢が表示される．
-- `Use an existing project`を選択してEnter．
+- `Use an existing project`を選択して Enter．
 
 ```bash
 ? Please select an option: (Use arrow keys)
@@ -83,7 +82,7 @@ $ firebase init
   Don't set up a default project
 ```
 
-- プロジェクトの選択肢が出るので，上で作成したプロジェクトを選択してEnter．
+- プロジェクトの選択肢が出るので，上で作成したプロジェクトを選択して Enter．
 
 ```bash
 ? Select a default Firebase project for this directory:
@@ -96,7 +95,7 @@ $ firebase init
   hogefuga (hoge-fuga)
 ```
 
-- 選択肢が出るので，`Javascript`を選択してEnter．
+- 選択肢が出るので，`Javascript`を選択して Enter．
 
 ```bash
 ? What language would you like to use to write Cloud Functions? (Use arrow keys)
@@ -123,19 +122,18 @@ i  Writing gitignore file to .gitignore...
 
 これで準備完了！
 
-
 ## 初回デプロイ&動作確認
 
 ### ファイルの内容確認&解説
 
 - 必要なファイルが準備されているので，エディタでプロジェクトのフォルダを開く．
 - `functions/index.js`を開くと下記のような内容が記述されている．
-- 1行目はモジュールの読み込み．
+- 1 行目はモジュールの読み込み．
 - `helloWorld`は関数名．この関数にリクエストが来ると，`Hello from Firebase!`という文字列を返すよう記述されている．
 
 ```js
 // functions/index.js
-const functions = require('firebase-functions');
+const functions = require("firebase-functions");
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -151,13 +149,13 @@ const functions = require('firebase-functions');
 
 ```js
 // functions/index.js
-const functions = require('firebase-functions');
+const functions = require("firebase-functions");
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!");
+  response.send("Hello from Firebase!");
 });
 ```
 
@@ -169,6 +167,7 @@ $ firebase deploy
 ```
 
 - 実行結果
+
 ```bash
 === Deploying to 'fir-todo-8868b'...
 i  deploying functions
@@ -187,7 +186,7 @@ Project Console: https://console.firebase.google.com/project/fir-todo-8868b/over
 ### 動作確認
 
 - ターミナルからリクエストを送る．
-- メッセージが返ってくればOK！
+- メッセージが返ってくれば OK！
 
 ```bash
 $ curl https://hogehoge.cloudfunctions.net/helloWorld
@@ -196,8 +195,8 @@ Hello from Firebase!
 
 ## `Express`の導入
 
-- ExpressはNode.jsのフレームワーク．
-- APIのエンドポイントを手軽に実装できるので便利．
+- Express は Node.js のフレームワーク．
+- API のエンドポイントを手軽に実装できるので便利．
 - 下記コマンドを実行してインストールする．
 - （`functions`フォルダに移動しておく）
 
@@ -206,21 +205,21 @@ $ cd functions
 $ npm install express
 ```
 
-- インストールが終わったらindex.jsを編集する．
-- `app.get()`でAPIエンドポイントを定義．
-- `/hello`がエンドポイントのURL．
+- インストールが終わったら index.js を編集する．
+- `app.get()`で API エンドポイントを定義．
+- `/hello`がエンドポイントの URL．
 
 ```js
 // index.js
-const functions = require('firebase-functions');
+const functions = require("firebase-functions");
 // Expressの読み込み
 const express = require("express");
 
 const app = express();
 
-app.get('/hello', (req, res) => {
+app.get("/hello", (req, res) => {
   // レスポンスの設定
-  res.send('Hello Express!');
+  res.send("Hello Express!");
 });
 
 // 出力
@@ -229,7 +228,7 @@ module.exports = { api };
 ```
 
 - 保存したらデプロイ．
-- `helloworld`関数を削除していいかどうか訊かれたらyesでOK．
+- `helloworld`関数を削除していいかどうか訊かれたら yes で OK．
 
 ```bash
 $ firebase deploy
@@ -252,38 +251,45 @@ $ curl https://hogehoge.cloudfunctions.net/api/hello
 Hello Express!
 ```
 
-これで動作OK！
+これで動作 OK！
 
 ## `Express`での値の受け取り
 
-### URLのパラメータ取得
+### URL のパラメータ取得
 
 - `/user/:userId`のように記述すると，値を受け取ることができる．
-- 例えば，`https://hogehoge.cloudfunctions.net/api/user/2`のようにリクエストを送信すると，Expressでは`2`の文字列を取得することができる．
-- Express内では`req.params.userId`のように取得する．
+- 例えば，以下のようにリクエストを送信すると，Express では`2`の文字列を取得することができる．
+
+```bash
+https://hogehoge.cloudfunctions.net/api/user/2
+```
+
+- Express 内では`req.params.userId`のように取得する．
 - `index.js`を以下のように編集する．
 
 ```js
-const functions = require('firebase-functions');
-const express = require('express');
+const functions = require("firebase-functions");
+const express = require("express");
 
 const app = express();
 
-app.get('/hello', (req, res) => {
-  res.send('Hello Express!');
+app.get("/hello", (req, res) => {
+  res.send("Hello Express!");
 });
 
 // エンドポイントを追加
-app.get('/user/:userId', (req, res) => {
+app.get("/user/:userId", (req, res) => {
   const users = [
-    { id: 1, name: 'りゅうおう' },
-    { id: 2, name: 'ハーゴン' },
-    { id: 3, name: 'バラモス' },
-    { id: 4, name: 'ゾーマ' },
-    { id: 5, name: 'ピサロ' },
+    { id: 1, name: "りゅうおう" },
+    { id: 2, name: "ハーゴン" },
+    { id: 3, name: "バラモス" },
+    { id: 4, name: "ゾーマ" },
+    { id: 5, name: "ピサロ" },
   ];
   // req.params.userIdでURLの後ろにつけた値をとれる．
-  const targetUser = users.find(user => user.id === Number(req.params.userId));
+  const targetUser = users.find(
+    (user) => user.id === Number(req.params.userId)
+  );
   res.send(targetUser);
 });
 
@@ -306,19 +312,19 @@ $ curl https://hogehoge.cloudfunctions.net/api/user/5
 {"id":5,"name":"ピサロ"}
 ```
 
-レスポンスが返ってくれば動作OK．
+レスポンスが返ってくれば動作 OK．
 
-## Google books APIへのhttpリクエスト
+## Google books API への http リクエスト
 
-- リクエスト受信時に値を取得できたので，取得した値を用いてNode.jsから外部のAPIにリクエストを送る．
-- 例によってGoogle books APIを利用する．
-- Node.jsからAPIへリクエストを送信することで，クライアントアプリケーションの処理を単純にすることができる．
-- webアプリでもネイティブアプリでも，Node.jsのエンドポイントにリクエストを送信するだけで良い．
+- リクエスト受信時に値を取得できたので，取得した値を用いて Node.js から外部の API にリクエストを送る．
+- 例によって Google books API を利用する．
+- Node.js から API へリクエストを送信することで，クライアントアプリケーションの処理を単純にすることができる．
+- web アプリでもネイティブアプリでも，Node.js のエンドポイントにリクエストを送信するだけで良い．
 
 ### 必要なモジュールのインストール
 
-- Node.jsの標準機能でもhttpリクエストを行えるが，記述が煩雑になるので`request`モジュールを利用する．
-- ついでにPromiseを扱える`request-promise-native`もインストールする．
+- Node.js の標準機能でも http リクエストを行えるが，記述が煩雑になるので`request`モジュールを利用する．
+- ついでに Promise を扱える`request-promise-native`もインストールする．
 - 下記コマンドでインストール．
 
 ```bash
@@ -329,40 +335,40 @@ $ npm install request-promise-native
 
 ### リクエスト送信処理の追加
 
-- Google books APIへのリクエスト関数を定義．
+- Google books API へのリクエスト関数を定義．
 - エンドポイントを追加し，関数を実行．
-- APIからのレスポンスをクライアントへ送信する．
+- API からのレスポンスをクライアントへ送信する．
 - `index.js`を下記のように編集．
 
 ```js
 // index.js
-const functions = require('firebase-functions');
-const express = require('express');
-const requestPromise = require('request-promise-native'); // 追加
+const functions = require("firebase-functions");
+const express = require("express");
+const requestPromise = require("request-promise-native"); // 追加
 
 const app = express();
 
 // APIにリクエストを送る関数を定義
-const getDataFromApi = async keyword => {
+const getDataFromApi = async (keyword) => {
   // cloud functionsから実行する場合には地域の設定が必要になるため，`country=JP`を追加している
-  const requestUrl = 'https://www.googleapis.com/books/v1/volumes?country=JP&q=intitle:';
+  const requestUrl =
+    "https://www.googleapis.com/books/v1/volumes?country=JP&q=intitle:";
   const result = await requestPromise(`${requestUrl}${keyword}`);
   return result;
-}
+};
 
-app.get('/hello', (req, res) => {
-  res.send('Hello Express!');
+app.get("/hello", (req, res) => {
+  res.send("Hello Express!");
 });
 
-app.get('/user/:userId', (req, res) => {
+app.get("/user/:userId", (req, res) => {
   // 省略
 });
 
 // エンドポイント追加
-app.get('/gbooks/:keyword', (req, res) => {
+app.get("/gbooks/:keyword", (req, res) => {
   // APIリクエストの関数を実行
-  getDataFromApi(req.params.keyword)
-    .then(response => res.send(response))
+  getDataFromApi(req.params.keyword).then((response) => res.send(response));
 });
 
 const api = functions.https.onRequest(app);
@@ -378,16 +384,15 @@ $ firebase deploy
 ```
 
 - ターミナルからリクエストを送る．
-- なんかいろいろかえってくればOK！
+- なんかいろいろかえってくれば OK！
 
 ```bash
 $ curl https://hogehoge.cloudfunctions.net/api/gbooks/react
 ```
 
+## CORS 対策
 
-## CORS対策
-
-- ターミナルから`curl`コマンドでリクエストを送信すると正常に動作するが，クライアントアプリから`axios`などでリクエストを送信するとCORSエラーが発生する．
+- ターミナルから`curl`コマンドでリクエストを送信すると正常に動作するが，クライアントアプリから`axios`などでリクエストを送信すると CORS エラーが発生する．
 - アプリケーションからも利用できるように，追加のモジュールをインストールする．
 
 ```bash
@@ -395,34 +400,34 @@ $ cd functions
 $ npm install cors
 ```
 
-### ファイル内全てのAPIについてCORSを許可したい場合
+### ファイル内全ての API について CORS を許可したい場合
 
-- 全部外部からのリクエストを許可する場合には下記のように追記すればOK．
+- 全部外部からのリクエストを許可する場合には下記のように追記すれば OK．
 
 ```js
 // index.js
-const functions = require('firebase-functions');
-const express = require('express');
-const requestPromise = require('request-promise-native');
-const cors = require('cors'); // 追加
+const functions = require("firebase-functions");
+const express = require("express");
+const requestPromise = require("request-promise-native");
+const cors = require("cors"); // 追加
 
 const app = express();
 
-app.use(cors());  // 追加
+app.use(cors()); // 追加
 
-const getDataFromApi = async keyword => {
+const getDataFromApi = async (keyword) => {
   // 省略
-}
+};
 
-app.get('/hello', (req, res) => {
-  // 省略
-});
-
-app.get('/user/:userId', (req, res) => {
+app.get("/hello", (req, res) => {
   // 省略
 });
 
-app.get('/gbooks/:keyword', (req, res) => {
+app.get("/user/:userId", (req, res) => {
+  // 省略
+});
+
+app.get("/gbooks/:keyword", (req, res) => {
   // 省略
 });
 
@@ -430,36 +435,36 @@ const api = functions.https.onRequest(app);
 module.exports = { api };
 ```
 
-### 個別のAPIについてCORSを許可したい場合
+### 個別の API について CORS を許可したい場合
 
 - 全部許可せずに，指定したエンドポイントのみアクセスを許可したい場合．
 - 許可したいエンドポイントだけに追記を行う．
 
 ```js
 // index.js
-const functions = require('firebase-functions');
-const express = require('express');
-const requestPromise = require('request-promise-native');
-const cors = require('cors'); // 追加
+const functions = require("firebase-functions");
+const express = require("express");
+const requestPromise = require("request-promise-native");
+const cors = require("cors"); // 追加
 
 const app = express();
 
 // app.use(cors());  // 一旦コメントアウト
 
-const getDataFromApi = async keyword => {
+const getDataFromApi = async (keyword) => {
   // 省略
-}
+};
 
-app.get('/hello', (req, res) => {
+app.get("/hello", (req, res) => {
   // 省略
 });
 
-app.get('/user/:userId', (req, res) => {
+app.get("/user/:userId", (req, res) => {
   // 省略
 });
 
 // ここに`cors()`を追加
-app.get('/gbooks/:keyword', cors(), (req, res) => {
+app.get("/gbooks/:keyword", cors(), (req, res) => {
   // 省略
 });
 
@@ -467,6 +472,6 @@ const api = functions.https.onRequest(app);
 module.exports = { api };
 ```
 
-- クライアントアプリケーションからリクエストを送信してデータが返ってくればOK．
+- クライアントアプリケーションからリクエストを送信してデータが返ってくれば OK．
 
 今回はここまで( `･ω･)b
