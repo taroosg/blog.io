@@ -570,11 +570,11 @@ $ php artisan serve --port=8080
 
 プレビューして以下の画面が表示されれば OK（右上に`Login`と`register`が表示される）．
 
-![breezeインストール確認](images/20210104-breeze-installed.png)
+![breezeインストール確認](./images/20210104-breeze-installed.png)
 
 右上の`register`をクリックするとユーザ登録画面に移動するが，まだこの段階ではユーザ登録機能は動作しない．ユーザ登録画面が表示されれば OK．
 
-![register画面](images/20210104-register.png)
+![register画面](./images/20210104-register.png)
 
 もし register 画面が表示されない場合は下記の手順を実行する．
 
@@ -933,15 +933,18 @@ $ php artisan serve --port=8080
 
 ユーザ登録が完了すると，下記の画面が表示される．
 
-![ユーザ登録完了](images/20210104-register-success.png)
+![ユーザ登録完了](./images/20210104-register-success.png)
 
 ## ルーティングとコントローラ
 
+Laravel では，クライアントからリクエストされた URL に対して，どの関数を実行するかを決める．この対応を決定するのが「ルーティング」であり，実際に実行される関数を記述するのが「コントローラ」である．
+
 ### ルーティングとコントローラの作成
 
-コントローラとルーティングの説明
+コントローラとルーティングを作成する．今回のコントローラ名は`TodoController`とする．
 
-コントローラとルーティングを作成する．
+`--resource`をつけることで，よく使用する処理（代表的な CRUD 処理）を一括して作成することができる．
+
 下記コマンドを実行する．
 
 ```bash
@@ -954,12 +957,17 @@ $ php artisan make:controller TodoController --resource
 Controller created successfully.
 ```
 
+これでコントローラファイルが作成された．続いてルーティングを作成する．
+
+**ルーティングファイルは`laravel_todo/routes`以下に配置される．**
+
 `/laravel_todo/routes/web.php`を以下のように編集する．
 
 ```php
 <?php
 
 use Illuminate\Support\Facades\Route;
+// 下記1行を追記
 use App\Http\Controllers\TodoController;
 
 Route::get('/', function () {
@@ -983,8 +991,14 @@ require __DIR__ . '/auth.php';
 $ php artisan route:list
 ```
 
-実行結果（ユーザ操作などは省略）
-この表は非常に重要．
+実行結果（ユーザ操作などのルーティングは省略）
+
+> 【解説】
+>
+> **この表は非常に重要．**
+>
+> - 例えば，`/todo/`に`GET`でリクエストが来た場合，`TodoController`の`index`関数が動作することを示している．
+> - このように，URL と動作する関数の対応を決めているのがルーティングである．
 
 ```bash
 +--------+-----------+---------------------------------+---------------------+------------------------------------------------+--------------+
@@ -1000,9 +1014,17 @@ $ php artisan route:list
 +--------+-----------+---------------------------------+---------------------+------------------------------------------------+--------------+
 ```
 
+これで，ルーティング部分は完了である．
+
 ### コントローラの実装（一部）
 
+URL にリクエストが来た場合に実行される関数はコントローラに記述される．まずはリクエストが来た場合に特定の画面を表示するよう処理を記述する．
+
+**コントローラは`laravel_todo/app/Http/Controllers`以下に配置される．**
+
 `/laravel_todo/app/Http/Controllers/TodoController.php`の内容を以下のように編集する．
+
+`view()`関数は指定したビューファイル（画面）を表示する．`todo.index`は`todo`フォルダの`index.blade.php`の意味．ビューファイルは次項で作成する．
 
 ```php
 <?php
@@ -1039,70 +1061,32 @@ class TodoController extends Controller
     return view('todo.create');
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request)
-  {
-    //
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id)
-  {
-    //
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-    //
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id)
-  {
-    //
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy($id)
-  {
-    //
-  }
+  // 以降は変更なし
 }
 
 ```
 
 ## ビュー（画面）の作成
 
+実際にブラウザ画面に表示される内容を記述する．ビューファイルは`*.blade.php`の形式で作成する．これは「blade テンプレート」と呼ばれる形式であり，コントローラとのデータのやり取りなどに最適化されている．
+
+**ビューファイルは`latavel_todo/resources/view`ディレクトリ以下に配置する．**
+
 ### 共通画面の調整
 
+blade テンプレートでは共通パーツと個別パーツを組み合わせて画面を構成する．例えば，アプリケーション全体を通して表示されるナビゲーションバーやエラー画面などは共通パーツである．
+
+それぞれのパーツは「コンポーネント」と呼ばれる．
+
+まずは画面の基本となる HTML 部分のコンポーネント（`app.blade.php`）を編集する．
+
 `latavel_todo/resources/view/layouts/app.blade.php`を以下のように編集する．
+
+> 【解説】
+>
+> - `secure_asset()`は`https`のリクエストでファイルを読み込むために必要となる．
+> - これを変更しておかないと，CSS ファイルなどが読み込めずにスタイルが反映されない．
+> - ビューファイル中の`$slot`部分に個別パーツのコンポーネントが差し込まれる．
 
 ```php
 <!DOCTYPE html>
@@ -1150,6 +1134,10 @@ class TodoController extends Controller
 
 ### 共通パーツ（エラー表示）の作成
 
+入力値が不正な場合などはエラー画面を表示して対応する．
+
+todo の入力や編集など複数の画面で必要となるため，共通のコンポーネントとして作成する．
+
 `latavel_todo/resources/view`の中に`common`フォルダを作成する．
 `common`フォルダの中に`errors.blade.php`ファイルを作成する．
 
@@ -1173,7 +1161,13 @@ class TodoController extends Controller
 
 ### 共通パーツ（ナビゲーションバー）の作成
 
+ナビゲーションバーもアプリケーションを通じて使用するため，共通パーツとして作成する．
+
+「todo 一覧」と「todo 作成」の 2 種類のリンクを作成しておく．
+
 `laravel_todo/resources/views/layouts/navigation.blade.php`の内容を以下のように編集する．
+
+全部で 4 箇所追記があるので注意．
 
 ```php
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
@@ -1300,78 +1294,31 @@ class TodoController extends Controller
 </nav>
 ```
 
+> 【解説】
+>
+> - Laravel8 のビューは CSS フレームワークの`tailwind`を使用している．
+> - 予め用意されたクラス名を記述するだけでスタイルを適用できるので，ドキュメントを読みながらスタイルを変更してみよう．
+
+画面を確認すると下記のようにナビゲーションが設置された状態となる（一覧ページと作成ページはまだ作成していないので動作しない点に注意）．
+
+![ナビゲーション設置](./images/20210104-navigation.png)
+
 ## データ作成処理と参照処理の作成
+
+これで共通コンポーネントが揃ったため，続いて各画面（作成と一覧）を作成する．また，それぞれ DB のデータ作成と参照の処理も作成する．
 
 ### 個別画面（todo 作成画面と todo 一覧画面）の作成
 
-`latavel_todo/resources/view`の中に`todo`フォルダを作成する．
-`todo`フォルダの中に以下のファイルを作成する．
+まず，`latavel_todo/resources/view`の中に`todo`フォルダを作成する．
 
-- `index.blade.php`
-- `create.blade.php`
-- `show.blade.php`
-- `edit.blade.php`
+続いて，`todo`フォルダの中に以下のファイルを作成する．今後必要になる画面のファイルも合わせて作成している．
 
-`index.blade.php`を以下のように編集する．
+- `index.blade.php`（todo 一覧画面）
+- `create.blade.php`（todo 作成画面）
+- `show.blade.php`（todo 詳細画面）
+- `edit.blade.php`（todo 編集画面）
 
-```php
-<x-app-layout>
-  <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Todo Index') }}
-    </h2>
-  </x-slot>
-
-  <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:w-10/12 md:w-8/10 lg:w-8/12">
-      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 bg-white border-b border-gray-200">
-          <table class="text-center w-full border-collapse">
-            <thead>
-              <tr>
-                <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">todo</th>
-                <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">deadline</th>
-                <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($todos as $todo)
-              <tr class="hover:bg-grey-lighter">
-                <td class="py-4 px-6 border-b border-grey-light">
-                  <a href="{{ route('todo.show',$todo->id) }}">{{$todo->todo}}</a>
-                </td>
-                <td class="py-4 px-6 border-b border-grey-light">{{$todo->deadline}}</td>
-                <td class="py-4 px-6 border-b border-grey-light flex justify-center">
-                  <form action="{{ route('todo.edit',$todo->id) }}" method="GET">
-                    @csrf
-                    <button type="submit" class="mr-2 ml-2 text-sm bg-black hover:bg-gray-900 hover:shadow-none text-white py-1 px-2 focus:outline-none focus:shadow-outline">
-                      <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="white">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                      </svg>
-                    </button>
-                  </form>
-                  <form action="{{ route('todo.destroy',$todo->id) }}" method="POST">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="mr-2 ml-2 text-sm bg-black hover:bg-gray-900 hover:shadow-none text-white py-1 px-2 focus:outline-none focus:shadow-outline">
-                      <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="white">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    </button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</x-app-layout>
-```
-
-`create.php`を以下のように編集する．
+ファイルを作成したら`create.php`を以下のように編集する．
 
 ```php
 <x-app-layout>
@@ -1411,10 +1358,17 @@ class TodoController extends Controller
 </x-app-layout>
 ```
 
+> 【解説】
+>
+> - `route('todo.store')`は`TodoController`の`store()`関数にデータを送ることを示している．
+> - `@csrf`はセキュリティ対策．フォームからデータを送信するときには必ず記述すること．
+
 編集したらブラウザから`amazonaws.com/todo/create`にアクセスして動作確認．
 下記画面になっていれば OK．
 
-`index.blade.php`を以下のように編集する．
+![todo作成画面](./images/20210104-create.png)
+
+続いて，`index.blade.php`を以下のように編集する．
 
 ```php
 <x-app-layout>
@@ -1458,9 +1412,20 @@ class TodoController extends Controller
 </x-app-layout>
 ```
 
-こっちはまだエラー．
+こちらはエラーが発生する．
 
-`/laravel_todo/app/Http/Controllers/TodoController.php`の`index()`を内容を以下のように編集する．
+![一覧画面のエラー](./images/20210104-index-error.png)
+
+コントローラから`$todos`という名前でデータを受け取るよう記述しているが，コントローラからデータが送られていないためである．
+
+とりあえず空のデータを送るように`/laravel_todo/app/Http/Controllers/TodoController.php`の`index()`を内容を以下のように編集する．
+
+> 【解説】
+>
+> - `view()`関数の第 2 引数に渡したいデータを配列で記述する．
+> - ここでは「`todos`」という名前で「空の配列」を送っている．
+> - ビューファイル側では`$todos`とすることで渡されたデータを使うことができる．
+> - また，変数などのデータは`var_dump()`または`dd()`または`ddd()`で確認することができる．これらを使ってデータの構造を確認しながら進めると良いだろう．
 
 ```php
 public function index()
@@ -1474,9 +1439,22 @@ public function index()
 編集したらブラウザから`amazonaws.com/todo`にアクセスして動作確認．
 下記画面になっていれば OK．
 
+![一覧画面](./images/20210104-index-success.png)
+
 ### データ作成処理の実装
 
-モデルの編集
+必要な画面を揃えたので，作成ページから実際に DB にデータを保存できるようにする．
+
+### Model の編集
+
+Model の役割は「DB とのデータをやり取り」である．Model には DB からどのようにデータを取得するか，などの処理を記述する．
+
+ただし，Model には予め使用頻度の高い処理（基本的な CRUD）が用意されているため，今回記述するコードはそれほど多くない．
+
+まず，テーブル対して，Laravel 側からデータの作成や編集が行えないカラムを設定する．
+
+これはクライアントから送信されてくるデータが ID やユーザ権限などの情報を書き換えてしまうリスクを低減させるためである．
+
 `laravel_todo/app/Models/Todo.php`を以下のように編集する．
 
 ```php
@@ -1501,7 +1479,13 @@ class Todo extends Model
 }
 ```
 
-コントローラに「モデルに対しての命令」を記述する．DB とやり取りする関数はすでに定義されているのでモデル側に新たな記述は必要ない．
+> 【解説】
+>
+> - `$guarded`はアプリケーション側から変更できないカラムを指定する（ブラックリスト）．
+> - 対して，`$fillable`はアプリケーション側から変更できるカラムを指定する（ホワイトリスト）．
+> - どちらを使用しても良いが，どちらかを使用する必要がある．
+
+続いて，コントローラに「Model に対しての命令」を記述する．DB とやり取りする関数はすでに定義されているのでモデル側に新たな記述は必要ない．
 
 `/laravel_todo/app/Http/Controllers/TodoController.php`の`store()`を内容を以下のように編集する．
 
@@ -1510,7 +1494,7 @@ public function store(Request $request)
 {
   // バリデーション
   $validator = Validator::make($request->all(), [
-    'todo' => 'required|max:191',
+    'todo' => 'required | max:191',
     'deadline' => 'required',
   ]);
   // バリデーション:エラー
@@ -1528,9 +1512,17 @@ public function store(Request $request)
 }
 ```
 
+> 【解説】
+>
+> - `create.blade.php`から送信されていたデータは`$request`に入っている．`$request->all()`とすることで全部取得することができる．
+> - `redirect()->route('todo.index')`は指定したコントローラの関数を動かす．今回は`TodoController`の`index()`関数．
+
 ### データ参照処理の作成
 
 締切が早い順にソートしてデータを参照する処理を作成する．
+
+まず，上記の条件でデータを取得する関数を Model に作成する．
+
 `laravel_todo/app/Models/Todo.php`に以下の関数を作成する．
 
 ```php
@@ -1539,6 +1531,12 @@ public static function getAllOrderByDeadline()
   return self::orderBy('deadline', 'asc')->get();
 }
 ```
+
+> 【解説】
+>
+> - `self`は Todo モデルのこと．
+> - `orderBy()`は SQL のものと同じ理解で OK．
+> - 最後の`get()`がないと実行されないので注意．
 
 `/laravel_todo/app/Http/Controllers/TodoController.php`の`index()`を内容を以下のように編集する．
 
@@ -1553,15 +1551,25 @@ public function index()
 }
 ```
 
-動作させて検証．
+todo 作成画面でデータを入力して送信すると，自動的に一覧画面に切り替わる．
+
+![データ作成](./images/20210104-create-post.png)
+
+自分が入力したデータが表示されていれば OK．何件かデータを入れておこう．
+
+![データ複数件追加](./images/20210104-index-list2.png)
 
 ## 詳細表示の作成
+
+詳細画面は todo の 1 件を個別に表示する．
 
 ### 一覧画面に詳細画面へのリンクを作成
 
 各 todo の詳細を取得する処理と表示する画面を作成する．
 
 一覧画面の todo 名をクリックすると詳細画面に移動するようにする．
+
+クリックするとコントローラの`show()`関数にリクエストを送るように記述している．
 
 `index.blade.php`を以下のように編集する．
 
@@ -1610,6 +1618,8 @@ public function index()
 
 ### 指定した 1 件のデータを取得する処理を追加
 
+`show()`関数では，ID を指定して 1 件のデータを取得したい．
+
 `/laravel_todo/app/Http/Controllers/TodoController.php`の`show()`を内容を以下のように編集する．
 
 ```php
@@ -1619,6 +1629,8 @@ public function show($id)
   return view('todo.show', ['todo' => $todo]);
 }
 ```
+
+ここでは，受け取った ID の値でテーブルからデータを取り出し，`todo`という名前で`show.blade.php`に渡している．
 
 ### 詳細表示画面の作成
 
@@ -1666,9 +1678,13 @@ public function show($id)
 </x-app-layout>
 ```
 
-動作させて確認する．
+一覧画面で各 todo をクリックし，下記のように詳細画面が表示されれば OK．
+
+![詳細画面](./images/20210104-show.png)
 
 ## 削除処理の作成
+
+一覧画面に削除ボタンを設置し，クリックしたら該当するデータを削除できるようにする．
 
 ### 一覧画面に削除ボタンを追加
 
@@ -1725,7 +1741,19 @@ public function show($id)
 </x-app-layout>
 ```
 
+> 【解説】
+>
+> - 削除ボタンクリック時には，コントローラの`destroy()`関数にリクエストが送られる．
+> - 削除の処理を行うには`DELETE`メソッドでリクエストを送る必要があるが，form からは GET または POST でしか送れない．
+> - `@method('delete')`を記述することで，`DELETE`メソッドで送信できる．
+
+一覧画面を確認し，削除ボタンが表示されていれば OK．
+
+![削除ボタン追加](./images/20210104-index-delete-button.png)
+
 ### 指定したデータを削除する処理の作成
+
+まず ID で指定したデータを 1 件抽出し，そのデータを削除する，という流れ．
 
 `/laravel_todo/app/Http/Controllers/TodoController.php`の`destroy()`を内容を以下のように編集する．
 
@@ -1737,11 +1765,17 @@ public function destroy($id)
 }
 ```
 
-動作させて確認する．
+動作させて確認する．削除ボタンをクリックし，該当するデータが削除されれば OK．
 
 ## 更新処理の作成
 
-### 一覧画面に更新ボタンを追加
+更新処理は
+
+1. 一覧画面に編集ボタンを設置．
+2. 編集ボタンをクリックしたら編集画面に移動.
+3. 編集画面でデータを書き換え，送信ボタンクリックで DB のデータを更新する．
+
+### 一覧画面に編集ボタンを追加
 
 `index.blade.php`を以下のように編集する．
 
@@ -1804,6 +1838,10 @@ public function destroy($id)
 </x-app-layout>
 ```
 
+一覧画面に編集ボタンが表示されていれば OK．
+
+![編集ボタン追加](./images/20210104-index-edit-button.png)
+
 ### 更新画面に移動する処理の作成
 
 `/laravel_todo/app/Http/Controllers/TodoController.php`の`edit()`を内容を以下のように編集する．
@@ -1815,6 +1853,8 @@ public function edit($id)
   return view('todo.edit', ['todo' => $todo]);
 }
 ```
+
+やっていることは`create()`関数と同様．
 
 ### 更新画面の作成
 
@@ -1866,7 +1906,11 @@ public function edit($id)
 
 一覧画面の更新ボタンをクリックし，現在のデータが表示されていれば OK．
 
+![編集画面](./images/20210104-edit.png)
+
 ### 指定したデータを更新する処理の作成
+
+編集画面でデータを書き換え，コントローラの`update()`関数にデータを送信し，DB のデータを更新する．
 
 `/laravel_todo/app/Http/Controllers/TodoController.php`の`update()`を内容を以下のように編集する．
 
@@ -1875,7 +1919,7 @@ public function update(Request $request, $id)
 {
   //バリデーション
   $validator = Validator::make($request->all(), [
-    'todo' => 'required|max:191',
+    'todo' => 'required | max:191',
     'deadline' => 'required',
   ]);
   //バリデーション:エラー
@@ -1894,9 +1938,17 @@ public function update(Request $request, $id)
 }
 ```
 
-動作させてデータが更新されれば OK．
+編集画面で書き換えたデータに更新されれば OK．
+
+![データ更新結果](./images/20210104-index-updated.png)
 
 ## ユーザ情報の利用
+
+はじめのほうで，ユーザ認証を行う breeze ライブラリをインストールしたため，これを利用してユーザ管理を行う．
+
+まず，認証ユーザのみがアプリケーションの機能を利用できるように処理を変更する．
+
+続いて，データ作成時にユーザ情報を含めることで，ログインユーザが作成したデータのみを扱えるように処理を変更する．
 
 ### ログインしていないユーザはアプリケーションにアクセスできないようにする．
 
@@ -1927,9 +1979,17 @@ class TasksController extends Controller
 }
 ```
 
-ログアウトして URL 直打ちするとログイン画面に戻される．
+> 【解説】
+>
+> - ユーザの認証情報を使用するため，`use Auth;`を記述している．
+> - `__construct()`関数は，その他の関数が実行される場合にその前に実行される．
+> - `middleware(['auth'])`はログイン状況を確認して，ログインしていない状態ならログインページに戻す処理を実行する．
+
+一旦ログアウトして URL 直打ちするとログイン画面に戻される状態になっていれば OK．
 
 ### todo テーブルにユーザ ID カラムを追加する
+
+カラムの変更はマイグレーションファイルから行う．
 
 `laravel_todo/database/migration/2020_12_31_033638_create_todos_table.php`を開く．
 下記にように編集する．
@@ -1974,7 +2034,7 @@ class CreateTodosTable extends Migration
 }
 ```
 
-以下のコマンドを実行する．
+以下のコマンドを実行する．`:fresh`をつけることで，既存のテーブルを一旦消去して再度マイグレーションを実行する．
 
 ```bash
 $ php artisan migrate:fresh
@@ -2042,6 +2102,8 @@ user_id カラムが追加されていれば OK．
 
 ### データ追加時に user_id を追加
 
+todo のデータを作成する際に，「誰が作成したのか」がわかるように，データにログインユーザの ID を追加する．
+
 `/laravel_todo/app/Http/Controllers/TodoController.php`の`store()`を内容を以下のように編集する．
 
 ```php
@@ -2049,7 +2111,7 @@ public function store(Request $request)
 {
   // バリデーション
   $validator = Validator::make($request->all(), [
-    'todo' => 'required|max:255',
+    'todo' => 'required | max:255',
     'deadline' => 'required',
   ]);
   // バリデーション:エラー
@@ -2069,9 +2131,16 @@ public function store(Request $request)
 }
 ```
 
+> 【解説】
+>
+> - `$request->merge()`でユーザ ID を追加している．
+> - `Auth::user()->id`で現在ログインしているユーザの ID を取得することができる．
+> - `Auth::user()`には他にもデータが入っているので，`dd()`などで確認してみると良いだろう．
+
 ### 一覧画面にログインユーザが登録したデータのみを表示する
 
 ログインしているユーザの ID でフィルタリングして締切が早い順にソートしてデータを参照する処理を作成する．
+
 `laravel_todo/app/Models/Todo.php`に以下のように編集する．
 
 ```php
@@ -2126,4 +2195,10 @@ public function index()
 }
 ```
 
-動作させて検証．
+動作させて検証する．異なるユーザでログインし，個別にデータが表示されることを確認すると良いだろう．
+
+![認証済み一覧画面](./images/20210104-index-auth.png)
+
+ここまでで基本的な CRUD 処理を使った todo リストのアプリケーションが完成！
+
+今回はここまで( `･ω･)b
