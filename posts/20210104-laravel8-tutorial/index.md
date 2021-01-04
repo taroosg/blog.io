@@ -389,15 +389,17 @@ Composer version 2.0.8 2020-12-03 17:20:38
 
 ## Laravel プロジェクトの作成
 
+ここから，Laravel のアプリケーションを作成していく．まずは Laravel フレームワークの基本的なファイルを準備する必要がある（準備はコマンドが用意されている）．
+
 ### インストーラの準備
 
-下記コマンドを実行．
+まずはファイルのダウンロードに使用するインストーラを用意する．下記コマンドを実行．
 
 ```bash
 $ sudo composer global require "laravel/installer"
 ```
 
-yes を入力して Enter
+なにか訊かれたら`yes`を入力して Enter．
 
 ```bash
 Continue as root/super user [yes]?
@@ -413,13 +415,15 @@ Generating autoload files
 Use the `composer fund` command to find out more!
 ```
 
-下記コマンドを実行．
+続いて，Laravel のプロジェクトを作成する．Laravel では「プロジェクト」という単位でアプリケーションを管理する．一つのアプリケーションが一つのプロジェクト，という理解で OK．
+
+下記コマンドを実行する．`laravel_todo`が今回のアプリケーション名．
 
 ```bash
 $ composer create-project laravel/laravel laravel_todo
 ```
 
-実行結果
+実行結果（しばらく時間がかかる）
 
 ```bash
 Package manifest generated successfully.
@@ -429,22 +433,57 @@ Use the `composer fund` command to find out more!
 Application key set successfully.
 ```
 
-project ディレクトリに移動
+プロジェクトのディレクトリ（`laravel_todo`）に移動する．以降，アプリケーションに関する操作はすべて`laravel_todo`内で実行する．
 
 ```bash
 $ cd laravel_todo
 ```
 
-バージョン確認
+下記コマンドでインストールされている Laravel のバージョンを確認できる．
 
 ```bash
-$ php artisan --version
+$ php artisan -V
 Laravel Framework 8.20.1
 ```
 
+### Laravel のインストール確認
+
+Laravel インストールの確認には web ブラウザで動作させて確認する．Cloud9 には web サーバが標準で搭載されているため，以下の手順で確認を行う．
+
+コマンド実行中は他のコマンドを打てないため，別タブで新しくターミナルを立ち上げておくと便利．
+
+下記コマンドを実行し，web サーバを立ち上げる．
+
+```bash
+$ php artisan serve --port=8080
+```
+
+実行結果
+
+```bash
+Starting Laravel development server: http://127.0.0.1:8080
+[Mon Jan  4 13:23:03 2021] PHP 8.0.0 Development Server (http://127.0.0.1:8080) started
+```
+
+- 【重要】サーバーが動いた状態となるが，停止する場合は「`ctrl + c`」で停止できる．
+
+- 実際の動作は下記手順で確認できる．
+
+  1. 画面上部の「preview」をクリック．
+  2. 「prewiew running application」をクリック．
+  3. 右下にプレビュー画面が表示される．
+  4. プレビュー画面右上の「Browser の右側のボタン」をクリック．
+  5. 新しいタブで下記画面が表示されれば OK．
+
+![トップ画面](./images/20210104-laravel-firstview.png)
+
+動作を確認できたら Cloud9 のターミナル上で`ctrl + c`を入力し，一旦サーバを停止させておこう．
+
 ### ライブラリ準備
 
-認証用の Laravel Breeze
+作成するアプリケーションでライブラリを使用する場合はコマンドでインストールを行う．今回は認証を実装するための`Laravel Breeze`をインストールする．
+
+下記コマンドを実行し，必要なファイルをダウンロードする．
 
 ```bash
 $ composer require laravel/breeze --dev
@@ -461,7 +500,7 @@ Package manifest generated successfully.
 Use the `composer fund` command to find out more!
 ```
 
-インストール
+下記コマンドでインストールする．
 
 ```bash
 $ php artisan breeze:install
@@ -474,13 +513,13 @@ Breeze scaffolding installed successfully.
 Please execute the "npm install && npm run dev" command to build your assets.
 ```
 
-その他必要なパッケージをインストールしてビルド
+下記コマンドを実行し，その他必要なパッケージをインストールしてビルドする（ここで Node.js が動く）．
 
 ```bash
 $ npm install && npm run dev
 ```
 
-実行結果
+実行結果（やや時間がかかる）
 
 ```bash
  DONE  Compiled successfully in 35024ms                                       3:03:55 AM
@@ -490,126 +529,10 @@ $ npm install && npm run dev
   /js/app.js   669 KiB  /js/app  [emitted]  /js/app
 ```
 
-### MySQL の準備
-
-下記コマンドを実行，
-
-```bash
-$ sudo mysql
-```
-
-実行結果
-管理者でログインできる
-
-```bash
-...
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql>
-```
-
-下記コマンドを実行．
-ユーザ名 root パスワード root で入れるように設定する．
-
-```bash
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
-```
-
-実行結果
-
-```bash
-Query OK, 0 rows affected (0.02 sec)
-```
-
-ログアウトする．
-
-```bash
-mysql> exit;
-Bye
-```
-
-ユーザ名 roo パスワード root でログインできることを確認する．
-下記コマンドを実行．
-
-```bash
-$ mysql -u root -p
-```
-
-パスワードを求められるので「root」を入力（表示されない）
-実行結果
-
-```bash
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql>
-```
-
-データベースを作成する．
-データベース名は laravel_todo
-下記コマンドを実行．
-
-```bash
-mysql> create database laravel_todo;
-```
-
-実行結果
-
-```bash
-Query OK, 1 row affected (0.00 sec)
-```
-
-下記コマンドを実行して確認．
-
-```bash
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| laravel_todo       |
-| mysql              |
-| performance_schema |
-| sys                |
-+--------------------+
-5 rows in set (0.02 sec)
-```
-
-ログアウトする．
-
-```bash
-mysql> exit;
-Bye
-```
-
-### Laravel から DB に接続するための準備
-
-.env ファイルを開き，以下のように編集する．
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=localhost         // 編集
-DB_PORT=3306
-DB_DATABASE=laravel_todo  // 編集
-DB_USERNAME=root
-DB_PASSWORD=root          // 編集
-```
-
-.env ファイルを更新したらキャッシュをクリアする．
-
-```bash
-$ php artisan config:cache
-```
-
-実行結果
-
-```bash
-Configuration cache cleared!
-Configuration cached successfully!
-```
-
 ### https と http 混在状態で動作するように設定
 
-AWScloud9 で動かす場合，https と http が混在する問題があり，下記設定を行わないとトップページ以外動作しない．
+AWScloud9 で動かす場合，`https`と `http`が混在する問題があり，下記設定を行わないとトップページ以外動作しない．
+
 `laravel_todo/app/Http/Middleware/TrustProxies.php`を以下のように編集する．
 
 ```php
@@ -627,7 +550,7 @@ class TrustProxies extends Middleware
    *
    * @var array|string|null
    */
-  // ↓この1行を追加
+  // ↓この1行を編集
   protected $proxies = '*';
 
   /**
@@ -639,43 +562,187 @@ class TrustProxies extends Middleware
 }
 ```
 
-編集したらインスタンス再起動．
-
-### 動作確認
-
-新しくターミナルを立ち上げ，下記コマンドを実行．
-
-```bash
-$ cd laravel_todo
-```
-
-サーバを立ち上げる．
+記述したらサーバを立ち上げ，動作を確認する．
 
 ```bash
 $ php artisan serve --port=8080
 ```
 
+プレビューして以下の画面が表示されれば OK（右上に`Login`と`register`が表示される）．
+
+![breezeインストール確認](images/20210104-breeze-installed.png)
+
+右上の`register`をクリックするとユーザ登録画面に移動するが，まだこの段階ではユーザ登録機能は動作しない．ユーザ登録画面が表示されれば OK．
+
+![register画面](images/20210104-register.png)
+
+もし register 画面が表示されない場合は下記の手順を実行する．
+
+1. 一旦サーバを停止する．
+2. EC2 設定画面からインスタンスを再起動．
+3. 再度サーバ立ち上げて動作確認．
+
+ここまででライブラリの準備は完了．
+
+### MySQL の準備
+
+今回の todo リストアプリケーションでは，DB として MySQL を使用する．
+
+すでに MySQL 自体は動作する状態になっているが，Laravel から扱うにはいくつかの設定が必要となる．下記コマンドを実行し，MySQL にログインする．
+
+```bash
+$ sudo mysql
+```
+
+実行結果．今回は管理者でログインした状態．
+
+```bash
+...
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+```
+
+下記コマンドを実行し，ユーザ名「root」パスワード「root」で入れるように設定する．
+
+> 【解説】
+>
+> Laravel から扱うには，何らかのユーザ名とパスワードで MySQL にログインできるよう設定しておく必要がある．デプロイする際のレンタルサーバなどでは，予めユーザとパスワードが設定されている場合がほとんどなので本項の実施は必要ない場合が多い．
+
+```bash
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+```
+
 実行結果
 
 ```bash
-Starting Laravel development server: http://127.0.0.1:8080
-[Thu Dec 31 03:24:59 2020] PHP 8.0.0 Development Server (http://127.0.0.1:8080) started
+Query OK, 0 rows affected (0.02 sec)
 ```
 
-Previwe -> Preview Running Application で右下に小さいウインドウが表示される．
-「Browser ボタンの右側の資格が重なったようなボタン」で新規タブで開ける．右下のウインドウは閉じて OK．
-サーバは「Ctrl + c」で停止できる．
+設定できたらログアウトする．
 
-下のような画面が表示されれば OK．
+```bash
+mysql> exit;
+Bye
+```
 
-[初期画面の画像]()
+ユーザ名`root`パスワード`root`でログインできることを確認する．下記コマンドを実行．
+
+```bash
+$ mysql -u root -p
+```
+
+パスワードを求められるので「root」を入力して Enter（パスワードは画面上に表示されないので注意）．
+
+実行結果
+
+```bash
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+```
+
+今回のアプリケーションで使用するデータベースを作成する．データベース名は `laravel_todo`とする．
+
+下記コマンドを実行でデータベースを作成．
+
+```bash
+mysql> create database laravel_todo;
+```
+
+実行結果
+
+```bash
+Query OK, 1 row affected (0.00 sec)
+```
+
+下記コマンドを実行してデータベースの一覧を表示する．
+
+```bash
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| laravel_todo       |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.02 sec)
+```
+
+確認できたらログアウトする．
+
+```bash
+mysql> exit;
+Bye
+```
+
+これで MySQL 側の準備は完了．
+
+### Laravel から DB に接続するための準備
+
+続いて，Laravel から MySQL にアクセスするための設定を行う．前項で設定したユーザ名，パスワードなどを設定ファイルに記述する．
+
+Cloud9 画面左側のツリーから`.env`ファイルを開く．`.env`ファイルは`laravel_todo`ディレクトリの直下に配置されている．
+
+なお，`.env`ファイルは隠しファイルなので表示されない場合がある．その場合は，ツリー画面右上の歯車マークをクリックして「Show Hidden Files」にチェックを入れると表示される．
+
+`.env`ファイルをダブルクリックして開き，10-15 行目を以下のように編集する（コメントは削除しよう）．
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=localhost         // 編集
+DB_PORT=3306
+DB_DATABASE=laravel_todo  // 編集
+DB_USERNAME=root
+DB_PASSWORD=root          // 編集
+```
+
+`.env`ファイルを更新したらキャッシュをクリアする．
+
+> 【解説】
+>
+> 設定ファイルはサーバ起動時にキャッシュに保存されるため，変更した場合は「キャッシュをクリアする」「サーバを立ち上げ直す」のどちらかが必要になる．
+
+```bash
+$ php artisan config:cache
+```
+
+実行結果
+
+```bash
+Configuration cache cleared!
+Configuration cached successfully!
+```
 
 ## todo アプリケーションの準備
 
 ### テーブル設計（マイグレーション）
 
-モデルとマイグレーションファイルを作成する．
-下記コマンドを実行．
+今回のアプリケーションは todo リストなので「todo」テーブルを作成する．
+
+Laravel では「マイグレーション」という仕組みを使用してテーブルの管理を行う．また，テーブル内のデータは「Model」を使用して操作する．Laravel では`Eroquent Model`と呼ばれる ORM を使用する．
+
+> 【解説 / マイグレーション】
+>
+> - マイグレーションとは「マイグレーションファイル」を用いてテーブルを管理する仕組み．
+> - 「マイグレーションファイル」にテーブル名やカラム名を記述し，指定されたコマンドを実行することで設定したテーブルが生成される．
+
+> 【解説 / Eloquent Model】
+>
+> - Eloquent Model は Laravel 標準の ORM（object-relational mapper）である．
+> - ORM とは，DB のレコードをオブジェクトとして直感的に扱えるようにしたもので，SQL を意識せずにプログラムで処理を記述することができる．
+> - Eloquent Model は定義された「Model」を用いることで簡単に DB へのデータ保存・取得などを行える．
+> - 1 つのモデルが 1 つのテーブルに対応する．例えば，`todos`テーブルに対して`Todo`のようにモデルを定義すると自動的に対応する．モデル内に明示的に対応を記述することもできる．
+> - テーブルに対してデータ操作を行う場合，対応するモデルに対して処理を実行することで DB 操作を行うことができる．
+
+Model とマイグレーションファイルは一度に両方とも作成することができる．
+
+下記コマンドは Model を作成するコマンドだが（`Todo`がモデル名），`-m`をつけることでマイグレーションファイルも同時に作成できる．この手法を用いることで，Model 名とマイグレーションファイル内のテーブル名が自動的に対応する．
+
+早速実行．
 
 ```bash
 $ php artisan make:model Todo -m
@@ -688,8 +755,18 @@ Model created successfully.
 Created Migration: 2020_12_31_033638_create_todos_table
 ```
 
-`laravel_todo/database/migration/2020_12_31_033638_create_todos_table.php`を開く．
-下記にように編集する．
+`laravel_todo/database/migration/2020_12_31_033638_create_todos_table.php`を開く．これがマイグレーションファイルである．
+
+カラムを追加するため，下記にように編集する．今回は`todo`，`deadline`，`comment`の 3 カラムを追加する．
+
+カラムを追加するときはデータ型も設定する．`todo`は文字列（`string`），`deadline`は日付（`date`），`comment`はテキスト（`text`）を設定している．
+
+`id`ははじめから用意されているので設定不要．
+
+> 【tips】
+>
+> - `nullable()`を記述することで，入力必須でなくすることができる．他に`unique()`で重複を禁止することもできる．
+> - `timestamps()`は`created_at`カラムと`updated_at`カラムを自動的に設定してくれる．
 
 ```php
 <?php
@@ -730,8 +807,14 @@ class CreateTodosTable extends Migration
 }
 ```
 
-最大文字列長を変更する．
-`/project01/app/Providers/AppServiceProvider.php`の内容を以下のように編集する．
+これでテーブルの設計は完了だが，MySQL のバージョンによってはエラーが発生するため，次の設定を行う．
+
+`/project01/app/Providers/AppServiceProvider.php`の内容を以下のように編集する．`string`型の最大長を 191 に変更する．
+
+> 【解説】
+>
+> - この設定が必要かどうかは MySQL のバージョンによる．MySQL のバージョンが`5.7.7`以下の場合は必要となる．
+> - Laravel のマイグレーションでは文字列の最大長が`255`として実行するが，MySQL5.7.7 以下では最大長が`191`となっているためである．
 
 ```php
 <?php
@@ -765,8 +848,7 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-マイグレーションを実行するとテーブルが作成される．
-以下のコマンドを実行．
+マイグレーションを実行するとテーブルが作成される．以下のコマンドを実行する．
 
 ```bash
 $ php artisan migrate
@@ -786,12 +868,16 @@ Migrating: 2020_12_31_033638_create_todos_table
 Migrated:  2020_12_31_033638_create_todos_table (14.63ms)
 ```
 
-エラーになる場合はマイグレーションファイルの内容が間違っていることが多い．
-修正して以下のコマンドを実行する．
+エラーになる場合はマイグレーションファイルの内容が間違っていることが多い．修正して以下のコマンドを実行する．
 
 ```bash
 $ php artisan migrate:fresh
 ```
+
+> 【解説】
+>
+> - `:fresh`をつけることで，存在しているテーブルを一旦削除し，再度マイグレーションを実行することができる．
+> - マイグレーションに失敗した場合はエラーが発生するまでに実行された部分はテーブルが作成される．しかし，マイグレーション実行時に，すでに同名のテーブルが存在している場合はエラーになるため，既存テーブルを削除する必要がある．
 
 うまくいったら，mysql にログインしてテーブルを確認する．
 
@@ -831,8 +917,23 @@ mysql> desc todos;
 
 mysql> exit;
 Bye
-
 ```
+
+この段階で，ユーザテーブルなどの認証に使用するテーブルも用意された状態となる．
+
+アプリケーションを立ち上げて，右上の`register`から適当にユーザを登録しておこう．
+
+```bash
+$ php artisan serve --port=8080
+```
+
+> 【tips】
+>
+> `Email`は`example.com`を使用する．これはテスト用に用意されているドメインであり，誰かのメールアドレスを使用していしまうリスクを回避できる．
+
+ユーザ登録が完了すると，下記の画面が表示される．
+
+![ユーザ登録完了](images/20210104-register-success.png)
 
 ## ルーティングとコントローラ
 
