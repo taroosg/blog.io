@@ -144,7 +144,7 @@ Swap:          1548          13        1535
 
 `Swap:`の`total`が 1500 程度になっていれば OK．
 
-### Node.js の更
+### Node.js の更新
 
 Laravel（7 以降）では，JS や CSS をビルドする必要があり，その際に Node.js が使用される（実際に Node.js を書くことはない）．
 
