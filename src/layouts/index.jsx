@@ -71,6 +71,7 @@ const globalStyle = css`
   p code {
     color: #a59aca !important;
     overflow-wrap: break-word !important;
+    word-break: break-word !important;
   }
   pre > code {
     overflow-wrap: normal !important;
