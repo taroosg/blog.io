@@ -64,13 +64,14 @@ const globalStyle = css`
   code {
     overflow: auto;
   }
-  h1 > code,
-  h2 > code,
-  h3 > code,
-  p > code {
+  h1 code,
+  h2 code,
+  h3 code,
+  p code {
     color: #a59aca !important;
+    overflow-wrap: break-word !important;
   }
-  pre code {
+  pre > code {
     overflow-wrap: normal !important;
   }
   .mainText h2,
