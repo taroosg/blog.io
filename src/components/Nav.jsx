@@ -2,6 +2,13 @@ import React from 'react'
 // import { Link } from 'gatsby'
 import SosialLinks from './SocialLinks'
 
+const nav = {
+  position: 'fixed',
+  width: '100%',
+  maxWidth: '720px',
+  zIndex: -1,
+}
+
 const Nav = props => {
   return (
     <div>

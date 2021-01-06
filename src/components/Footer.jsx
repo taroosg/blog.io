@@ -11,6 +11,7 @@ const footer = {
   justifyContent: 'center',
   alignItems: 'center',
   marginTop: '1.5em',
+  boxShadow: "0px 0px 10px -5px #000",
 }
 
 const Footer = props => {

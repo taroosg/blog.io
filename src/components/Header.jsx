@@ -10,6 +10,7 @@ const title = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  boxShadow: "0px 0px 10px -5px #000",
 }
 const sticky = {
   position: 'sticky',

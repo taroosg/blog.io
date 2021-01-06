@@ -37,7 +37,8 @@ const globalStyle = css`
     letter-spacing: 0.075rem;
   }
   h1 {
-    font-size: 1.5em;
+    font-size: 1.35em;
+    line-height: 0.8rem;
   }
   h2 {
     font-size: 1.35em;
@@ -82,6 +83,9 @@ const globalStyle = css`
   .mainText h2 {
     border-bottom: 1px solid #dbd0e6;
   }
+  img {
+    box-shadow: "0px 0px 10px -5px #000";
+  }
 `;
 
 export default ({ children }) => (
@@ -115,7 +119,9 @@ export default ({ children }) => (
           twitter={`https://twitter.com/${data.site.siteMetadata.twitter}`}
           github={`https://github.com/${data.site.siteMetadata.github}`}
         />
-        {children}
+        <div>
+          {children}
+        </div>
         <SosialLinks
           twitter={`https://twitter.com/${data.site.siteMetadata.twitter}`}
           github={`https://github.com/${data.site.siteMetadata.github}`}
