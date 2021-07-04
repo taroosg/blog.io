@@ -829,7 +829,7 @@ async deleteItem(
   @Param("id") id: string,
   @Body() deleteItem: DeleteItemDTO,
 ) {
-  const item = this.service.find(Number(id));
+  const item = await this.service.find(Number(id));
   // idで検索したけど該当するアイテムが見つからなかったとき
   if (!item) {
     throw new HttpException(
