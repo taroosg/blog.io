@@ -4,7 +4,7 @@ date: "2021-12-01"
 title: "講義を DX する（その1）"
 description: "現在担当している講義フローがアナログすぎて不幸だったので DX した（前半）．"
 tags: ["lifehack", "github"]
-published: true
+published: false
 ---
 
 - 作成日：2021/12/01

@@ -4,7 +4,7 @@ date: "2021-12-01"
 title: "講義を DX する（その2）"
 description: "現在担当している講義フローがアナログすぎて不幸だったので DX した（後半）．"
 tags: ["lifehack", "github"]
-published: true
+published: false
 ---
 
 - 作成日：2021/12/01
@@ -145,7 +145,7 @@ jobs:
 
 ↓ 前回構築した，GitHub Pages を使用したフローの図．
 
-![GitHub Pagesのデプロイフロー](./images/github-pages.svg)
+![GitHub Pagesのデプロイフロー](./images/github-pages.png)
 
 ### Vercel
 
@@ -159,7 +159,7 @@ Vercel を用いれば，「単一リポジトリの任意のブランチに対�
 
 ↓ このように，ブランチ（各クラス）ごとのプロジェクトが作られて，別々の URL にデプロイされることとなる．
 
-![Vercelのデプロイフロー](./images/vercel.svg)
+![Vercelのデプロイフロー](./images/vercel.png)
 
 Vercel のほうが GitHub Pages よりも URL がスッキリした（個人の感想）．
 
