@@ -4,7 +4,7 @@ date: "2021-12-01"
 title: "講義を DX する（その2）"
 description: "現在担当している講義フローがアナログすぎて不幸だったので DX した（後半）．"
 tags: ["lifehack", "github"]
-published: false
+published: true
 ---
 
 - 作成日：2021/12/01
@@ -13,7 +13,10 @@ published: false
 
 ## はじめに
 
-前回（[講義を DX する（その 1）](./dx-the-lecture-01)）で新たに判明した課題は次の 3 つであった．
+- 前半（[リンク](./dx-the-lecture-01)）
+- 後半（この記事）
+
+前回で新たに判明した課題は次の 3 つであった．
 
 - 新規クラスが開講する度に新しいリポジトリの生成が必要となる．
 - 内容の修正が必要な場合，クラス資料とマスタデータの異なるリポジトリで更新作業が必要となる．
@@ -24,13 +27,19 @@ published: false
 - GitHub のリポジトリを単一とし，各クラス向けの講義資料はブランチで管理する．
 - デプロイの方法を変更する．
 
-## 最終形態
+## 成果物
 
 最終的に出来上がった仕組みを組み込んだサンプルが以下のリポジトリとなる．readme ファイルに複数クラス用にデプロイした URL が記載されている．
 
-前回と今回で最終形態に到達する．
+全てのクラスの講義を 1 つのリポジトリで管理できるようになった．これにより，新クラス追加，資料修正，修正の反映，などより容易に実行することができる．
 
-> リンクはる
+- [リポジトリのリンク](https://github.com/taroosg/dx-the-lecture-02)
+
+状況はこれまでと同様．
+
+- JavaScript 2 回と PHP 2 回の講義を想定
+- 全ての講義を終えたクラス 1
+- JavaScript のみを終えたクラス 2
 
 ## 方針
 
@@ -49,12 +58,12 @@ GitHub 上の単一リポジトリで管理するためには以下の状況を�
 ├── main
 ├── develop
 ├── gh-pages
-├── my-fantastic-class01-main
-├── my-fantastic-class01-develop
-├── my-fantastic-class01-deploy
-├── my-fantastic-class02-main
-├── my-fantastic-class02-develop
-└── my-fantastic-class02-deploy
+├── class01-main
+├── class01-develop
+├── class01-deploy
+├── class02-main
+├── class02-develop
+└── class02-deploy
 
 ```
 
@@ -77,7 +86,50 @@ GitHub 上の単一リポジトリで管理するためには以下の状況を�
 
 具体的には以下のような内容となる．処理自体は変更ないため，ブランチ名を適切に設定しておけば問題ない．
 
-> yml ファイルかく
+```yml
+name: github pages
+
+on:
+  push:
+    branches:
+      # 🔽 発火タイミングを各クラスのmainブランチを指定
+      - class01-main
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: "0.4.8"
+          # mdbook-version: 'latest'
+
+      # mdファイルのビルド
+      - run: mdbook build
+
+      # サンプルファイルをzip圧縮してビルドしたファイル群に追加
+      - run: |
+          mkdir ./book/samples
+          cd samples
+          find . \! -name '*.zip' -type d -exec zip -r {}.zip {} \;
+          mv *.zip ../book/samples
+
+      # ビルドされたファイル群をgh-pagesブランチにデプロイ
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        # 🔽 ソースを各クラスのmainブランチを指定
+        if: github.ref == 'refs/heads/class01-main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir:
+            ./book
+            # 🔽 デプロイ先を各クラスのdeployブランチを指定
+          publish_branch: class01-deploy
+```
 
 ## デプロイ方法の変更
 
@@ -91,6 +143,10 @@ GitHub 上の単一リポジトリで管理するためには以下の状況を�
 - 指定のブランチに push されたタイミングで自動デプロイされる．
 - public リポジトリのみ対応．
 
+↓ 前回構築した，GitHub Pages を使用したフローの図．
+
+![GitHub Pagesのデプロイフロー](./images/github-pages.svg)
+
 ### Vercel
 
 - プロジェクト毎に任意のリポジトリの任意のブランチの内容をホスティングする．
@@ -103,7 +159,7 @@ Vercel を用いれば，「単一リポジトリの任意のブランチに対�
 
 ↓ このように，ブランチ（各クラス）ごとのプロジェクトが作られて，別々の URL にデプロイされることとなる．
 
-> プロジェクトの図を貼る
+![Vercelのデプロイフロー](./images/vercel.svg)
 
 Vercel のほうが GitHub Pages よりも URL がスッキリした（個人の感想）．
 
