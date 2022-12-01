@@ -151,7 +151,7 @@ deno task start
 続いて，それぞれのファイルに下記の内容を記述する．
 
 ```tsx
-// omikuji_page.tsx
+// routes/omikuji_page.tsx
 
 import { Head } from "$fresh/runtime.ts";
 
@@ -168,7 +168,7 @@ export default function Omikuji_page() {
 ```
 
 ```tsx
-// janken_page.tsx
+// routes/janken_page.tsx
 
 import { Head } from "$fresh/runtime.ts";
 
@@ -198,10 +198,10 @@ export default function Janken_page() {
 
 Fresh では，基本的に JavaScript を読み込まず，動的な処理が記述されているコンポーネントが含まれる場合のみ読み込む．
 
-`island` ディレクトリ以下におみくじ用のコンポーネントである `omikuji.tsx` を作成して以下の内容を記述しよう．
+`islands` ディレクトリ以下におみくじ用のコンポーネントである `omikuji.tsx` を作成して以下の内容を記述しよう．
 
 ```tsx
-// omikuji.tsx
+// islands/omikuji.tsx
 
 import { useState } from "preact/hooks";
 
@@ -222,10 +222,10 @@ export default function Omikuji() {
 }
 ```
 
-`omikuji_page.tsx` の内容を以下のように編集する．
+`routes/omikuji_page.tsx` の内容を以下のように編集する．
 
 ```tsx
-// omikuji_page.tsx
+// routes/omikuji_page.tsx
 
 import { Head } from "$fresh/runtime.ts";
 import Omikuji from "../islands/omikuji.tsx";
@@ -263,10 +263,10 @@ export default function Omikuji_page() {
 
 上記全てはサーバで実行され，構成された HTML のみがブラウザに渡される SSR の仕組みとなっている．
 
-`janken_page.tsx` を以下のように編集する．
+`routes/janken_page.tsx` を以下のように編集する．
 
 ```tsx
-// janken_page.tsx
+// routes/janken_page.tsx
 
 import { Head } from "$fresh/runtime.ts";
 import { Handlers } from "$fresh/server.ts";
