@@ -324,11 +324,16 @@ export default function Janken_page({ data }: { data: JankenResult }) {
       </Head>
       <h1>じゃんけんのページ</h1>
       <h2>じゃんけんをする</h2>
-      <form action="#" method="POST">
-        <select name="user_hand" id="">
-          <option value="0">グー</option>
-          <option value="1">チョキ</option>
-          <option value="2">パー</option>
+      <form action="" method="POST">
+        <select
+          name="user_hand"
+          defaultValue={["グー", "チョキ", "パー"]
+            .indexOf(data.userHand)
+            .toString()}
+        >
+          {["グー", "チョキ", "パー"].map((x, i) => (
+            <option value={i}>{x}</option>
+          ))}
         </select>
         <button type="submit">送信</button>
       </form>
